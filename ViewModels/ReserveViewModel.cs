@@ -7,6 +7,7 @@ namespace DutchTreat.ViewModels
   public class ReserveViewModel
   {
         [Required]
+        
         public string City { get; set; }
 
         [Required]
@@ -22,6 +23,7 @@ namespace DutchTreat.ViewModels
         public string Date { get; set; }
 
         [Required]
+        [Timestamp]
         public string Time { get; set; }
 
         [Required]

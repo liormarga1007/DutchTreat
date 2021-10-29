@@ -21,6 +21,13 @@ namespace DutchTreat.Controllers
             return View();
         }
 
+        [HttpPost("contact")]
+        public IActionResult Contact(ContactViewModel model)
+        {
+            //throw new InvalidOperationException("Fuck it Error");            
+            return View();
+        }
+
         [HttpGet("reserve")]
         public IActionResult Reserve()
         {
@@ -31,6 +38,10 @@ namespace DutchTreat.Controllers
         [HttpPost("reserve")]
         public IActionResult Reserve(ReserveViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+
+            }          
             //throw new InvalidOperationException("Fuck it Error");            
             return View();
         }

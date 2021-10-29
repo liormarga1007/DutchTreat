@@ -2,41 +2,53 @@
 @{
     ViewBag.Title = "Reserve A Table";
 }
+@section scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
 <div>
     <form method="post">
+        <div asp-validation-summary="ModelOnly"></div>
         <label asp-for="City">City</label>
         <br />
         <input asp-for="City">
+        <span asp-validation-for="City" class="text-danger"></span>
         <br />
         <label asp-for="Restaurant"></label>
         <br />
         <input asp-for="Restaurant" />
+        <span asp-validation-for="Restaurant" class="text-danger"></span>
         <br />
         <label asp-for="Name"></label>
         <br />
         <input asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
         <br />
         <label asp-for="Surname"></label>
         <br />
         <input asp-for="Surname" />
+        <span asp-validation-for="Surname" class="text-danger"></span>
         <br />
-        <label>Date</label>
+        <label asp-for="Date"></label>
         <br />
-        <input type="date" name="Date" />
+        <input type="date" asp-for="Date" />
+        <span asp-validation-for="Date" class="text-danger"></span>
         <br />
-        <label>time</label><br />
-        <input type="time" name="Time" />
+        <label asp-for="Time"></label>
+        <br />
+        <input type="time" asp-for="Time" />
+        <span asp-validation-for="Time" class="text-danger"></span>
         <br />
         <label asp-for="Email"></label>
         <br />
-        <input asp-for="Email"/>
+        <input type="email" asp-for="Email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
         <br />
-        <label>Phone</label>
+        <label asp-for="Phone"></label>
         <br />
-        <input type="tel" name="Phone" />
+        <input type="tel" asp-for="Phone" />
+        <span asp-validation-for="Phone" class="text-danger"></span>
         <br />
-        <!--<label>Message</label><br />-->
-        <!--<textarea rows="4"></textarea><br />-->
         <input type="submit" value="Reserve a table" />
     </form>
 </div>
