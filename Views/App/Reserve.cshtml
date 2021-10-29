@@ -1,0 +1,42 @@
+﻿@model ReserveViewModel
+@{
+    ViewBag.Title = "Reserve A Table";
+}
+<div>
+    <form method="post">
+        <label asp-for="City">City</label>
+        <br />
+        <input asp-for="City">
+        <br />
+        <label asp-for="Restaurant"></label>
+        <br />
+        <input asp-for="Restaurant" />
+        <br />
+        <label asp-for="Name"></label>
+        <br />
+        <input asp-for="Name" />
+        <br />
+        <label asp-for="Surname"></label>
+        <br />
+        <input asp-for="Surname" />
+        <br />
+        <label>Date</label>
+        <br />
+        <input type="date" name="Date" />
+        <br />
+        <label>time</label><br />
+        <input type="time" name="Time" />
+        <br />
+        <label asp-for="Email"></label>
+        <br />
+        <input asp-for="Email"/>
+        <br />
+        <label>Phone</label>
+        <br />
+        <input type="tel" name="Phone" />
+        <br />
+        <!--<label>Message</label><br />-->
+        <!--<textarea rows="4"></textarea><br />-->
+        <input type="submit" value="Reserve a table" />
+    </form>
+</div>
