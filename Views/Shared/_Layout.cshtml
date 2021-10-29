@@ -15,33 +15,38 @@
 
 </head>
 <body>
-  <div class="navbar navbar-inverse">
     <header class="container">
-      <div class="navbar-header">
-        <div class="navbar-brand"><i class="fa fa-paint-brush"></i>Restaurant Tron!</div>
-        @* Let us add a little menu button using the following special chars *@
-        <button class="navbar-toggle" data-toggle="collapse" data-target="#menu">&#9776;</button>
-      </div>
-      @* hide menu on small screens until the toggle button can actually show it *@
-      <div id="menu" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-              <li><a asp-controller="App" asp-action="Index">Home</a></li>
-              <li><a asp-controller="App" asp-action="Reserve">Reserve</a></li>
-              <li><a asp-controller="App" asp-action="Contact">Contact</a></li>
-              <li><a asp-controller="App" asp-action="About">About</a></li>
-              @if (User.Identity.IsAuthenticated)
-              {
-                  <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
-              }
-              else
-              {
-                  <li><a asp-controller="Account" asp-action="Login">Login</a></li>
-              }
-
-          </ul>
-      </div>
+        <nav class="navbar navbar-dark bg-dark navbar-expand-md">
+            <h1 class="navbar-brand">Restaurant Tron</h1>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#theMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="theMenu" class="navbar-collapse collapse">
+                <ul class="navbar-nav">                    
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="App" asp-action="Index">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="App" asp-action="Reserve">Reserve</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="App" asp-action="Contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-controller="App" asp-action="About">About</a>
+                    </li>
+                    @*@if (User.Identity.IsAuthenticated)
+                {
+                    <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+                }
+                else
+                {
+                    <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                }*@
+                </ul>
+            </div>
+        </nav>
     </header>
-  </div>
   <section class="container">
     <h2 class="text-center">@ViewBag.Title</h2>
     @RenderBody()
