@@ -38,22 +38,22 @@ ul.product-props {
 }*/
 
 /*by default divs take 100% width*/
-/*.product-info {
+.product-info {
     border: 1px solid grey;
-    display: inline-block;*/ /*need to display many in a line*/
-    /*padding: 8px 2px;*/ /*space around content and inside margin*/
-    /*margin: 2px;*/ /*outside space*/
-    /*width: 450px;*/ /*not good using specific sizes*/
-    /*background-color: lavender;
+    display: inline-block; need to display many in a line
+    padding: 8px 2px; space around content and inside margin
+    margin: 2px; outside space
+    width: 450px; not good using specific sizes
+    background-color: lavender;
     border-radius:5px;
 }
 
 .product-info img {
     margin:3px;
-    float:left;*/ /*makes image available space around the other element in product-info*/
-    /*border: 1px solid black;
+    float:left; makes image available space around the other element in product-info
+    border: 1px solid black;
     max-width:150px;    
-}*/
+}
 
 /*show the pointer hand when hovering over the item*/
 /*#loginToggle {
