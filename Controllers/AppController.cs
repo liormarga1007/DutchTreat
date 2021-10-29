@@ -1,4 +1,5 @@
-﻿using DutchTreat.ViewModels;
+﻿using DutchTreat.Services;
+using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,11 @@ namespace DutchTreat.Controllers
 {
     public class AppController : Controller
     {
+        private readonly IMailService _mailService;
+        public AppController(IMailService mailService)
+        {
+            _mailService = mailService;
+        }
         public IActionResult Index()
         {
             return View();
@@ -40,7 +46,9 @@ namespace DutchTreat.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                _mailService.SendMessage(model.Email, model.Name, model.Restaurant);
+                ViewBag.UserMessage = " Reserved";
+                ModelState.Clear();
             }          
             //throw new InvalidOperationException("Fuck it Error");            
             return View();
