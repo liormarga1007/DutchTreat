@@ -5,12 +5,12 @@
     var s = "";
     
     var $theForm = $("#theForm");
-    $theForm.hide();
+    //$theForm.hide();
 
     var buyButton = $("#buyButton");
     buyButton.on("click", function () {
         console.log("you are buying");
-        $theForm.slideToggle(500);
+        //$theForm.slideToggle(500);
     });
 
     var productInfo = $(".product-props li");
