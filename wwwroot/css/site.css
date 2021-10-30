@@ -41,9 +41,9 @@ ul.product-props {
 .product-info {
     border: 1px solid grey;
     display: inline-block; need to display many in a line
-    padding: 8px 2px; space around content and inside margin
-    margin: 2px; outside space
-    width: 450px; not good using specific sizes
+    padding: 8px 8px; space around content and inside margin
+    margin: 8px; outside space
+    width: 50%; not good using specific sizes
     background-color: lavender;
     border-radius:5px;
 }
