@@ -17,8 +17,8 @@
 
 </head>
 <body>
-    <header class="container">
-        <div class="col-md-12">
+    <header class="container-fluid">
+        <div class="col-md-6 offset-3">
             <nav class="navbar navbar-dark bg-dark navbar-expand-md">
                 <h1 class="navbar-brand"><i class="fas fa-hamburger"></i> Restaurant Tron</h1>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#theMenu">
@@ -51,11 +51,11 @@
             </nav>
         </div>
     </header>
-  <section class="container">
+  <section class="container-fluid">
     <h2 class="text-center">@ViewBag.Title</h2>
     @RenderBody()
   </section>
-  <footer class="container">
+  <footer class="container-fluid">
     <div class="text-center">Copyright 2021 Restaurant Tron LLC</div>
   </footer>
   <!-- javascript generally has stuff that manipulates contents on the website. hence load it towards the end of the page. -->

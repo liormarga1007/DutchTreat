@@ -43,7 +43,7 @@ by default divs take 100% width
     display: inline-block; need to display many in a line
     padding: 8px 8px; space around content and inside margin
     margin: 8px; outside space
-    width: 50%; not good using specific sizes
+    width: auto; not good using specific sizes
     background-color: lavender;
     border-radius:5px;
 }
