@@ -30,12 +30,12 @@ label {
 
     #theForm input[type=submit] {
         width: auto;
-    }
+    }*/
 
 ul.product-props {
     list-style-type:none;
     font-size:small;
-}*/
+}
 
 /*by default divs take 100% width*/
 .product-info {

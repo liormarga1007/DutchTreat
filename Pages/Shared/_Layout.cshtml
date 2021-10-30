@@ -1,50 +1,77 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - DutchTreat</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <title>Restaurant Tron : @ViewBag.Title</title>
+    <environment names="Development">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/lib/fortawesome/fontawesome-free/css/all.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
+    </environment>
+
+    <environment names="Staging,Production">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/lib/fortawesome/fontawesome-free/css/all.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
+    </environment>
+
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">DutchTreat</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+    <header class="container">
+        <div class="col-md-12">
+            <nav class="navbar navbar-dark bg-dark navbar-expand-md">
+                <h1 class="navbar-brand"><i class="fas fa-hamburger"></i> Restaurant Tron</h1>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#theMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div id="theMenu" class="navbar-collapse collapse">
+                    <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" asp-controller="App" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link" asp-controller="App" asp-action="Reserve">Reserve</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="App" asp-action="Contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="App" asp-action="About">About</a>
+                        </li>
+                        @*@if (User.Identity.IsAuthenticated)
+                            {
+                                <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+                            }
+                            else
+                            {
+                                <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                            }*@
                     </ul>
                 </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - DutchTreat - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            </nav>
         </div>
+    </header>
+    <section class="container">
+        <h2 class="text-center">@ViewBag.Title</h2>
+        @RenderBody()
+    </section>
+    <footer class="container">
+        <div class="text-center">Copyright 2021 Restaurant Tron LLC</div>
     </footer>
+    <!-- javascript generally has stuff that manipulates contents on the website. hence load it towards the end of the page. -->
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/index.js"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/js/index.js"></script>
+    </environment>
+    @* scripts section is not required. if one of the pages creates a section called scripts, then put it here in the layout page
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/index.js" asp-append-version="true"></script>
-
-    @await RenderSectionAsync("Scripts", required: false)
+    *@
+    @RenderSection("scripts", false)
 </body>
 </html>
