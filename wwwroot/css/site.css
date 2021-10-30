@@ -82,7 +82,7 @@ show the pointer hand when hovering over the item
         width: auto;
     }  
 
-menu>ul>li {
+/*menu>ul>li {
     display: inline;
 }
 
@@ -92,4 +92,4 @@ menu>ul>li {
 
     menu > ul > li:last-of-type:after {
         content:"";
-    }
+    }*/
