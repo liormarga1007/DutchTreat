@@ -1,4 +1,4 @@
-﻿
+﻿/*
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
@@ -82,7 +82,7 @@ show the pointer hand when hovering over the item
         width: auto;
     }  
 
-/*menu>ul>li {
+menu>ul>li {
     display: inline;
 }
 
