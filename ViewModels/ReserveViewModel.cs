@@ -14,6 +14,10 @@ namespace DutchTreat.ViewModels
         public string Restaurant { get; set; }
 
         [Required]
+        [Range(1, 6)]
+        public string Diners { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         [Required]
@@ -33,6 +37,8 @@ namespace DutchTreat.ViewModels
         [Required]
         [Phone]
         public string Phone { get; set; }
+
+
 
     }
 }
