@@ -69,8 +69,9 @@ namespace DutchTreat.Controllers
                 var response = client.SendAsync(httpRequestMessage).Result;
                 string source = response.Content.ReadAsStringAsync().Result;
                 string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
-                while (title.Contains("Confirmation"))
-                {
+                int i = 0;
+                while (title.Contains("Confirmation")&& i < 3) { 
+                    i++;
                     Thread.Sleep(7000);
                     httpRequestMessage = new HttpRequestMessage
                     {
@@ -82,7 +83,15 @@ namespace DutchTreat.Controllers
                     title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
 
                 }
-                ViewBag.UserMessage = $"{title}";
+                if (title.Contains("Confirmation"))
+                {
+                    ViewBag.UserMessage = "Something went wrong !!! contact us";
+                }
+                else
+                {
+                    ViewBag.UserMessage = $"{title}";
+                }
+                
                                               
                 _mailService.SendMessage(model.Email, model.Name, model.Restaurant);
                 
