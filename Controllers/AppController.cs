@@ -83,16 +83,9 @@ namespace DutchTreat.Controllers
                     title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
 
                 }
-                if (title.Contains("Confirmation"))
-                {
-                    ViewBag.UserMessage = "Something went wrong !!! contact us";
-                }
-                else
-                {
-                    ViewBag.UserMessage = $"{title}";
-                }
-                
-                                              
+                                
+                ViewBag.UserMessage = $"{title}";
+                                                                              
                 _mailService.SendMessage(model.Email, model.Name, model.Restaurant);
                 
                 ModelState.Clear();
