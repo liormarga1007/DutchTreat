@@ -5,11 +5,14 @@
 @section scripts {
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/autocompletecity.js"></script>
 }
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <div class="col-md-6">
     <div class="card card-body bg-light">
-        <form method="post">
+        <img id="myImg" src="https://www.w3schools.com/jsref/compman.gif" width="0" height="0" type='hidden'>
+        <div id="reserveToggle"></div>
+        <form method="post" class="reserve-form">
             <div asp-validation-summary="ModelOnly"></div>
 
             <div class="form-group">
@@ -59,7 +62,7 @@
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Reserve a table" class="btn btn-primary" />
+                <input type="submit" value="Reserve a table" class="btn btn-primary" id="demo" />
                 <div class="text-success">@ViewBag.UserMessage</div>
             </div>
         </form>

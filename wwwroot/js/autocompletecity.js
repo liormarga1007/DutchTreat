@@ -104,7 +104,23 @@ var tlv = ["11thfloor", "11th floor", "Floor", "2c", "2 c", "2c", "6inmay", "6in
 
 window.onload = function () {
     /*An array containing all the country names in the world:*/
-        /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-    autocomplete(document.getElementById("myInput"), countries);
+    /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
+    if (document.getElementById("myInput") != null) {
+        autocomplete(document.getElementById("myInput"), countries);
+    }
+}
+
+document.getElementById("demo").addEventListener("click", myFunction);
+
+function myFunction() {
+    setTimeout(function () {
+        var $reserveToggle = $("#reserveToggle");
+        var $reserveForm = $(".reserve-form");
+        if ($(".reserve-form").valid()) {
+            $reserveForm.slideToggle(500);
+            document.getElementById("myImg").setAttribute("width", "100");
+            document.getElementById("myImg").setAttribute("height", "78");
+        }
+    }, 1000);
 }
 
