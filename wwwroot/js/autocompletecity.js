@@ -120,6 +120,20 @@ function myFunction() {
             $reserveForm.slideToggle(500);
             document.getElementById("myImg").setAttribute("width", "100");
             document.getElementById("myImg").setAttribute("height", "78");
+            setTimeout(function () {
+                document.getElementById("myImg2").setAttribute("width", "100");
+                document.getElementById("myImg2").setAttribute("height", "78");
+                setTimeout(function () {
+                    document.getElementById("myImg3").setAttribute("width", "100");
+                    document.getElementById("myImg3").setAttribute("height", "78");
+                    setTimeout(function () {
+                        document.getElementById("myImg4").setAttribute("width", "100");
+                        document.getElementById("myImg4").setAttribute("height", "78");
+                    }, 5000);
+                }, 4000);
+            }, 3000);
+           
+            
         }
     }, 1000);
 }
