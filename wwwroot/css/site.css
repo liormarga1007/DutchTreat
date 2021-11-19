@@ -93,3 +93,7 @@ menu>ul>li {
     menu > ul > li:last-of-type:after {
         content:"";
     }
+
+.pic {
+    float: left;
+}
