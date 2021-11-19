@@ -70,20 +70,28 @@ namespace DutchTreat.Controllers
                 string source = response.Content.ReadAsStringAsync().Result;
                 string title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
                 int i = 0;
-                while (title.Contains("Confirmation")&& i < 4) { 
-                    i++;
-                    Thread.Sleep(7000);
-                    httpRequestMessage = new HttpRequestMessage
-                    {
-                        Method = HttpMethod.Get,
-                        RequestUri = new Uri("https://mysterious-hollows-90255.herokuapp.com/?session=" + $"{guid}")
-                    };
-                    response = client.SendAsync(httpRequestMessage).Result;
-                    source = response.Content.ReadAsStringAsync().Result;
-                    title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+                var thread = new Thread(
+                   () =>
+                   {
 
-                }
-                                
+                       while (title.Contains("Confirmation") && i < 4)
+                       {
+                           i++;
+                           Thread.Sleep(7000);
+                           httpRequestMessage = new HttpRequestMessage
+                           {
+                               Method = HttpMethod.Get,
+                               RequestUri = new Uri("https://mysterious-hollows-90255.herokuapp.com/?session=" + $"{guid}")
+                           };
+                           response = client.SendAsync(httpRequestMessage).Result;
+                           source = response.Content.ReadAsStringAsync().Result;
+                           title = Regex.Match(source, @"\<title\b[^>]*\>\s*(?<Title>[\s\S]*?)\</title\>", RegexOptions.IgnoreCase).Groups["Title"].Value;
+
+                       }
+                   });
+                thread.Start();
+                thread.Join(30000);
+
                 ViewBag.UserMessage = $"{title}";
                                                                               
                 _mailService.SendMessage(model.Email, model.Name, model.Restaurant);
