@@ -18,14 +18,14 @@
 </head>
 <body>
     <header class="container">
-        <div class="col-md-12">
-            <nav class="navbar navbar-dark bg-dark navbar-expand-md">
-                <h1 class="navbar-brand"><i class="fas fa-hamburger"></i> Restaurant Tron</h1>
-                <button class="navbar-toggler" data-toggle="collapse" data-target="#theMenu">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            @*<div class="container-fluid">*@
+            <a class="navbar-brand" href="#"><i class="fas fa-hamburger"></i> Restaurant Tron</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div id="theMenu" class="navbar-collapse">
-                    <ul class="navbar-nav">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="App" asp-action="Index">Home</a>
                         </li>
@@ -48,8 +48,7 @@
                     }*@
                     </ul>
                 </div>
-            </nav>
-        </div>
+        </nav>
     </header>
   <section class="container">
     <h2 class="text-center">@ViewBag.Title</h2>
