@@ -110,13 +110,16 @@ window.onload = function () {
     }
 }
 
-$(document).on('click touchstart tap', '.btn-primary', myFunction);
+$(document).on('click', '.btn-primary', myFunction);
+
 
 function myFunction() {
     setTimeout(function () {
         var $reserveToggle = $("#reserveToggle");
         var $reserveForm = $(".reserve-form");
-        //if ($(".reserve-form").valid()) {
+        let isIOS = /iPad|iPhone|iPod/.test(navigator.platform)
+            || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+        if ($(".reserve-form").valid() || isIOS ) {
             $reserveForm.slideToggle(500);
             document.getElementById("myImg").setAttribute("width", "100");
             document.getElementById("myImg").setAttribute("height", "78");
@@ -148,7 +151,7 @@ function myFunction() {
                     }, 5000);
                 }, 4000);
             }, 3000);
-        //}
+        }
     }, 1000);
 }
 
