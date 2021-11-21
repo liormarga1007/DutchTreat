@@ -245,6 +245,10 @@
         "webfonts/fa-solid-900.woff",
         "webfonts/fa-solid-900.woff2"
       ]
+    },
+    {
+      "library": "h5Validate@0.9.0",
+      "destination": "wwwroot/lib/h5Validate/"
     }
   ]
 }

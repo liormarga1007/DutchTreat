@@ -113,45 +113,45 @@ window.onload = function () {
 $(document).on('click', '.btn-primary', myFunction);
 
 
-function myFunction() {
-    setTimeout(function () {
-        var $reserveToggle = $("#reserveToggle");
-        var $reserveForm = $(".reserve-form");
-        let isIOS = /iPad|iPhone|iPod/.test(navigator.platform)
-            || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
-        if ($(".reserve-form").valid() || isIOS ) {
-            $reserveForm.slideToggle(500);
-            document.getElementById("myImg").setAttribute("width", "100");
-            document.getElementById("myImg").setAttribute("height", "78");
-            var node = document.createElement("h1");
-            var textnode = document.createTextNode("  Calling ....");
-            node.appendChild(textnode);
-            document.getElementById("myImg").parentElement.appendChild(node)
-            setTimeout(function () {
-                document.getElementById("myImg2").setAttribute("width", "100");
-                document.getElementById("myImg2").setAttribute("height", "78");
+function myFunction(event) {
+    if (event.target.checkValidity()) {
+        setTimeout(function () {
+            var $reserveToggle = $("#reserveToggle");
+            var $reserveForm = $(".reserve-form");
+            if ($(".reserve-form").valid()) {
+                $reserveForm.slideToggle(500);
+                document.getElementById("myImg").setAttribute("width", "100");
+                document.getElementById("myImg").setAttribute("height", "78");
                 var node = document.createElement("h1");
-                var textnode = document.createTextNode("  Reserving ....");
+                var textnode = document.createTextNode("  Calling ...");
                 node.appendChild(textnode);
-                document.getElementById("myImg2").parentElement.appendChild(node)
+                document.getElementById("myImg").parentElement.appendChild(node)
                 setTimeout(function () {
-                    document.getElementById("myImg3").setAttribute("width", "100");
-                    document.getElementById("myImg3").setAttribute("height", "78");
+                    document.getElementById("myImg2").setAttribute("width", "100");
+                    document.getElementById("myImg2").setAttribute("height", "78");
                     var node = document.createElement("h1");
-                    var textnode = document.createTextNode("  Filling ....");
+                    var textnode = document.createTextNode("  Reserving ...");
                     node.appendChild(textnode);
-                    document.getElementById("myImg3").parentElement.appendChild(node)
+                    document.getElementById("myImg2").parentElement.appendChild(node)
                     setTimeout(function () {
-                        document.getElementById("myImg4").setAttribute("width", "100");
-                        document.getElementById("myImg4").setAttribute("height", "78");
+                        document.getElementById("myImg3").setAttribute("width", "100");
+                        document.getElementById("myImg3").setAttribute("height", "78");
                         var node = document.createElement("h1");
-                        var textnode = document.createTextNode("  Confirming ....");
+                        var textnode = document.createTextNode("  Filling ...");
                         node.appendChild(textnode);
-                        document.getElementById("myImg4").parentElement.appendChild(node)
-                    }, 5000);
-                }, 4000);
-            }, 3000);
-        }
-    }, 1000);
+                        document.getElementById("myImg3").parentElement.appendChild(node)
+                        setTimeout(function () {
+                            document.getElementById("myImg4").setAttribute("width", "100");
+                            document.getElementById("myImg4").setAttribute("height", "78");
+                            var node = document.createElement("h1");
+                            var textnode = document.createTextNode("  Confirming ...");
+                            node.appendChild(textnode);
+                            document.getElementById("myImg4").parentElement.appendChild(node)
+                        }, 5000);
+                    }, 4000);
+                }, 3000);
+            }
+        }, 1000);
+    }
 }
 
