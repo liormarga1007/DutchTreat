@@ -97,3 +97,7 @@ menu>ul>li {
 .pic {
     float: left;
 }
+
+.btn-primary {
+    cursor: pointer;
+}
