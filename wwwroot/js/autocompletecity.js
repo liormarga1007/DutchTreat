@@ -92,7 +92,7 @@ function autocomplete(inp, arr) {
   }
         /*execute a function when someone clicks in the document:*/
     document.addEventListener("click", function (e) {
-        if (document.getElementById("myInput").value == "Tel Aviv") {
+        if (document.getElementById("myInput").value.toUpperCase() == "TEL AVIV") {
             autocomplete(document.getElementById("restaurants"), tlv);
         }
             closeAllLists(e.target);
