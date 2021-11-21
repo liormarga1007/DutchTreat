@@ -110,7 +110,7 @@ window.onload = function () {
     }
 }
 
-$(document).on('click', '.btn-primary', myFunction);
+$(document).on('click touchstart tap', '.btn-primary', myFunction);
 
 function myFunction() {
     setTimeout(function () {
