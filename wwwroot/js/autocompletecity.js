@@ -110,7 +110,7 @@ window.onload = function () {
     }
 }
 
-document.getElementById("demo").addEventListener("click", myFunction);
+$(document).on('click', '.btn-primary', myFunction);
 
 function myFunction() {
     setTimeout(function () {
