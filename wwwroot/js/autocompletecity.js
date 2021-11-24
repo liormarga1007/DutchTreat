@@ -121,7 +121,7 @@ function myFunction(event) {
         setTimeout(function () {
             var $reserveToggle = $("#reserveToggle");
             var $reserveForm = $(".reserve-form");
-            //if ($(".reserve-form").valid()) {
+            if ($(".reserve-form").valid()) {
                 $reserveForm.slideToggle(500);
                 document.getElementById("myImg").setAttribute("width", "100");
                 document.getElementById("myImg").setAttribute("height", "78");
@@ -153,7 +153,7 @@ function myFunction(event) {
                         }, 5000);
                     }, 4000);
                 }, 3000);
-            //}
+            }
         }, 1000);
     }
 }
