@@ -6,41 +6,47 @@
     <script src="~/js/index.js"></script>
 }
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<div class="col-md-6">
-    <div class="card card-body bg-light">
-        <div class="product-info">
-            <img src="~/img/Tel Aviv.jfif" />
-            <h3>Restaurants</h3>
-            <ul class="product-props">
-                <li>Restaurants</li>
-                <li>Title: Make Reservation</li>
-                <li>Description: Restaurant</li>
-            </ul>
-            <form method="get" action="/reserve">
-                <button id="buyButton">Make Reservation</button>
-            </form>
-        </div>
-        <!-- Forms are used to fetch information from the user -->
-
-        <div>
-            <div id="loginToggle">Login</div>
-            <form class="popup-form">
-                <div>
-                    <label>Username:</label>
-                    <input />
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input type="password" />
-                </div>
-                <div>
-                    <input type="checkbox" />
-                    <label>Remember me?</label><br />
-                </div>
-                <div>
-                    <input type="Submit" value="Login" />
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+<ul id="rig">
+    <li>
+        <a class="rig-cell" href="Reserve">
+            <img class="rig-img" src="~/img/SK-A-2344.jpg">
+            <span class="rig-overlay"></span>
+            <span class="rig-text">Restaurants</span>
+        </a>
+    </li>
+    <li>
+        <a class="rig-cell" href="#">
+            <img class="rig-img" src="~/img/SK-C-5.jpg">
+            <span class="rig-overlay"></span>
+            <span class="rig-text">Super</span>
+        </a>
+    </li>
+    <li>
+        <a class="rig-cell" href="#">
+            <img class="rig-img" src="~/img/SK-C-1747.jpg">
+            <span class="rig-overlay"></span>
+            <span class="rig-text">Food</span>
+        </a>
+    </li>
+    <li>
+        <a class="rig-cell" href="#">
+            <img class="rig-img" src="~/img/SK-A-1595.jpg">
+            <span class="rig-overlay"></span>
+            <span class="rig-text">Tickets</span>
+        </a>
+    </li>
+    <li>
+        <a class="rig-cell" href="#">
+            <img class="rig-img" src="~/img/SK-A-4674.jpg">
+            <span class="rig-overlay"></span>
+            <span class="rig-text">Hotels</span>
+        </a>
+    </li>
+    <li>
+        <a class="rig-cell" href="#">
+            <img class="rig-img" src="~/img/SK-A-2860.jpg">
+            <span class="rig-overlay"></span>
+            <span class="rig-text">Handi</span>
+        </a>
+    </li>
+</ul>
