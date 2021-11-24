@@ -166,7 +166,7 @@ menu>ul>li {
 
 /* If have captions */
 .rig-text {
-    display: block;
+    display: run-in;
     padding: 0 30px;
     box-sizing: border-box;
     position: absolute;
