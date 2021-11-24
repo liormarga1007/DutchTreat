@@ -40,7 +40,16 @@ namespace DutchTreat.Controllers
         [HttpGet("reserve")]
         public IActionResult Reserve()
         {
-            //throw new InvalidOperationException("Fuck it Error");            
+            //throw new InvalidOperationException("Fuck it Error");
+            //var client = new HttpClient();
+            var client = new HttpClient();
+            var httpRequestMessage = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://mysterious-hollows-90255.herokuapp.com")
+            };
+
+            client.SendAsync(httpRequestMessage);
             return View();
         }
 
