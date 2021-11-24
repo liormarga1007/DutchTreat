@@ -180,7 +180,7 @@ menu>ul>li {
     font-weight: normal !important;
     top: 40%;
     color: white;
-    opacity: 0;
+    opacity: 0.9;
     filter: alpha(opacity=0); /*For older IE*/
     transform: translateY(-20px);
     transition: all .3s;
