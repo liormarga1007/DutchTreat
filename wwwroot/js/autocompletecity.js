@@ -113,9 +113,8 @@ function autocomplete(inp, arr) {
         if (document.getElementById("myInput").value.toUpperCase() == "NEW YORK") {
             autocomplete(document.getElementById("restaurants"), newyork);
         }
-
         if (document.getElementById("myInput").value.toUpperCase() == "ROME") {
-            autocomplete(document.getElementById("restaurants"), newyork);
+            autocomplete(document.getElementById("restaurants"), rome);
         }
             closeAllLists(e.target);
   });
