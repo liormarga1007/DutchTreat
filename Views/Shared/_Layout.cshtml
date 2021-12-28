@@ -38,20 +38,24 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="App" asp-action="About">About</a>
                         </li>
-                        @*@if (User.Identity.IsAuthenticated)
-                    {
-                        <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
-                    }
-                    else
-                    {
-                        <li><a asp-controller="Account" asp-action="Login">Login</a></li>
-                    }*@
+                       @if (User.Identity.IsAuthenticated)
+                        {
+                            <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+                        }
+                        else
+                        {
+                            <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                        }
                     </ul>
                 </div>
         </nav>
     </header>
   <section class="container">
-    <h2 class="text-center">@ViewBag.Title</h2>
+      <h2 class="text-center">
+          <a href="https://assistant.google.com/services/invoke/uid/000000cf6a32265c?hl=en">
+              🅖 Ask Concierge to reserve restaurant or tickets
+          </a>
+      </h2>
     @RenderBody()
   </section>
   <footer class="container">
