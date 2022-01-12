@@ -151,7 +151,7 @@ setTimeout(async () => {
                     if (!el("message").value) msg = capitalize(msg.trimLeft())
                     el("message").value += msg
                 } else {
-                    transcript += event.results[i][0].transcript
+                    transcript = event.results[i][0].transcript
                 }
             }
             el("interim").innerText = transcript
