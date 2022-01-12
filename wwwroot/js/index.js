@@ -51,7 +51,7 @@ setTimeout(async () => {
     let synthVoice = null
     if ("speechSynthesis" in window && recognition) {
         // wait until voices are ready
-        window.speechSynthesis.onvoiceschanged = () => {
+        
             synthVoice = text => {
                 clearTimeout(timer)
                 const synth = window.speechSynthesis
@@ -65,7 +65,7 @@ setTimeout(async () => {
                 synth.speak(utterance)
                 timer = setTimeout(onMessage, MESSAGE_DELAY)
             }
-        }
+        
     }
 
     // form submit event
@@ -85,7 +85,7 @@ setTimeout(async () => {
         botElement.style.color = "green"
         el("history").appendChild(botElement)
         if (synthVoice) synthVoice(answer)
-        else { userElement.style.color = "blue";el("history").appendChild(userElement) }
+        else { userElement.style.color = "red";el("history").appendChild(userElement) }
     }
 
     // Add form submit event listener
