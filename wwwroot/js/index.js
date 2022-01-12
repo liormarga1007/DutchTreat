@@ -13,7 +13,7 @@ const SpeechRecognition =
 const recognition = SpeechRecognition ? new SpeechRecognition() : null
 
 // how long to listen before sending the message
-const MESSAGE_DELAY = 3000
+const MESSAGE_DELAY = 6000
 
 // timer variable
 let timer = null
@@ -84,7 +84,7 @@ setTimeout(async () => {
         botElement.innerHTML = "<b>Bot</b>: " + answer
         botElement.style.color = "green"
         el("history").appendChild(botElement)
-        if (synthVoice && recognizing) synthVoice(answer)
+        if (synthVoice) synthVoice(answer)
     }
 
     // Add form submit event listener
