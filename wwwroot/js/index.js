@@ -924,8 +924,8 @@ setTimeout(async () => {
     nlp.addDocument('en', 'email  %email%', 'email');
     nlp.addDocument('en', '%email%', 'email');
     nlp.addDocument('en', '%email%', 'email');
-    nlp.addDocument('en', '%phonenumber%', 'phonenumber');
-    nlp.addTrimEntity('phonenumber');
+    nlp.addDocument('en', 'phone number %phonenumber%', 'phonenumber');
+    nlp.addDocument('en', 'phonenumber %phonenumber%', 'phonenumber');
     nlp.addDocument('en', 'address is %address%', 'address');
     nlp.addDocument('en', '%number% tickets', 'number');
     
@@ -935,7 +935,7 @@ setTimeout(async () => {
     nlp.slotManager.addSlot('greetings.adress', 'phonenumber', true, { en: 'When is yout phonenumber?' });
 
     nlp.addAnswer("en", "greetings.bye", "see you soon!")
-    nlp.addAnswer("en", "greetings.hello", "Which event to reserve tickets ? sports ? music?")
+    nlp.addAnswer("en", "greetings.hello", "which event to reserve tickets ? sports ? music?")
     nlp.addAnswer("en", "greetings.sports", "'For which game do you want to reserve ticket ? ")
     nlp.addAnswer("en", "greetings.music", "'For which concert do you want to reserve ticket ? ")
     nlp.addAnswer("en", "greetings.adress", "'For which email do you want to send ticket ? ")
