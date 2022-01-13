@@ -58,7 +58,7 @@ setTimeout(async () => {
                 const utterance = new SpeechSynthesisUtterance()
                 // select some english voice
                 const voice = synth.getVoices().find(voice => {
-                    return voice.localService && voice.lang === "en-US"
+                    return voice.lang === "en-US"
                 })
                 if (voice) utterance.voice = voice
                 utterance.text = text
