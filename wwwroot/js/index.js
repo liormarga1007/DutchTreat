@@ -923,7 +923,6 @@ setTimeout(async () => {
     nlp.addDocument('en', 'mail  %email%', 'email');
     nlp.addDocument('en', 'email  %email%', 'email');
     nlp.addDocument('en', '%email%', 'email');
-    nlp.addDocument('en', '%email%', 'email');
     nlp.addDocument('en', 'phone number %phonenumber%', 'phonenumber');
     nlp.addDocument('en', 'phonenumber %phonenumber%', 'phonenumber');
     nlp.addDocument('en', 'address is %address%', 'address');
