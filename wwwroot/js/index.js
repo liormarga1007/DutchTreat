@@ -13,7 +13,7 @@ const SpeechRecognition =
 const recognition = SpeechRecognition ? new SpeechRecognition() : null
 
 // how long to listen before sending the message
-const MESSAGE_DELAY = 2000
+const MESSAGE_DELAY = 3500
 
 // timer variable
 let timer = null
@@ -920,22 +920,22 @@ setTimeout(async () => {
     nlp.addDocument("en", "Bayern Munich versus Borussia Dortmund", "greetings.adress")
     nlp.addDocument("en", "BRussia Dortmund versus Bochum", "greetings.adress")
     nlp.addDocument("en", "Borussia Dortmund versus Hertha Berlin", "greetings.adress")
-    nlp.addDocument('en', 'mail is %email%', 'email');
-    nlp.addDocument('en', 'email is %email%', 'email');
+    nlp.addDocument('en', 'mail  %email%', 'email');
+    nlp.addDocument('en', 'email  %email%', 'email');
     nlp.addDocument('en', '%email%', 'email');
     nlp.addDocument('en', '%email%', 'email');
     nlp.addDocument('en', '%phonenumber%', 'phonenumber');
-    nlp.addDocument('en', 'My phone is %phonenumber%', 'phonenumber');
-    nlp.addDocument('en', 'My address is %address%', 'address');
-    nlp.addDocument('en', '%number% of tickets', 'number');
+    nlp.addTrimEntity('phonenumber');
+    nlp.addDocument('en', 'address is %address%', 'address');
+    nlp.addDocument('en', '%number% tickets', 'number');
     
 
 
     // Train also the NLG
-    nlp.slotManager.addSlot('address', 'phonenumber', true, { en: 'When is yout phonenumber?' });
+    nlp.slotManager.addSlot('greetings.adress', 'phonenumber', true, { en: 'When is yout phonenumber?' });
 
     nlp.addAnswer("en", "greetings.bye", "see you soon!")
-    nlp.addAnswer("en", "greetings.hello", "Hi for which event to reserve tickets ?")
+    nlp.addAnswer("en", "greetings.hello", "Which event to reserve tickets ? sports ? music?")
     nlp.addAnswer("en", "greetings.sports", "'For which game do you want to reserve ticket ? ")
     nlp.addAnswer("en", "greetings.music", "'For which concert do you want to reserve ticket ? ")
     nlp.addAnswer("en", "greetings.adress", "'For which email do you want to send ticket ? ")
