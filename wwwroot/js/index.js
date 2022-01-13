@@ -49,7 +49,7 @@ setTimeout(async () => {
 
     // initialize speech generation
     let synthVoice = null
-    if ("speechSynthesis" in window && recognition) {
+    if ("speechSynthesis" in window) {
         // wait until voices are ready
         
             synthVoice = text => {
@@ -57,10 +57,10 @@ setTimeout(async () => {
                 const synth = window.speechSynthesis
                 const utterance = new SpeechSynthesisUtterance()
                 // select some english voice
-                const voice = synth.getVoices().find(voice => {
-                    return voice.lang === "en-US"
-                })
-                if (voice) utterance.voice = voice
+                //const voice = synth.getVoices().find(voice => {
+                //    return voice.lang === "en-US"
+                //})
+                if (currentVoice) utterance.voice =  currentVoice;
                 utterance.text = text
                 synth.speak(utterance)
                 timer = setTimeout(onMessage, MESSAGE_DELAY)
@@ -157,4 +157,40 @@ setTimeout(async () => {
             el("interim").innerText = transcript
         }
     }
+    const voiceSelect = document.getElementById('voices');
+    let voices;
+    let currentVoice;
+
+    const populateVoices = () => {
+        const availableVoices = speechSynthesis.getVoices();
+        voiceSelect.innerHTML = '';
+
+        availableVoices.forEach(voice => {
+            const option = document.createElement('option');
+            let optionText = `${voice.name} (${voice.lang})`;
+            if (voice.default) {
+                optionText += ' [default]';
+                if (typeof currentVoice === 'undefined') {
+                    currentVoice = voice;
+                    option.selected = true;
+                }
+            }
+            if (currentVoice === voice) {
+                option.selected = true;
+            }
+            option.textContent = optionText;
+            voiceSelect.appendChild(option);
+        });
+        voices = availableVoices;
+    };
+
+    populateVoices();
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = populateVoices;
+    }
+
+    voiceSelect.addEventListener('change', event => {
+        const selectedIndex = event.target.selectedIndex;
+        currentVoice = voices[selectedIndex];
+    });
 })
