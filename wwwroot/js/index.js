@@ -920,28 +920,101 @@ setTimeout(async () => {
     nlp.addDocument("en", "Bayern Munich versus Borussia Dortmund", "greetings.adress")
     nlp.addDocument("en", "BRussia Dortmund versus Bochum", "greetings.adress")
     nlp.addDocument("en", "Borussia Dortmund versus Hertha Berlin", "greetings.adress")
-    nlp.addDocument('en', 'mail  %email%', 'email');
-    nlp.addDocument('en', 'email  %email%', 'email');
-    nlp.addDocument('en', '%email%', 'email');
-    nlp.addDocument('en', 'phone number %phonenumber%', 'phonenumber');
-    nlp.addDocument('en', 'phonenumber %phonenumber%', 'phonenumber');
-    nlp.addDocument('en', 'address is %address%', 'address');
-    nlp.addDocument('en', '%number% tickets', 'number');
+
+    nlp.addDocument('en', '%fullname%', 'address');
+    nlp.addDocument('en', 'full name %fullname%', 'address');
+    nlp.addDocument('en', '@fullname', 'address');
+
+    nlp.addDocument('en', 'address is %address%', 'phonenumber');
+    nlp.addDocument('en', '.* @city .*', 'phonenumber');
+
+    nlp.addDocument('en', 'my phone number @phonenumber', 'email');
+    nlp.addDocument('en', 'phone number @phonenumber', 'email');
+    nlp.addDocument('en', 'phonenumber @phonenumber', 'email');
+    nlp.addDocument('en', '@phonenumber', 'email');
+    nlp.addDocument('en', '%phonenumber%', 'email');
+
+    nlp.addDocument('en', 'mail .* @email', 'number');
+    nlp.addDocument('en', 'email .* @email', 'number');
+    nlp.addDocument('en', '@email', 'number');
+    nlp.addDocument('en', '@email2', 'number');
+
+    nlp.addDocument('en', '@number tickets', 'processing');
+    nlp.addDocument('en', '@number', 'processing');
     
-
-
     // Train also the NLG
-    nlp.slotManager.addSlot('greetings.adress', 'phonenumber', true, { en: 'When is yout phonenumber?' });
+    nlp.slotManager.addSlot('greetings.adress', 'fullname', true, { en: 'What is your full name ?' });
+    nlp.slotManager.addSlot('address', 'address', true, { en: 'What is your address sending tickets ?' });
+    nlp.slotManager.addSlot('phonenumber', 'phonenumber', true, { en: 'What is yout phonenumber ?' });
+    nlp.slotManager.addSlot('email', 'email', true, { en: 'What is yout email ?' });
+    nlp.slotManager.addSlot('number', 'number', true, { en: 'How many tickets ?' });
 
     nlp.addAnswer("en", "greetings.bye", "see you soon!")
     nlp.addAnswer("en", "greetings.hello", "which event to reserve tickets ? sports ? music?")
     nlp.addAnswer("en", "greetings.sports", "'For which game do you want to reserve ticket ? ")
     nlp.addAnswer("en", "greetings.music", "'For which concert do you want to reserve ticket ? ")
-    nlp.addAnswer("en", "greetings.adress", "'For which email do you want to send ticket ? ")
-    nlp.addAnswer("en", "email", "what is your phone number ?")
-    nlp.addAnswer("en", "phonenumber", "what is your address ?")
-    nlp.addAnswer("en", "address", "How many tickets ?")
-    nlp.addAnswer("en", "number", "please wait while processing your reservation")
+    
+    //nlp.addAnswer("en", "greetings.adress", "'For which email do you want to send ticket ? ")
+    //nlp.addAnswer("en", "email", "what is your phone number ?")
+    //nlp.addAnswer("en", "phonenumber", "what is your address ?")
+    //nlp.addAnswer("en", "address", "How many tickets ?")
+    nlp.addAnswer("en", "processing", "please wait while processing your reservation")
+    const corpus = {
+        name: 'corpus',
+        locale: 'en-US',
+        data: [
+            {
+                intent: 'greet',
+                utterances: ['hello', 'hi', 'good morning', 'good night','Hellohello','Hihi'],
+                answers: ['which event to reserve tickets ? sports ? music?'],
+            },
+            {
+                intent: 'sports',
+                utterances: ['sports', 'ports', 'Sportssports'],
+                answers: ['For which game do you want to reserve ticket ? '],
+            },
+        ],
+        entities: {
+            hero: {
+                locale: ['en', 'es'],
+                type: 'text',
+                options: {
+                    spiderman: ['spider', 'spider-man'],
+                    ironman: ['ironman', 'iron-man'],
+                    thor: ['thor'],
+                },
+            },
+            email: {
+                locale: ['en', 'es'],
+                regex: '/\\b(\\w[-._\\w]*\\w@\\w[-._\\w]*\\w\\.\\w{2,3})\\b/gi',
+            },
+            email2: {
+                locale: ['en', 'es'],
+                regex: '/\\b(\\w[-._\\w]*\\w\\s+at\\s+\\w[-._\\w]*\\w\\.\\w{2,3})\\b/gi',
+            },
+
+            fullname: {
+                locale: ['en', 'es'],
+                regex: '\\b(\\w[-._\\w]*\\w\\s+name\\s+is\\s+\\w[-._\\w]*\\s+\\w[-._\\w]*)\\b/gi',
+            },
+
+            city: {
+                locale: ['en', 'es'],
+                type: 'city',
+            },
+
+            phonenumber: {
+                locale: ['en', 'es'],
+                regexp: '(?:(?:(\\+?972|\\(\\+?972\\)|\\+?\\(972\\))(?:\\s|\\.|-)?([1-9]\\d?))|(0[23489]{1})|(0[57]{1}[0-9]))(?:\\s|\\.|-)?([^0\\D]{1}\\d{2}(?:\\s|\\.|-)?\\d{4})/gi',
+            },
+
+            number: {
+                locale: ['en', 'es'],
+                regex: '\\b(\\d)\\b/gi',
+            }
+        },
+    };
+    await nlp.addCorpus(corpus);
 
     await nlp.train()
 
@@ -978,7 +1051,7 @@ setTimeout(async () => {
         userElement.style.color = "blue"
         el("history").appendChild(userElement)
         const response = await nlp.process("en", msg)
-        const answer = response.answer || "I don't understand."
+        const answer = response.answer || response.srcAnswer|| "I don't understand."
         const botElement = document.createElement("div")
         botElement.innerHTML = "<b>Bot</b>: " + answer
         botElement.style.color = "green"
