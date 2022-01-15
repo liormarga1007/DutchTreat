@@ -925,9 +925,10 @@ setTimeout(async () => {
     nlp.addDocument('en', 'full name %fullname%', 'address');
     nlp.addDocument('en', '@fullname', 'address');
 
-    nlp.addDocument('en', 'address is %address%', 'phonenumber');
+    nlp.addDocument('en', 'address is %address% @city', 'phonenumber');
     nlp.addDocument('en', '.* @city .*', 'phonenumber');
 
+    nlp.addDocument('en', 'my phone number is @phonenumber', 'email');
     nlp.addDocument('en', 'my phone number @phonenumber', 'email');
     nlp.addDocument('en', 'phone number @phonenumber', 'email');
     nlp.addDocument('en', 'phonenumber @phonenumber', 'email');
@@ -945,7 +946,7 @@ setTimeout(async () => {
     // Train also the NLG
     nlp.slotManager.addSlot('greetings.adress', 'fullname', true, { en: 'What is your full name ?' });
     nlp.slotManager.addSlot('address', 'address', true, { en: 'What is your address sending tickets ?' });
-    nlp.slotManager.addSlot('phonenumber', 'phonenumber', true, { en: 'What is yout phonenumber ?' });
+    nlp.slotManager.addSlot('phonenumber', 'phonenumber', true, { en: 'What is yout phone number ?' });
     nlp.slotManager.addSlot('email', 'email', true, { en: 'What is yout email ?' });
     nlp.slotManager.addSlot('number', 'number', true, { en: 'How many tickets ?' });
 
@@ -1005,7 +1006,7 @@ setTimeout(async () => {
 
             phonenumber: {
                 locale: ['en', 'es'],
-                regexp: '(?:(?:(\\+?972|\\(\\+?972\\)|\\+?\\(972\\))(?:\\s|\\.|-)?([1-9]\\d?))|(0[23489]{1})|(0[57]{1}[0-9]))(?:\\s|\\.|-)?([^0\\D]{1}\\d{2}(?:\\s|\\.|-)?\\d{4})/gi',
+                regexp: '\\b(?:(?:(\\+?972|\\(\\+?972\\)|\\+?\\(972\\))(?:\\s|\\.|-)?([1-9]\\d?))|(0[23489]{1})|(0[57]{1}[0-9]))(?:\\s|\\.|-)?([^0\\D]{1}\\d{2}(?:\\s|\\.|-)?\\d{4})\\b/gi',
             },
 
             number: {
