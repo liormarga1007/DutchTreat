@@ -61,22 +61,11 @@
         <script src="https://accounts.google.com/gsi/client" async defer></script>
         <div id="g_id_onload"
              data-client_id="1044980345633-agg360a1g7266d0kqjc0c69omkaq30o6.apps.googleusercontent.com"
-             data-callback="handleCredentialResponse">
+             data-login_uri="https://your.domain/your_login_endpoint"
+             data-prompt_parent_id="g_id_onload"
+             style="position: absolute; top: 100px; right: 30px;
+            width: 0; height: 0; z-index: 1001;">
         </div>
-        <script>
-            function handleCredentialResponse(response) {
-                // decodeJwtResponse() is a custom function defined by you
-                // to decode the credential response.
-                const responsePayload = decodeJwtResponse(response.credential);
-
-                console.log("ID: " + responsePayload.sub);
-                console.log('Full Name: ' + responsePayload.name);
-                console.log('Given Name: ' + responsePayload.given_name);
-                console.log('Family Name: ' + responsePayload.family_name);
-                console.log("Image URL: " + responsePayload.picture);
-                console.log("Email: " + responsePayload.email);
-            }
-        </script>
         @RenderBody()
     </section>
     <footer class="container">
