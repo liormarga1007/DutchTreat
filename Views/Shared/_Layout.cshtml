@@ -58,6 +58,25 @@
             </a>
         </h2>
         <iframe src="~/js/index.html" title="blabla" width="100%"></iframe>
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <div id="g_id_onload"
+             data-client_id="1044980345633-agg360a1g7266d0kqjc0c69omkaq30o6.apps.googleusercontent.com"
+             data-callback="handleCredentialResponse">
+        </div>
+        <script>
+            function handleCredentialResponse(response) {
+                // decodeJwtResponse() is a custom function defined by you
+                // to decode the credential response.
+                const responsePayload = decodeJwtResponse(response.credential);
+
+                console.log("ID: " + responsePayload.sub);
+                console.log('Full Name: ' + responsePayload.name);
+                console.log('Given Name: ' + responsePayload.given_name);
+                console.log('Family Name: ' + responsePayload.family_name);
+                console.log("Image URL: " + responsePayload.picture);
+                console.log("Email: " + responsePayload.email);
+            }
+        </script>
         @RenderBody()
     </section>
     <footer class="container">
@@ -68,11 +87,12 @@
   <environment names="Development">
       <script src="~/lib/jquery/dist/jquery.js"></script>
       <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+      <script src="https://accounts.google.com/gsi/client" async defer></script>
   </environment>
   <environment names="Staging,Production">
       <script src="~/lib/jquery/dist/jquery.js"></script>
       <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-      <script data-ad-client="ca-pub-6734923488579203" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <script src="https://accounts.google.com/gsi/client" async defer></script>
   </environment>
   @* scripts section is not required. if one of the pages creates a section called scripts, then put it here in the layout page
 
