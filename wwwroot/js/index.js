@@ -13,7 +13,7 @@ const SpeechRecognition =
 const recognition = SpeechRecognition ? new SpeechRecognition() : null
 
 // how long to listen before sending the message
-const MESSAGE_DELAY = 3500
+const MESSAGE_DELAY = 3000
 
 // timer variable
 let timer = null
@@ -925,13 +925,13 @@ setTimeout(async () => {
     nlp.addDocument('en', 'full name %fullname%', 'address');
     nlp.addDocument('en', '@fullname', 'address');
 
-    nlp.addDocument('en', 'address is %city%', 'phonenumber');
+    nlp.addDocument('en', 'address %city%', 'phonenumber');
     nlp.addDocument('en', '@city', 'phonenumber');
 
-    nlp.addDocument('en', 'my phone number is @phonenumber', 'email');
-    nlp.addDocument('en', 'my phone number @phonenumber', 'email');
-    nlp.addDocument('en', 'phone number @phonenumber', 'email');
-    nlp.addDocument('en', 'phonenumber @phonenumber', 'email');
+    nlp.addDocument('en', 'my phone number is .* @phonenumber', 'email');
+    nlp.addDocument('en', 'my phone number .* @phonenumber', 'email');
+    nlp.addDocument('en', 'phone number .* @phonenumber', 'email');
+    nlp.addDocument('en', 'phonenumber .* @phonenumber', 'email');
     nlp.addDocument('en', '@phonenumber', 'email');
     nlp.addDocument('en', '%phonenumber%', 'email');
 
@@ -951,7 +951,7 @@ setTimeout(async () => {
     nlp.slotManager.addSlot('number', 'number', true, { en: 'How many tickets ?' });
 
     nlp.addAnswer("en", "greetings.bye", "see you soon!")
-    nlp.addAnswer("en", "greetings.hello", "which event to reserve tickets ? sports ? music?")
+    nlp.addAnswer("en", "greetings.hello", "which event to reserve : sports ? music?")
     nlp.addAnswer("en", "greetings.sports", "'For which game do you want to reserve ticket ? ")
     nlp.addAnswer("en", "greetings.music", "'For which concert do you want to reserve ticket ? ")
     
@@ -971,7 +971,7 @@ setTimeout(async () => {
             },
             {
                 intent: 'sports',
-                utterances: ['sports', 'ports', 'Sportssports'],
+                utterances: ['sports', 'ports', 'Sportssports','fart'],
                 answers: ['For which game do you want to reserve ticket ? '],
             },
         ],
@@ -996,12 +996,12 @@ setTimeout(async () => {
 
             fullname: {
                 locale: ['en', 'es'],
-                regex: '\\b(\\w[-._\\w]*\\w\\s+name\\s+is\\s+\\w[-._\\w]*\\s+\\w[-._\\w]*)\\b/gi',
+                regex: '\\b\\w[-._\\w]*\\w\\s+name\\s+is\\s+(\\w[-._\\w]*\\s+\\w[-._\\w]*).*\\b/gi',
             },
 
             city: {
                 locale: ['en', 'es'],
-                regex: '\\b(\\w[-._\\w]*\\w\\s+address\\s+is\\s+\\w[-._\\w]*\\s+\\w[-._\\w]*)\\b/gi',
+                regex: '\\b\\w[-._\\w]*\\w\\s+address\\s+(\\w[-._\\w]*\\s+\\w[-._\\w]*)\\b/gi',
             },
 
             phonenumber: {
@@ -1033,8 +1033,7 @@ setTimeout(async () => {
         //    return voice.lang === "en-US"
         //})
         utterance.voice = currentVoice;
-        utterance.text = text
-        recognition.stop()
+        utterance.text = text        
         synth.speak(utterance)               
         timer = setTimeout(onMessage, MESSAGE_DELAY)
     }
@@ -1057,6 +1056,7 @@ setTimeout(async () => {
         botElement.innerHTML = "<b>Bot</b>: " + answer
         botElement.style.color = "green"
         el("history").appendChild(botElement)
+        recognition.stop()
         if (synthVoice) synthVoice(answer)
         else { userElement.style.color = "red";el("history").appendChild(userElement) }
     }
@@ -1094,6 +1094,13 @@ setTimeout(async () => {
             el("send").style.display = "none"
             el("message").disabled = true
             el("message").placeholder = "Listening..."
+            if (el("history").childElementCount == 0) {
+                const botElement = document.createElement("div")
+                botElement.innerHTML = "<b>Bot</b>: which event to reserve : sports ? music?"
+                botElement.style.color = "green"
+                el("history").appendChild(botElement)
+                if (synthVoice) synthVoice("which event to reserve : sports ? music ?")
+            }
         }
 
         recognition.onerror = function (event) {
@@ -1113,6 +1120,7 @@ setTimeout(async () => {
         // speech recognition result event;
         // append recognized text to the form input and display interim results
         recognition.onresult = event => {
+            event.preventDefault();
             clearTimeout(timer)
             timer = setTimeout(onMessage, MESSAGE_DELAY)
             let transcript = ""
@@ -1120,7 +1128,7 @@ setTimeout(async () => {
                 if (event.results[i].isFinal) {
                     let msg = event.results[i][0].transcript
                     if (!el("message").value) msg = capitalize(msg.trimLeft())
-                    el("message").value += msg
+                    el("message").value = msg
                 } else {
                     transcript = event.results[i][0].transcript
                 }
