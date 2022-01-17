@@ -1072,7 +1072,16 @@ setTimeout(async () => {
         speakElement.innerText = "Speak!"
         speakElement.onclick = e => {
             e.preventDefault()
-            recognition.start()
+            if (el("history").childElementCount == 0) {
+                const botElement = document.createElement("div")
+                botElement.innerHTML = "<b>Bot</b>: which event to reserve : sports ? music?"
+                botElement.style.color = "green"
+                el("history").appendChild(botElement)
+                if (synthVoice) synthVoice("which event to reserve : sports ? music ?")
+            }
+            else {
+                recognition.start()
+            }
         }
         document.forms[0].appendChild(speakElement)
 
@@ -1094,13 +1103,6 @@ setTimeout(async () => {
             el("send").style.display = "none"
             el("message").disabled = true
             el("message").placeholder = "Listening..."
-            if (el("history").childElementCount == 0) {
-                const botElement = document.createElement("div")
-                botElement.innerHTML = "<b>Bot</b>: which event to reserve : sports ? music?"
-                botElement.style.color = "green"
-                el("history").appendChild(botElement)
-                if (synthVoice) synthVoice("which event to reserve : sports ? music ?")
-            }
         }
 
         recognition.onerror = function (event) {
@@ -1149,10 +1151,10 @@ setTimeout(async () => {
             let optionText = `${voice.name} (${voice.lang})`;
             if (voice.default) {
                 optionText += ' [default]';
-                if (typeof currentVoice === 'undefined') {
+                
                     currentVoice = voice;
                     option.selected = true;
-                }
+                
             }
             if (currentVoice === voice) {
                 option.selected = true;
