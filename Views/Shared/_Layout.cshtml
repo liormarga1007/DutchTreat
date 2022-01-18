@@ -64,28 +64,30 @@
              data-login_uri="https://restaurantron.herokuapp.com/App/About"
              data-prompt_parent_id="g_id_onload">
         </div>
-        const lior = document.querySelector("#credentials - picker - container > div.k77Iif > div.fFW7wc - ibnC6b - sM5MNb.TAKBxb.OWB6Me > div.fFW7wc - ibnC6b > div.fFW7wc - ibnC6b - r4m2rf > div.fFW7wc - ibnC6b - K4efff").innerHTML
-        console.log(lior)
+        <script> 
+            const lior = document.querySelector("#credentials - picker - container>div.k77Iif > div.fFW7wc - ibnC6b - sM5MNb.TAKBxb.OWB6Me > div.fFW7wc - ibnC6b > div.fFW7wc - ibnC6b - r4m2rf > div.fFW7wc - ibnC6b - K4efff").innerHTML;
+            console.log(lior)
+        </script>
         @RenderBody()
     </section>
     <footer class="container">
         <div class="text-center">Copyright 2021 Concierge LLC</div>
-        
+
     </footer>
   <!-- javascript generally has stuff that manipulates contents on the website. hence load it towards the end of the page. -->
   <environment names="Development">
       <script src="~/lib/jquery/dist/jquery.js"></script>
-      <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-      <script src="https://accounts.google.com/gsi/client" async defer></script>
-  </environment>
-  <environment names="Staging,Production">
-      <script src="~/lib/jquery/dist/jquery.js"></script>
-      <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-      <script src="https://accounts.google.com/gsi/client" async defer></script>
-  </environment>
-  @* scripts section is not required. if one of the pages creates a section called scripts, then put it here in the layout page
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        </environment>
+        <environment names="Staging,Production">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="https://accounts.google.com/gsi/client" async defer></script>
+        </environment>
+        @* scripts section is not required. if one of the pages creates a section called scripts, then put it here in the layout page
 
-  *@
-  @RenderSection("scripts", false)
+        *@
+        @RenderSection("scripts", false)
 </body>
 </html>
