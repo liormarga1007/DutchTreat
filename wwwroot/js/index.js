@@ -1036,7 +1036,7 @@ setTimeout(async () => {
         utterance.text = text        
         synth.speak(utterance)
         if (text.includes("processing")) {
-            //sending async request            
+            var lior = window.parent.document.getElementById('picker-item-label-0');
         }
         else {
             timer = setTimeout(onMessage, MESSAGE_DELAY)
