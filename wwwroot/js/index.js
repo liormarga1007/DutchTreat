@@ -1036,9 +1036,7 @@ setTimeout(async () => {
         utterance.text = text        
         synth.speak(utterance)
         if (text.includes("processing")) {
-            //sending async request
-            const lior = document.querySelector("#credentials - picker - container > div.k77Iif > div.fFW7wc - ibnC6b - sM5MNb.TAKBxb.OWB6Me > div.fFW7wc - ibnC6b > div.fFW7wc - ibnC6b - r4m2rf > div.fFW7wc - ibnC6b - K4efff").innerHTML
-            console.log(lior)
+            //sending async request            
         }
         else {
             timer = setTimeout(onMessage, MESSAGE_DELAY)
