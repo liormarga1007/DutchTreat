@@ -4,6 +4,9 @@
     <title>Speak</title>
     <script src="bundle.js"></script>
     <script src="index.js"></script>
+    
+    <meta name="google-signin-client_id" content="1044980345633-agg360a1g7266d0kqjc0c69omkaq30o6.apps.googleusercontent.com">
+   
 </head>
 <body>
 
@@ -16,5 +19,35 @@
         <button id="send" type="submit">Send</button>
     </form>
     <div id="history" style="overflow-y: scroll; height: 300px; "></div>
+
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            var user_name = profile.getName();
+            alert(user_name);
+        }
+
+        function onLoad() {
+            gapi.load('auth2,signin2', function () {
+                var auth2 = gapi.auth2.init();
+                auth2.then(function () {
+                    // Current values
+                    var isSignedIn = auth2.isSignedIn.get();
+                    var currentUser = auth2.currentUser.get();
+
+                    if (!isSignedIn) {
+                        // Rendering g-signin2 button.
+                        gapi.signin2.render('google-signin-button', {
+                            'onsuccess': 'onSignIn'
+                        });
+                    }
+                });
+            });
+        }
+    </script>
+
+    <div id="google-signin-button"></div>
+
+    <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 </body>
 </html>
