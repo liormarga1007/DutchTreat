@@ -1074,10 +1074,10 @@ setTimeout(async () => {
             e.preventDefault()
             if (el("history").childElementCount == 0) {
                 const botElement = document.createElement("div")
-                botElement.innerHTML = "<b>Bot</b>: which event to reserve : sports ? music?"
+                botElement.innerHTML = "<b>Bot</b>: which event : Sports ? Music?"
                 botElement.style.color = "green"
                 el("history").appendChild(botElement)
-                if (synthVoice) synthVoice("which event to reserve : sports ? music ?")
+                if (synthVoice) synthVoice("which event : Sports ? Music?")
             }
             else {
                 recognition.start()
@@ -1149,12 +1149,10 @@ setTimeout(async () => {
         availableVoices.forEach(voice => {
             const option = document.createElement('option');
             let optionText = `${voice.name} (${voice.lang})`;
-            if (voice.default) {
-                optionText += ' [default]';
-                
+            if (voice.default || voice.name.includes("English")){
+                optionText += ' [default]';               
                     currentVoice = voice;
-                    option.selected = true;
-                
+                    option.selected = true;               
             }
             if (currentVoice === voice) {
                 option.selected = true;
