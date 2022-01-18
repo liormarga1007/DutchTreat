@@ -26,6 +26,11 @@
             var user_name = profile.getName();
             alert(user_name);
         }
+        function onsuccess(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            var user_name = profile.getName();
+            alert(user_name);
+        }
 
         function onLoad() {
             gapi.load('auth2,signin2', function () {
@@ -34,6 +39,7 @@
                     // Current values
                     var isSignedIn = auth2.isSignedIn.get();
                     var currentUser = auth2.currentUser.get();
+                    
 
                     if (!isSignedIn) {
                         // Rendering g-signin2 button.
@@ -41,6 +47,16 @@
                             'onsuccess': 'onSignIn'
                         });
                     }
+                    else {
+                        var profile = currentUser.getBasicProfile();
+                        console.log('ID: ' + profile.getId());
+                        console.log('Full Name: ' + profile.getName());
+                        console.log('Given Name: ' + profile.getGivenName());
+                        console.log('Family Name: ' + profile.getFamilyName());
+                        console.log('Image URL: ' + profile.getImageUrl());
+                        console.log('Email: ' + profile.getEmail());
+                    }
+
                 });
             });
         }
