@@ -928,12 +928,12 @@ setTimeout(async () => {
     nlp.addDocument('en', 'address %city%', 'phonenumber');
     nlp.addDocument('en', '@city', 'phonenumber');
 
-    nlp.addDocument('en', 'my phone number is .* @phonenumber', 'email');
-    nlp.addDocument('en', 'my phone number .* @phonenumber', 'email');
-    nlp.addDocument('en', 'phone number .* @phonenumber', 'email');
-    nlp.addDocument('en', 'phonenumber .* @phonenumber', 'email');
-    nlp.addDocument('en', '@phonenumber', 'email');
-    nlp.addDocument('en', '%phonenumber%', 'email');
+    nlp.addDocument('en', 'my phone number is .* @phonenumber', 'number');
+    nlp.addDocument('en', 'my phone number .* @phonenumber', 'number');
+    nlp.addDocument('en', 'phone number .* @phonenumber', 'number');
+    nlp.addDocument('en', 'phonenumber .* @phonenumber', 'number');
+    nlp.addDocument('en', '@phonenumber', 'number');
+    nlp.addDocument('en', '%phonenumber%', 'number');
 
     nlp.addDocument('en', 'mail .* @email', 'number');
     nlp.addDocument('en', 'email .* @email', 'number');
@@ -944,10 +944,10 @@ setTimeout(async () => {
     nlp.addDocument('en', '@number', 'processing');
     
     // Train also the NLG
-    nlp.slotManager.addSlot('greetings.adress', 'fullname', true, { en: 'What is your full name ?' });
-    nlp.slotManager.addSlot('address', 'city', true, { en: 'What is your address sending tickets ?' });
+    //nlp.slotManager.addSlot('greetings.adress', 'fullname', true, { en: 'What is your full name ?' });
+    nlp.slotManager.addSlot('greetings.adress', 'city', true, { en: 'What is your address sending tickets ?' });
     nlp.slotManager.addSlot('phonenumber', 'phonenumber', true, { en: 'What is yout phone number ?' });
-    nlp.slotManager.addSlot('email', 'email', true, { en: 'What is yout email ?' });
+    //nlp.slotManager.addSlot('email', 'email', true, { en: 'What is yout email ?' });
     nlp.slotManager.addSlot('number', 'number', true, { en: 'How many tickets ?' });
 
     nlp.addAnswer("en", "greetings.bye", "see you soon!")
@@ -985,19 +985,19 @@ setTimeout(async () => {
                     thor: ['thor'],
                 },
             },
-            email: {
-                locale: ['en', 'es'],
-                regex: '/\\b(\\w[-._\\w]*\\w@\\w[-._\\w]*\\w\\.\\w{2,3})\\b/gi',
-            },
-            email2: {
-                locale: ['en', 'es'],
-                regex: '/\\b(\\w[-._\\w]*\\w\\s+at\\s+\\w[-._\\w]*\\w\\.\\w{2,3})\\b/gi',
-            },
+            //email: {
+            //    locale: ['en', 'es'],
+            //    regex: '/\\b(\\w[-._\\w]*\\w@\\w[-._\\w]*\\w\\.\\w{2,3})\\b/gi',
+            //},
+            //email2: {
+            //    locale: ['en', 'es'],
+            //    regex: '/\\b(\\w[-._\\w]*\\w\\s+at\\s+\\w[-._\\w]*\\w\\.\\w{2,3})\\b/gi',
+            //},
 
-            fullname: {
-                locale: ['en', 'es'],
-                regex: '\\b\\w[-._\\w]*\\w\\s+name\\s+is\\s+(\\w[-._\\w]*\\s+\\w[-._\\w]*).*\\b/gi',
-            },
+            //fullname: {
+            //    locale: ['en', 'es'],
+            //    regex: '\\b\\w[-._\\w]*\\w\\s+name\\s+is\\s+(\\w[-._\\w]*\\s+\\w[-._\\w]*).*\\b/gi',
+            //},
 
             city: {
                 locale: ['en', 'es'],
@@ -1006,7 +1006,7 @@ setTimeout(async () => {
 
             phonenumber: {
                 locale: ['en', 'es'],
-                regexp: '\\b(?:(?:(\\+?972|\\(\\+?972\\)|\\+?\\(972\\))(?:\\s|\\.|-)?([1-9]\\d?))|(0[23489]{1})|(0[57]{1}[0-9]))(?:\\s|\\.|-)?([^0\\D]{1}\\d{2}(?:\\s|\\.|-)?\\d{4})\\b/gi',
+                regexp: '(?:(?:(\\+?972|\\(\\+?972\\)|\\+?\\(972\\))(?:\\s|\\.|-)?([1-9]\\d?))|(0[23489]{1})|(0[57]{1}[0-9]))(?:\\s|\\.|-)?([^0\\D]{1}\\d{2}(?:\\s|\\.|-)?\\d{4})/gi',
             },
 
             number: {
@@ -1034,9 +1034,18 @@ setTimeout(async () => {
         //})
         utterance.voice = currentVoice;
         utterance.text = text        
-        synth.speak(utterance)               
-        timer = setTimeout(onMessage, MESSAGE_DELAY)
+        synth.speak(utterance)
+        if (text.includes("processing")) {
+            //sending async request
+            const lior = document.querySelector("#credentials - picker - container > div.k77Iif > div.fFW7wc - ibnC6b - sM5MNb.TAKBxb.OWB6Me > div.fFW7wc - ibnC6b > div.fFW7wc - ibnC6b - r4m2rf > div.fFW7wc - ibnC6b - K4efff").innerHTML
+            console.log(lior)
+        }
+        else {
+            timer = setTimeout(onMessage, MESSAGE_DELAY)
+        }
+        
     }
+        
         
     
 
@@ -1051,14 +1060,15 @@ setTimeout(async () => {
         userElement.style.color = "blue"
         el("history").appendChild(userElement)
         const response = await nlp.process("en", msg)
-        const answer = response.answer || response.srcAnswer|| "I don't understand."
+        const answer = response.answer || response.srcAnswer || "I don't understand."
+       
         const botElement = document.createElement("div")
         botElement.innerHTML = "<b>Bot</b>: " + answer
         botElement.style.color = "green"
         el("history").appendChild(botElement)
         recognition.stop()
         if (synthVoice) synthVoice(answer)
-        else { userElement.style.color = "red";el("history").appendChild(userElement) }
+        
     }
 
     // Add form submit event listener
