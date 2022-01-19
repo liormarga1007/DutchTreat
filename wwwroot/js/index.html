@@ -18,9 +18,11 @@
         <input id="message" placeholder="Type your message" style="width: 50%;" />
         <button id="send" type="submit">Send</button>
     </form>
-    <div id="history" style="overflow-y: scroll; height: 300px; "></div>
+    <div id="history" style="overflow-y: scroll; height: 290px; "></div>
 
     <script>
+        let fullname = "";
+        let email = "";
         function onSignIn(googleUser) {
             var profile = googleUser.getBasicProfile();
             var user_name = profile.getName();
@@ -55,6 +57,8 @@
                         console.log('Family Name: ' + profile.getFamilyName());
                         console.log('Image URL: ' + profile.getImageUrl());
                         console.log('Email: ' + profile.getEmail());
+                        fullname = profile.getName();
+                        email = profile.getEmail();
                     }
 
                 });
