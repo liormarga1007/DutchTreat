@@ -1037,7 +1037,7 @@ setTimeout(async () => {
         utterance.text = text        
         synth.speak(utterance)
         if (text.includes("processing")) {
-            // send request
+            
         }
         else {
             timer = setTimeout(onMessage, MESSAGE_DELAY)
@@ -1065,11 +1065,18 @@ setTimeout(async () => {
         const answer = response.answer || response.srcAnswer || "I don't understand."
         state = answer;
         const botElement = document.createElement("div")
-        botElement.innerHTML = "<b>Bot</b>: " + answer
+        botElement.innerHTML = "<b>VOX</b>: " + answer
         botElement.style.color = "green"
         el("history").appendChild(botElement)
         recognition.stop()
         if (synthVoice) synthVoice(answer)
+        if (answer.includes("processing")) {
+            fetch('http://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=2177622&persons=4&time=&date=brandis%2045%20telaviv%20israel&name=lior&family=margalit&phone=+972524830726&email=liormarga1007@gmail.com&session=b9b67472-2b40-43bb-b163-b6bad004c594', { mode: 'no-cors' })
+                .then(function (resp) {
+                    console.log(resp.headers.set.toString());
+                });
+        }
+        
         
     }
 
@@ -1161,7 +1168,7 @@ setTimeout(async () => {
         availableVoices.forEach(voice => {
             const option = document.createElement('option');
             let optionText = `${voice.name} (${voice.lang})`;
-            if (voice.default || voice.name.includes("English")){
+            if (voice.default || voice.lang.includes("en-US")) {
                 optionText += ' [default]';               
                     currentVoice = voice;
                     option.selected = true;               
