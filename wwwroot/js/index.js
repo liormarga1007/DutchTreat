@@ -930,7 +930,7 @@ setTimeout(async () => {
 
     nlp.addDocument('en', 'my phone number is .* @phonenumber', 'number');
     nlp.addDocument('en', 'my phone number .* @phonenumber', 'number');
-    nlp.addDocument('en', 'phone number .* @phonenumber', 'number');
+    nlp.addDocument('en', 'phone number .* %phonenumber', 'number');
     nlp.addDocument('en', 'phonenumber .* @phonenumber', 'number');
     nlp.addDocument('en', '@phonenumber', 'number');
     nlp.addDocument('en', '%phonenumber%', 'number');
@@ -971,7 +971,7 @@ setTimeout(async () => {
             },
             {
                 intent: 'sports',
-                utterances: ['sports', 'ports', 'Sportssports','fart'],
+                utterances: ['sports', 'ports', 'Sportssports','fart','sparks'],
                 answers: ['For which game do you want to reserve ticket ? '],
             },
         ],
@@ -1019,6 +1019,7 @@ setTimeout(async () => {
 
     await nlp.train()
 
+    let state="";
     // initialize speech generation
     let synthVoice = null
     
@@ -1050,16 +1051,19 @@ setTimeout(async () => {
     // form submit event
     async function onMessage(event) {
         if (event) event.preventDefault()
-        const msg = el("message").value
+        let msg = el("message").value
         el("message").value = ""
         if (!msg) { recognition.start(); return }
         let userElement = document.createElement("div")
         userElement.innerHTML = "<b>User</b>: " + msg
         userElement.style.color = "blue"
         el("history").appendChild(userElement)
-        const response = await nlp.process("en", msg)
+        if (state.includes("address")) { msg += " address"; }
+        if (state.includes("phone")) { msg = msg.concat(' ', " phone number") }
+        if (state.includes("tickets")) { msg += " tickets"; }
+        const response = await nlp.process("en", msg)       
         const answer = response.answer || response.srcAnswer || "I don't understand."
-       
+        state = answer;
         const botElement = document.createElement("div")
         botElement.innerHTML = "<b>Bot</b>: " + answer
         botElement.style.color = "green"
