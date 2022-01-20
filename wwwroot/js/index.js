@@ -1168,7 +1168,7 @@ setTimeout(async () => {
         availableVoices.forEach(voice => {
             const option = document.createElement('option');
             let optionText = `${voice.name} (${voice.lang})`;
-            if (voice.default || voice.lang.includes("en-US")) {
+            if (voice.default || voice.lang.includes("en-US") || voice.lang.includes("en_US") ) {
                 optionText += ' [default]';               
                     currentVoice = voice;
                     option.selected = true;               
