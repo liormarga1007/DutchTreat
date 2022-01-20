@@ -13,7 +13,7 @@ const SpeechRecognition =
 const recognition = SpeechRecognition ? new SpeechRecognition() : null
 
 // how long to listen before sending the message
-const MESSAGE_DELAY = 3000
+let MESSAGE_DELAY = 3000
 
 // timer variable
 let timer = null
@@ -30,11 +30,11 @@ setTimeout(async () => {
     nlp.addLanguage("en")
 
     // Adds the utterances and intents for the NLP
-    nlp.addDocument("en", "goodbye for now", "greetings.bye")
-    nlp.addDocument("en", "bye bye take care", "greetings.bye")
-    nlp.addDocument("en", "okay see you later", "greetings.bye")
-    nlp.addDocument("en", "bye for now", "greetings.bye")
-    nlp.addDocument("en", "i must go", "greetings.bye")
+    //nlp.addDocument("en", "goodbye for now", "greetings.bye")
+    //nlp.addDocument("en", "bye bye take care", "greetings.bye")
+    //nlp.addDocument("en", "okay see you later", "greetings.bye")
+    //nlp.addDocument("en", "bye for now", "greetings.bye")
+    //nlp.addDocument("en", "i must go", "greetings.bye")
     nlp.addDocument("en", "hello", "greetings.hello")
     nlp.addDocument("en", "hi", "greetings.hello")
     nlp.addDocument("en", "howdy", "greetings.hello")
@@ -950,7 +950,7 @@ setTimeout(async () => {
     //nlp.slotManager.addSlot('email', 'email', true, { en: 'What is yout email ?' });
     nlp.slotManager.addSlot('number', 'number', true, { en: 'How many tickets ?' });
 
-    nlp.addAnswer("en", "greetings.bye", "see you soon!")
+    //nlp.addAnswer("en", "greetings.bye", "see you soon!")
     nlp.addAnswer("en", "greetings.hello", "which event to reserve : sports ? music?")
     nlp.addAnswer("en", "greetings.sports", "'For which game do you want to reserve ticket ? ")
     nlp.addAnswer("en", "greetings.music", "'For which concert do you want to reserve ticket ? ")
@@ -971,7 +971,7 @@ setTimeout(async () => {
             },
             {
                 intent: 'sports',
-                utterances: ['sports', 'ports', 'Sportssports','fart','sparks'],
+                utterances: ['sports', 'ports', 'Sportssports','fart','sparks','sports'],
                 answers: ['For which game do you want to reserve ticket ? '],
             },
         ],
@@ -1058,9 +1058,9 @@ setTimeout(async () => {
         userElement.innerHTML = "<b>User</b>: " + msg
         userElement.style.color = "blue"
         el("history").appendChild(userElement)
-        if (state.includes("address")) { msg += " address"; }
-        if (state.includes("phone")) { msg = msg.concat(' ', " phone number") }
-        if (state.includes("tickets")) { msg += " tickets"; }
+        if (state.includes("address")) { msg += " address"; MESSAGE_DELAY= 3000}
+        if (state.includes("phone")) { msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 2800}
+        if (state.includes("tickets")) { msg += " tickets"; MESSAGE_DELAY = 1800}
         const response = await nlp.process("en", msg)       
         const answer = response.answer || response.srcAnswer || "I don't understand."
         state = answer;
@@ -1073,7 +1073,7 @@ setTimeout(async () => {
         if (answer.includes("processing")) {
             fetch('http://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=2177622&persons=4&time=&date=brandis%2045%20telaviv%20israel&name=lior&family=margalit&phone=+972524830726&email=liormarga1007@gmail.com&session=b9b67472-2b40-43bb-b163-b6bad004c594', { mode: 'no-cors' })
                 .then(function (resp) {
-                    console.log(resp.headers.set.toString());
+                    console.log(resp.headers.values);
                 });
         }
         
@@ -1093,13 +1093,16 @@ setTimeout(async () => {
             e.preventDefault()
             if (el("history").childElementCount == 0) {
                 const botElement = document.createElement("div")
-                botElement.innerHTML = "<b>Bot</b>: Hi " + fullname+ " which event: Sports ? Music ? "
+                botElement.innerHTML = "<b>Bot</b>: Hi " + fullname + " for which event to reserve tickets: Sports ? Music ? "
                 botElement.style.color = "green"
                 el("history").appendChild(botElement)
-                if (synthVoice) synthVoice("Hi " + fullname+ " which event : Sports ? Music?")
-            }
-            else {
-                recognition.start()
+                if (synthVoice) {
+                    MESSAGE_DELAY = 4000;
+                    synthVoice("Hi " + fullname + " for which event to reserve tickets: Sports ? Music ?");
+                }
+                else {
+                    recognition.start()
+                }
             }
         }
         document.forms[0].appendChild(speakElement)
