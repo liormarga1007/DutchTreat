@@ -946,8 +946,8 @@ setTimeout(async () => {
     // Train also the NLG
     //nlp.slotManager.addSlot('greetings.adress', 'fullname', true, { en: 'What is your full name ?' });
     nlp.slotManager.addSlot('greetings.adress', 'city', true, { en: 'What is your address sending tickets ?' });
-    nlp.slotManager.addSlot('phonenumber', 'phonenumber', true, { en: 'What is yout phone number ?' });
-    //nlp.slotManager.addSlot('email', 'email', true, { en: 'What is yout email ?' });
+    nlp.slotManager.addSlot('phonenumber', 'phonenumber', true, { en: 'What is your phone number ?' });
+    //nlp.slotManager.addSlot('email', 'email', true, { en: 'What is your email ?' });
     nlp.slotManager.addSlot('number', 'number', true, { en: 'How many tickets ?' });
 
     //nlp.addAnswer("en", "greetings.bye", "see you soon!")
