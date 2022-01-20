@@ -13,7 +13,7 @@ const SpeechRecognition =
 const recognition = SpeechRecognition ? new SpeechRecognition() : null
 
 // how long to listen before sending the message
-let MESSAGE_DELAY = 3000
+let MESSAGE_DELAY = 4500
 
 // timer variable
 let timer = null
@@ -1097,7 +1097,7 @@ setTimeout(async () => {
                 botElement.style.color = "green"
                 el("history").appendChild(botElement)
                 if (synthVoice) {
-                    MESSAGE_DELAY = 4000;
+                    MESSAGE_DELAY = 4500;
                     synthVoice("Hi " + fullname + " for which event to reserve tickets: Sports ? Music ?");
                 }
                 else {
