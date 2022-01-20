@@ -1071,9 +1071,9 @@ setTimeout(async () => {
         recognition.stop()
         if (synthVoice) synthVoice(answer)
         if (answer.includes("processing")) {
-            fetch('http://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=2177622&persons=4&time=&date=brandis%2045%20telaviv%20israel&name=lior&family=margalit&phone=+972524830726&email=liormarga1007@gmail.com&session=b9b67472-2b40-43bb-b163-b6bad004c594', { mode: 'no-cors' })
+            fetch('https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=2177622&persons=4&time=&date=brandis%2045%20telaviv%20israel&name=lior&family=margalit&phone=+972524830726&email=liormarga1007@gmail.com&session=b9b67472-2b40-43bb-b163-b6bad004c594', { mode: 'no-cors' })
                 .then(function (resp) {
-                    console.log(resp.headers.values);
+                    console.log(resp.headers.values());
                 });
         }
         
