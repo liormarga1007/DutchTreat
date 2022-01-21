@@ -1045,6 +1045,7 @@ setTimeout(async () => {
             
         }
         else {
+            clearTimeout(timer)
             timer = setTimeout(onMessage, MESSAGE_DELAY)
         }
         
@@ -1063,9 +1064,10 @@ setTimeout(async () => {
         userElement.innerHTML = "<b>User</b>: " + msg
         userElement.style.color = "blue"
         el("history").appendChild(userElement)
-        if (state.includes("game")) { game = msg; }
-        if (state.includes("address")) { adress = msg;msg += " address"; MESSAGE_DELAY= 3000}
-        if (state.includes("phone")) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 2800}
+        if (state.includes("sports")) { game = msg; MESSAGE_DELAY = 2800 }
+        if (state.includes("game")) { game = msg; MESSAGE_DELAY =2500}
+        if (state.includes("address")) { adress = msg;msg += " address"; MESSAGE_DELAY= 2500}
+        if (state.includes("phone")) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 1800}
         if (state.includes("tickets")) { numoftickets = msg;  msg += " tickets"; MESSAGE_DELAY = 1800}
         const response = await nlp.process("en", msg)       
         const answer = response.answer || response.srcAnswer || "I don't understand."
@@ -1094,21 +1096,7 @@ setTimeout(async () => {
 
             Http.onreadystatechange = (e) => {
                 console.log(Http.responseText)
-            }
-        /*let resp = await fetch("https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=2177622" + game +
-                "&persons=" + numoftickets + 
-                "&time=&date=" + adress + 
-                "&name=" + fullname +
-                "&family=" + fullname +
-                "&phone=+972" + phone +
-                "&email="+ email +
-                "&session=b9b67472 - 2b40 - 43bb - b163 - b6bad004c594", { mode: 'no-cors' })
-
-            let body = await resp.body;
-            console.log(body);
-                //.then(function (resp) {
-                //    console.log(resp.headers.values());
-                //});*/
+            }       
         }
         
         
@@ -1131,8 +1119,9 @@ setTimeout(async () => {
                 botElement.style.color = "green"
                 el("history").appendChild(botElement)
                 if (synthVoice) {
-                    MESSAGE_DELAY = 4500;
+                    MESSAGE_DELAY = 5000;
                     synthVoice("Hi " + fullname + " for which event to reserve tickets: Sports ? Music ?");
+                    MESSAGE_DELAY = 3000;
                 }
                 else {
                     recognition.start()
@@ -1205,7 +1194,7 @@ setTimeout(async () => {
         availableVoices.forEach(voice => {
             const option = document.createElement('option');
             let optionText = `${voice.name} (${voice.lang})`;
-            if (voice.default || voice.lang.includes("en-US") || voice.lang.includes("en_US") ) {
+            if (voice.default || voice.lang.includes("en-US") || voice.lang.includes("en_US")) {
                 optionText += ' [default]';               
                     currentVoice = voice;
                     option.selected = true;               
