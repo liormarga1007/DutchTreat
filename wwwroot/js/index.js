@@ -1080,7 +1080,7 @@ setTimeout(async () => {
         if (synthVoice) synthVoice(answer)
         if (answer.includes("processing")) {
             const Http = new XMLHttpRequest();
-            const url = "https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=2177622" + game +
+            const url = "https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=99999" + game +
                 "&persons=" + numoftickets +
                 "&time=&date=" + adress +
                 "&name=" + fullname +
