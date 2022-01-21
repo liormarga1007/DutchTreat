@@ -1082,7 +1082,7 @@ setTimeout(async () => {
         if (answer.includes("processing")) {
             //const Http = new XMLHttpRequest();
 
-            fetch("https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=99999" + game +
+            let res = await fetch("https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=99999" + game +
                 "&persons=" + numoftickets +
                 "&time=&date=" + adress +
                 "&name=" + fullname +
@@ -1092,8 +1092,14 @@ setTimeout(async () => {
                 "&session=" + uuid, {
                 mode: 'no-cors'
                 }
-            ).then(response => response.blob())
-            
+            )
+
+            fetch("https://mysterious-hollows-90255.herokuapp.com/"+
+                "?session=" + uuid, {
+                mode: 'no-cors'
+            }
+            ).then(res => res.blob())
+
             //Http.open("GET", url);
             //Http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             //Http.setRequestHeader('Access-Control-Allow-Origin',"*");
@@ -1102,9 +1108,7 @@ setTimeout(async () => {
             //Http.onreadystatechange = (e) => {
             //    console.log(Http.responseText)
             //}       
-        }
-        
-        
+        }                
     }
 
     // Add form submit event listener
