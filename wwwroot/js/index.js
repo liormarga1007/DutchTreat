@@ -1067,7 +1067,7 @@ setTimeout(async () => {
         if (state.includes("sports")) { game = msg; MESSAGE_DELAY = 2800 }
         if (state.includes("game")) { game = msg; MESSAGE_DELAY =2500}
         if (state.includes("address")) { adress = msg;msg += " address"; MESSAGE_DELAY= 2500}
-        if (state.includes("phone")) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 1800}
+        if (state.includes("phone")) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 1500}
         if (state.includes("tickets")) { numoftickets = msg;  msg += " tickets"; MESSAGE_DELAY = 1800}
         const response = await nlp.process("en", msg)       
         const answer = response.answer || response.srcAnswer || "I don't understand."
@@ -1094,9 +1094,9 @@ setTimeout(async () => {
             Http.setRequestHeader('Access-Control-Allow-Origin',"*");
             Http.send();
 
-            Http.onreadystatechange = (e) => {
-                console.log(Http.responseText)
-            }       
+            //Http.onreadystatechange = (e) => {
+            //    console.log(Http.responseText)
+            //}       
         }
         
         
