@@ -1024,6 +1024,7 @@ setTimeout(async () => {
     let adress = "";
     let phone = "";
     let numoftickets = "";
+    let uuid = uuidv4()
 
     // initialize speech generation
     let synthVoice = null
@@ -1079,20 +1080,24 @@ setTimeout(async () => {
         recognition.stop()
         if (synthVoice) synthVoice(answer)
         if (answer.includes("processing")) {
-            const Http = new XMLHttpRequest();
-            const url = "https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=99999" + game +
+            //const Http = new XMLHttpRequest();
+
+            fetch("https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=99999" + game +
                 "&persons=" + numoftickets +
                 "&time=&date=" + adress +
                 "&name=" + fullname +
                 "&family=" + fullname +
                 "&phone=+972" + phone +
                 "&email=" + email +
-                "&session=b9b67472 - 2b40 - 43bb - b163 - b6bad004c594";
+                "&session=" + uuid, {
+                mode: 'no-cors'
+                }
+            ).then(response => response.blob())
             
-            Http.open("GET", url);
-            Http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            Http.setRequestHeader('Access-Control-Allow-Origin',"*");
-            Http.send();
+            //Http.open("GET", url);
+            //Http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            //Http.setRequestHeader('Access-Control-Allow-Origin',"*");
+            //Http.send();
 
             //Http.onreadystatechange = (e) => {
             //    console.log(Http.responseText)
@@ -1216,5 +1221,12 @@ setTimeout(async () => {
     voiceSelect.addEventListener('change', event => {
         const selectedIndex = event.target.selectedIndex;
         currentVoice = voices[selectedIndex];
-    });   
+    });
+
+    function uuidv4() {
+        return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
+            (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+        );
+    }
+
 })
