@@ -930,7 +930,7 @@ setTimeout(async () => {
 
     nlp.addDocument('en', 'my phone number is .* @phonenumber', 'number');
     nlp.addDocument('en', 'my phone number .* @phonenumber', 'number');
-    nlp.addDocument('en', 'phone number .* %phonenumber', 'number');
+    nlp.addDocument('en', 'phone number .* %phonenumber%', 'number');
     nlp.addDocument('en', 'phonenumber .* @phonenumber', 'number');
     nlp.addDocument('en', '@phonenumber', 'number');
     nlp.addDocument('en', '%phonenumber%', 'number');
@@ -945,7 +945,7 @@ setTimeout(async () => {
     
     // Train also the NLG
     //nlp.slotManager.addSlot('greetings.adress', 'fullname', true, { en: 'What is your full name ?' });
-    nlp.slotManager.addSlot('greetings.adress', 'city', true, { en: 'What is your address sending tickets ?' });
+    nlp.slotManager.addSlot('greetings.adress', 'city', true, { en: 'What is your address sending ticket ?' });
     nlp.slotManager.addSlot('phonenumber', 'phonenumber', true, { en: 'What is your phone number ?' });
     //nlp.slotManager.addSlot('email', 'email', true, { en: 'What is your email ?' });
     nlp.slotManager.addSlot('number', 'number', true, { en: 'How many tickets ?' });
@@ -1019,7 +1019,12 @@ setTimeout(async () => {
 
     await nlp.train()
 
-    let state="";
+    let state = "";
+    let game = "";
+    let adress = "";
+    let phone = "";
+    let numoftickets = "";
+
     // initialize speech generation
     let synthVoice = null
     
@@ -1058,9 +1063,10 @@ setTimeout(async () => {
         userElement.innerHTML = "<b>User</b>: " + msg
         userElement.style.color = "blue"
         el("history").appendChild(userElement)
-        if (state.includes("address")) { msg += " address"; MESSAGE_DELAY= 3000}
-        if (state.includes("phone")) { msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 2800}
-        if (state.includes("tickets")) { msg += " tickets"; MESSAGE_DELAY = 1800}
+        if (state.includes("game")) { game = msg; }
+        if (state.includes("address")) { adress = msg;msg += " address"; MESSAGE_DELAY= 3000}
+        if (state.includes("phone")) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 2800}
+        if (state.includes("tickets")) { numoftickets = msg;  msg += " tickets"; MESSAGE_DELAY = 1800}
         const response = await nlp.process("en", msg)       
         const answer = response.answer || response.srcAnswer || "I don't understand."
         state = answer;
@@ -1071,10 +1077,38 @@ setTimeout(async () => {
         recognition.stop()
         if (synthVoice) synthVoice(answer)
         if (answer.includes("processing")) {
-            fetch('https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=2177622&persons=4&time=&date=brandis%2045%20telaviv%20israel&name=lior&family=margalit&phone=+972524830726&email=liormarga1007@gmail.com&session=b9b67472-2b40-43bb-b163-b6bad004c594', { mode: 'no-cors' })
-                .then(function (resp) {
-                    console.log(resp.headers.values());
-                });
+            const Http = new XMLHttpRequest();
+            const url = "https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=2177622" + game +
+                "&persons=" + numoftickets +
+                "&time=&date=" + adress +
+                "&name=" + fullname +
+                "&family=" + fullname +
+                "&phone=+972" + phone +
+                "&email=" + email +
+                "&session=b9b67472 - 2b40 - 43bb - b163 - b6bad004c594";
+            
+            Http.open("GET", url);
+            Http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            Http.setRequestHeader('Access-Control-Allow-Origin',"*");
+            Http.send();
+
+            Http.onreadystatechange = (e) => {
+                console.log(Http.responseText)
+            }
+        /*let resp = await fetch("https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=2177622" + game +
+                "&persons=" + numoftickets + 
+                "&time=&date=" + adress + 
+                "&name=" + fullname +
+                "&family=" + fullname +
+                "&phone=+972" + phone +
+                "&email="+ email +
+                "&session=b9b67472 - 2b40 - 43bb - b163 - b6bad004c594", { mode: 'no-cors' })
+
+            let body = await resp.body;
+            console.log(body);
+                //.then(function (resp) {
+                //    console.log(resp.headers.values());
+                //});*/
         }
         
         
