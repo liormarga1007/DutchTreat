@@ -1042,7 +1042,7 @@ setTimeout(async () => {
         utterance.voice = currentVoice;
         utterance.text = text        
         synth.speak(utterance)
-        if (text.includes("processing")) {
+        if (text.includes("processing") || text.includes("Success")) {
             
         }
         else {
@@ -1082,7 +1082,7 @@ setTimeout(async () => {
         if (answer.includes("processing")) {
             //const Http = new XMLHttpRequest();
 
-            let res = await fetch("https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=99999" + game +
+            const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=99999" + game +
                 "&persons=" + numoftickets +
                 "&time=&date=" + adress +
                 "&name=" + fullname +
@@ -1090,25 +1090,33 @@ setTimeout(async () => {
                 "&phone=+972" + phone +
                 "&email=" + email +
                 "&session=" + uuid, {
-                mode: 'no-cors'
-                }
-            )
-
-            fetch("https://mysterious-hollows-90255.herokuapp.com/"+
-                "?session=" + uuid, {
-                mode: 'no-cors'
+                //mode: 'no-cors',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
             }
-            ).then(res => res.blob())
+            )
+            const text = await res.text();
+            console.log(text)
 
-            //Http.open("GET", url);
-            //Http.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-            //Http.setRequestHeader('Access-Control-Allow-Origin',"*");
-            //Http.send();
-
-            //Http.onreadystatechange = (e) => {
-            //    console.log(Http.responseText)
-            //}       
+            const myTimeout = setTimeout(myGreeting, 10000);            
+                       
         }                
+    }
+
+    async function myGreeting() {
+        const res1 = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/" +
+            "?session=" + uuid, {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        }
+        )
+        const text1 = await res1.text();
+        let answer = text1.match(/<title>([^<]*)<\/title>/)[1];
+        const botElement = document.createElement("div")
+        botElement.innerHTML = "<b>VOX</b>: " + answer
+        botElement.style.color = "green"
+        el("history").appendChild(botElement)
+        recognition.stop()
+        if (synthVoice) synthVoice("Success " + answer)
+        console.log(answer)
     }
 
     // Add form submit event listener
