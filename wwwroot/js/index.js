@@ -1134,7 +1134,7 @@ setTimeout(async () => {
         speakElement.id = "speak"
         speakElement.innerText = "Speak!"
         speakElement.onclick = e => {
-            //e.preventDefault()
+            e.preventDefault()
             if (el("history").childElementCount == 0) {
                 const botElement = document.createElement("div")
                 botElement.innerHTML = "<b>Bot</b>: Hi " + fullname + " for which event to reserve tickets: Sports ? Music ? "
@@ -1148,9 +1148,6 @@ setTimeout(async () => {
                 else {
                     recognition.start()
                 }
-            }
-            else {
-                synthVoice(state);
             }
         }
         document.forms[0].appendChild(speakElement)

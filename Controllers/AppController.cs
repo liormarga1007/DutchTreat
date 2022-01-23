@@ -20,6 +20,21 @@ namespace DutchTreat.Controllers
         }
         public IActionResult Index()
         {
+            var client = new HttpClient();
+            var httpRequestMessage = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://mysterious-hollows-90255.herokuapp.com")
+            };
+
+            client.SendAsync(httpRequestMessage);
+            httpRequestMessage = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
+                RequestUri = new Uri("https://tranquil-plains-09740.herokuapp.com")
+            };
+
+            client.SendAsync(httpRequestMessage);
             return View();
         }
 
