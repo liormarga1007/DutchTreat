@@ -1065,14 +1065,19 @@ setTimeout(async () => {
         userElement.innerHTML = "<b>User</b>: " + msg
         userElement.style.color = "blue"
         el("history").appendChild(userElement)
-        if (state.includes("sports")) { game = msg; MESSAGE_DELAY = 2800 }
+        if (state.includes("sports")) { game = msg; MESSAGE_DELAY = 2500 }
         if (state.includes("game")) { game = msg; MESSAGE_DELAY =2500}
         if (state.includes("address")) { adress = msg;msg += " address"; MESSAGE_DELAY= 2000}
         if (state.includes("phone")) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 1500}
         if (state.includes("tickets")) { numoftickets = msg;  msg += " tickets"; MESSAGE_DELAY = 1800}
         const response = await nlp.process("en", msg)       
-        const answer = response.answer || response.srcAnswer || "I don't understand."
-        state = answer;
+        let answer = response.answer || response.srcAnswer || "I don't understand."
+        if (!answer.includes("understand")) {
+            state = answer;
+        }
+        else {
+            answer = state;
+        }
         const botElement = document.createElement("div")
         botElement.innerHTML = "<b>VOX</b>: " + answer
         botElement.style.color = "green"
@@ -1081,7 +1086,7 @@ setTimeout(async () => {
         if (synthVoice) synthVoice(answer)
         if (answer.includes("processing")) {
             //const Http = new XMLHttpRequest();
-
+            MESSAGE_DELAY = 3000
             const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=99999" + game +
                 "&persons=" + numoftickets +
                 "&time=&date=" + adress +
@@ -1129,7 +1134,7 @@ setTimeout(async () => {
         speakElement.id = "speak"
         speakElement.innerText = "Speak!"
         speakElement.onclick = e => {
-            e.preventDefault()
+            //e.preventDefault()
             if (el("history").childElementCount == 0) {
                 const botElement = document.createElement("div")
                 botElement.innerHTML = "<b>Bot</b>: Hi " + fullname + " for which event to reserve tickets: Sports ? Music ? "
@@ -1143,6 +1148,9 @@ setTimeout(async () => {
                 else {
                     recognition.start()
                 }
+            }
+            else {
+                synthVoice(state);
             }
         }
         document.forms[0].appendChild(speakElement)
@@ -1211,7 +1219,7 @@ setTimeout(async () => {
         availableVoices.forEach(voice => {
             const option = document.createElement('option');
             let optionText = `${voice.name} (${voice.lang})`;
-            if (voice.default || voice.lang.includes("en-US") || voice.lang.includes("en_US")) {
+            if (voice.lang.includes("en-US") || voice.lang.includes("en_US")) {
                 optionText += ' [default]';               
                     currentVoice = voice;
                     option.selected = true;               
