@@ -41,6 +41,9 @@ setTimeout(async () => {
     nlp.addDocument("en", "sports", "greetings.sports")
     nlp.addDocument("en", "sport", "greetings.sports")
     nlp.addDocument("en", "football", "greetings.sports")
+    nlp.addDocument("en", "pizza", "greetings.pizza")
+    nlp.addDocument("en", "hut", "greetings.pizza")
+    nlp.addDocument("en", "pizzahut", "greetings.pizza")
     nlp.addDocument("en", "Chelsea versus Everton", "greetings.adress")
     nlp.addDocument("en", "Wolverhampton Wonders versus Chelsea", "greetings.adress")
     nlp.addDocument("en", "Brentford versus Chelsea ", "greetings.adress")
@@ -942,6 +945,23 @@ setTimeout(async () => {
 
     nlp.addDocument('en', '@number tickets', 'processing');
     nlp.addDocument('en', '@number', 'processing');
+
+    nlp.addDocument('en', 'thin', 'greetings.size');
+    nlp.addDocument('en', 'send', 'greetings.size');
+    nlp.addDocument('en', 'seek', 'greetings.size');
+    nlp.addDocument('en', 'thick', 'greetings.size');
+
+    nlp.addDocument('en', 'small', 'greetings.topic');
+    nlp.addDocument('en', 'medium', 'greetings.topic');
+    nlp.addDocument('en', 'large', 'greetings.topic');
+
+    nlp.addDocument('en', 'olives', 'greetings.verification');
+    nlp.addDocument('en', 'olive', 'greetings.verification');
+    nlp.addDocument('en', 'onions', 'greetings.verification');
+    nlp.addDocument('en', 'mushrum', 'greetings.verification');
+
+    nlp.addDocument('en', 'verification', 'greetings.code');
+    nlp.addDocument('en', 'pay', 'greetings.confirm');
     
     // Train also the NLG
     //nlp.slotManager.addSlot('greetings.adress', 'fullname', true, { en: 'What is your full name ?' });
@@ -952,9 +972,16 @@ setTimeout(async () => {
 
     //nlp.addAnswer("en", "greetings.bye", "see you soon!")
     nlp.addAnswer("en", "greetings.hello", "which event to reserve : sports ? music?")
-    nlp.addAnswer("en", "greetings.sports", "'For which game do you want to reserve ticket ? ")
-    nlp.addAnswer("en", "greetings.music", "'For which concert do you want to reserve ticket ? ")
-    
+    nlp.addAnswer("en", "greetings.sports", "For which game do you want to reserve ticket ? ")
+    nlp.addAnswer("en", "greetings.music", "For which concert do you want to reserve ticket ? ")
+
+    nlp.addAnswer("en", "greetings.pizza", "Which pizza ? Thin pizza ? Thick pizza ? ")
+    nlp.addAnswer("en", "greetings.size", "Which pizza size ? Small ? Medium ? Large")
+    nlp.addAnswer("en", "greetings.topic", "Which topic and place ? olives left , onions right,mushrums")
+    nlp.addAnswer("en", "greetings.verification", "What is your phone for verification ?")
+    nlp.addAnswer("en", "greetings.code", "What is the code sent to the mobile ? it may take 10 sec")
+    nlp.addAnswer("en", "greetings.confirm", "Pay when you get the pizza")
+
     //nlp.addAnswer("en", "greetings.adress", "'For which email do you want to send ticket ? ")
     //nlp.addAnswer("en", "email", "what is your phone number ?")
     //nlp.addAnswer("en", "phonenumber", "what is your address ?")
@@ -973,6 +1000,11 @@ setTimeout(async () => {
                 intent: 'sports',
                 utterances: ['sports', 'ports', 'Sportssports','fart','sparks','sports'],
                 answers: ['For which game do you want to reserve ticket ? '],
+            },
+            {
+                intent: 'pizzahut',
+                utterances: ['pizzahut', 'pizza', 'hut'],
+                answers: ['Which pizza ? Thin pizza ? Thick pizza ?'],
             },
         ],
         entities: {
@@ -1020,6 +1052,7 @@ setTimeout(async () => {
     await nlp.train()
 
     let state = "";
+    let code = "";
     let game = "";
     let adress = "";
     let phone = "";
@@ -1042,7 +1075,7 @@ setTimeout(async () => {
         utterance.voice = currentVoice;
         utterance.text = text        
         synth.speak(utterance)
-        if (text.includes("processing") || text.includes("Success")) {
+        if (text.includes("processing") || text.includes("Success") || text.includes("Pay")) {
             
         }
         else {
@@ -1068,8 +1101,10 @@ setTimeout(async () => {
         if (state.includes("sports")) { game = msg; MESSAGE_DELAY = 2500 }
         if (state.includes("game")) { game = msg; MESSAGE_DELAY =2500}
         if (state.includes("address")) { adress = msg;msg += " address"; MESSAGE_DELAY= 2000}
-        if (state.includes("phone")) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 1500}
-        if (state.includes("tickets")) { numoftickets = msg;  msg += " tickets"; MESSAGE_DELAY = 1800}
+        if (state.includes("phone") && !state.includes("verification")) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 1500}
+        if (state.includes("tickets")) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
+        if (state.includes("verification")) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
+        if (state.includes("code")) { code = msg; msg += " pay"; MESSAGE_DELAY = 10000 }
         const response = await nlp.process("en", msg)       
         let answer = response.answer || response.srcAnswer || "I don't understand."
         if (!answer.includes("understand")) {
@@ -1103,8 +1138,64 @@ setTimeout(async () => {
             console.log(text)
 
             const myTimeout = setTimeout(myGreeting, 10000);            
-                       
-        }                
+            if (answer.includes("processing")) {
+                //const Http = new XMLHttpRequest();
+                MESSAGE_DELAY = 3000
+                const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=99999" + game +
+                    "&persons=" + numoftickets +
+                    "&time=&date=" + adress +
+                    "&name=" + fullname +
+                    "&family=" + fullname +
+                    "&phone=+972" + phone +
+                    "&email=" + email +
+                    "&session=" + uuid, {
+                    //mode: 'no-cors',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                }
+                )
+                const text = await res.text();
+                console.log(text)
+
+                const myTimeout = setTimeout(myGreeting, 10000);
+
+            }
+        }
+        if (answer.includes("code")) {
+            //const Http = new XMLHttpRequest();
+            MESSAGE_DELAY = 3000
+            const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=pizzahut" +
+                "&persons=" + numoftickets +
+                "&date=" + adress +
+                "&name=" + fullname +
+                "&family=" + fullname +
+                "&phone=" + phone +
+                "&email=" + email +
+                "&session=" + uuid, {
+                //mode: 'no-cors',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            }
+            )
+            const text = await res.text();
+            console.log(text)
+
+            //const myTimeout = setTimeout(mycoe, 10000);
+        }
+        if (answer.includes("Pay")) {
+            //const Http = new XMLHttpRequest();
+            MESSAGE_DELAY = 3000
+            const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=pizzahut" +
+                "&time=" + code +
+                "&session=" + uuid, {
+                //mode: 'no-cors',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            }
+            )
+            const text = await res.text();
+            console.log(text)
+
+            //const myTimeout = setTimeout(mycoe, 10000);
+        }
+        
     }
 
     async function myGreeting() {
@@ -1137,12 +1228,12 @@ setTimeout(async () => {
             e.preventDefault()
             if (el("history").childElementCount == 0) {
                 const botElement = document.createElement("div")
-                botElement.innerHTML = "<b>Bot</b>: Hi " + fullname + " for which event to reserve tickets: Sports ? Music ? "
+                botElement.innerHTML = "<b>Bot</b>: Hi " + fullname + " what do you want to order Pizza hut ? Sports tickets ?"
                 botElement.style.color = "green"
                 el("history").appendChild(botElement)
                 if (synthVoice) {
                     MESSAGE_DELAY = 5000;
-                    synthVoice("Hi " + fullname + " for which event to reserve tickets: Sports ? Music ?");
+                    synthVoice("Hi " + fullname + " what do you want to order Pizza hut ? Sports tickets ?");
                     MESSAGE_DELAY = 3000;
                 }
                 else {
