@@ -948,6 +948,7 @@ setTimeout(async () => {
 
     nlp.addDocument('en', 'thin', 'greetings.size');
     nlp.addDocument('en', 'send', 'greetings.size');
+    nlp.addDocument('en', 'same', 'greetings.size');
     nlp.addDocument('en', 'seek', 'greetings.size');
     nlp.addDocument('en', 'thick', 'greetings.size');
 
@@ -1111,7 +1112,7 @@ setTimeout(async () => {
         if (state.includes("thin")) { wide = msg; MESSAGE_DELAY = 3000 }
         if (state.includes("topic")) { topics = msg; MESSAGE_DELAY = 2000 }
         if (state.includes("verification")) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
-        if (state.includes("code")) { code = msg; msg += " pay"; MESSAGE_DELAY = 20000 }
+        if (state.includes("code") && /^\d{4}$/.test(msg.replace("-",""))) { code = msg; msg += " pay"; MESSAGE_DELAY = 20000 }
 
         const response = await nlp.process("en", msg)       
         let answer = response.answer || response.srcAnswer || "I don't understand."
@@ -1130,7 +1131,15 @@ setTimeout(async () => {
             if (synthVoice) synthVoice(answer);
         }
         else {
-            waitingforcode("We are loading order")
+            if (msg.includes("verification")) {
+                waitingforcode("We are loading order")
+            }
+            else {
+                waitingforcode("what is your code sent ?");
+                return;
+
+            }
+                      
         }
         if (answer.includes("processing")) {
             //const Http = new XMLHttpRequest();
