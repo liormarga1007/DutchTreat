@@ -958,7 +958,7 @@ setTimeout(async () => {
     nlp.addDocument('en', 'olives', 'greetings.verification');
     nlp.addDocument('en', 'olive', 'greetings.verification');
     nlp.addDocument('en', 'onions', 'greetings.verification');
-    nlp.addDocument('en', 'mushrum', 'greetings.verification');
+    nlp.addDocument('en', 'mushroom', 'greetings.verification');
 
     nlp.addDocument('en', 'verification', 'greetings.code');
     nlp.addDocument('en', 'pay', 'greetings.confirm');
@@ -977,10 +977,10 @@ setTimeout(async () => {
 
     nlp.addAnswer("en", "greetings.pizza", "Which pizza ? Thin pizza ? Thick pizza ? ")
     nlp.addAnswer("en", "greetings.size", "Which pizza size ? Small ? Medium ? Large")
-    nlp.addAnswer("en", "greetings.topic", "Which topic and place ? olives left , onions right,mushrums")
+    nlp.addAnswer("en", "greetings.topic", "Which topic and place ? olives left, onions right, mushrooms")
     nlp.addAnswer("en", "greetings.verification", "What is your phone for verification ?")
-    nlp.addAnswer("en", "greetings.code", "What is the code sent to the mobile ? it may take 10 sec")
-    nlp.addAnswer("en", "greetings.confirm", "Pay when you get the pizza")
+    nlp.addAnswer("en", "greetings.code", "We are loading your order ... We are getting your details ... We are adding your topic ... What is the code sent to the mobile ? it may take 10 sec")
+    nlp.addAnswer("en", "greetings.confirm", "Pay when you get the pizza, please wait for final confirmation")
 
     //nlp.addAnswer("en", "greetings.adress", "'For which email do you want to send ticket ? ")
     //nlp.addAnswer("en", "email", "what is your phone number ?")
@@ -1052,6 +1052,9 @@ setTimeout(async () => {
     await nlp.train()
 
     let state = "";
+    let topics = "";
+    let wide = "";
+    let size = "";
     let code = "";
     let game = "";
     let adress = "";
@@ -1075,7 +1078,7 @@ setTimeout(async () => {
         utterance.voice = currentVoice;
         utterance.text = text        
         synth.speak(utterance)
-        if (text.includes("processing") || text.includes("Success") || text.includes("Pay")) {
+        if (text.includes("processing") || text.includes("Success") || text.includes("Pay") || text.includes("We are")) {
             
         }
         else {
@@ -1103,8 +1106,13 @@ setTimeout(async () => {
         if (state.includes("address")) { adress = msg;msg += " address"; MESSAGE_DELAY= 2000}
         if (state.includes("phone") && !state.includes("verification")) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 1500}
         if (state.includes("tickets")) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
+
+        if (state.includes("size")) { size = msg; MESSAGE_DELAY = 3000 }
+        if (state.includes("thin")) { wide = msg; MESSAGE_DELAY = 3000 }
+        if (state.includes("topic")) { topics = msg; MESSAGE_DELAY = 2000 }
         if (state.includes("verification")) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
-        if (state.includes("code")) { code = msg; msg += " pay"; MESSAGE_DELAY = 10000 }
+        if (state.includes("code")) { code = msg; msg += " pay"; MESSAGE_DELAY = 20000 }
+
         const response = await nlp.process("en", msg)       
         let answer = response.answer || response.srcAnswer || "I don't understand."
         if (!answer.includes("understand")) {
@@ -1113,12 +1121,17 @@ setTimeout(async () => {
         else {
             answer = state;
         }
-        const botElement = document.createElement("div")
-        botElement.innerHTML = "<b>VOX</b>: " + answer
-        botElement.style.color = "green"
-        el("history").appendChild(botElement)
-        recognition.stop()
-        if (synthVoice) synthVoice(answer)
+        if (!answer.includes("code")) {
+            const botElement = document.createElement("div")
+            botElement.innerHTML = "<b>VOX</b>: " + answer
+            botElement.style.color = "green"
+            el("history").appendChild(botElement)
+            recognition.stop()
+            if (synthVoice) synthVoice(answer);
+        }
+        else {
+            waitingforcode("We are loading order")
+        }
         if (answer.includes("processing")) {
             //const Http = new XMLHttpRequest();
             MESSAGE_DELAY = 3000
@@ -1165,9 +1178,9 @@ setTimeout(async () => {
             MESSAGE_DELAY = 3000
             const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=pizzahut" +
                 "&persons=" + numoftickets +
-                "&date=" + adress +
-                "&name=" + fullname +
-                "&family=" + fullname +
+                "&date=" + topics +
+                "&name=" + wide +
+                "&family=" + size +
                 "&phone=" + phone +
                 "&email=" + email +
                 "&session=" + uuid, {
@@ -1193,9 +1206,31 @@ setTimeout(async () => {
             const text = await res.text();
             console.log(text)
 
-            //const myTimeout = setTimeout(mycoe, 10000);
+            const myTimeout = setTimeout(myGreeting, 20000);
         }
         
+    }
+    waitingforcode = answer1 => {
+        //We are loading your order ...We are getting your details ...We are adding your topic ...What is the code sent to the mobile ? it may take 10 sec
+
+        const botElement = document.createElement("div")
+        botElement.innerHTML = "<b>VOX</b>: " + answer1
+        botElement.style.color = "green"
+        el("history").appendChild(botElement)
+        recognition.stop()
+        if (synthVoice) synthVoice(answer1);
+        if (answer1.includes("loading")){
+            setTimeout(waitingforcode, 5000, "We are getting your details")
+        }
+        if (answer1.includes("getting")) {
+            setTimeout(waitingforcode, 5000, "We are adding your topics")
+        }
+        if (answer1.includes("adding")) {
+            setTimeout(waitingforcode, 5000, "We are cheking out your order")
+        }
+        if (answer1.includes("cheking")) {
+            setTimeout(waitingforcode, 5000, "What is the code sent to the mobile ?")
+        }
     }
 
     async function myGreeting() {
@@ -1203,8 +1238,11 @@ setTimeout(async () => {
             "?session=" + uuid, {
             headers: { 'X-Requested-With': 'XMLHttpRequest' }
         }
-        )
+        )        
         const text1 = await res1.text();
+        if (text1.includes("code")) {
+            return;
+        }
         let answer = text1.match(/<title>([^<]*)<\/title>/)[1];
         const botElement = document.createElement("div")
         botElement.innerHTML = "<b>VOX</b>: " + answer
