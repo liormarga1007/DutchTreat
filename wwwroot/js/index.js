@@ -1007,6 +1007,11 @@ setTimeout(async () => {
                 utterances: ['pizzahut', 'pizza', 'hut'],
                 answers: ['Which pizza ? Thin pizza ? Thick pizza ?'],
             },
+            {
+                intent: 'greetings.size',
+                utterances: ['thin', 'sing', 'same','seek','thick','sing','spin','saint'],
+                answers: ['Which pizza size ? Small ? Medium ? Large'],
+            },
         ],
         entities: {
             hero: {
@@ -1229,13 +1234,13 @@ setTimeout(async () => {
         recognition.stop()
         if (synthVoice) synthVoice(answer1);
         if (answer1.includes("loading")){
-            setTimeout(waitingforcode, 5000, "We are getting your details")
+            setTimeout(waitingforcode, 5000, "We are getting your pizza hut details")
         }
         if (answer1.includes("getting")) {
-            setTimeout(waitingforcode, 5000, "We are adding your topics")
+            setTimeout(waitingforcode, 5000, "We are adding your pizza hut topics")
         }
         if (answer1.includes("adding")) {
-            setTimeout(waitingforcode, 5000, "We are cheking out your order")
+            setTimeout(waitingforcode, 5000, "We are cheking out your pizza hut order")
         }
         if (answer1.includes("cheking")) {
             setTimeout(waitingforcode, 5000, "What is the code sent to the mobile ?")
