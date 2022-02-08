@@ -1117,7 +1117,7 @@ setTimeout(async () => {
         if (state.includes("thin")) { wide = msg; MESSAGE_DELAY = 3000 }
         if (state.includes("topic")) { topics = msg; MESSAGE_DELAY = 2000 }
         if (state.includes("verification")) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
-        if (state.includes("code") && /^\d{4}$/.test(msg.replace("-",""))) { code = msg; msg += " pay"; MESSAGE_DELAY = 20000 }
+        if (state.includes("code") && /^\d{4}$/.test(msg.replace("-","").replace(" ",""))) { code = msg; msg += " pay"; MESSAGE_DELAY = 20000 }
 
         const response = await nlp.process("en", msg)       
         let answer = response.answer || response.srcAnswer || "I don't understand."
@@ -1137,7 +1137,7 @@ setTimeout(async () => {
         }
         else {
             if (msg.includes("verification")) {
-                waitingforcode("We are loading order")
+                waitingforcode("We are loading pizza hut order")
             }
             else {
                 waitingforcode("what is your code sent ?");
@@ -1234,16 +1234,16 @@ setTimeout(async () => {
         recognition.stop()
         if (synthVoice) synthVoice(answer1);
         if (answer1.includes("loading")){
-            setTimeout(waitingforcode, 5000, "We are getting your pizza hut details")
+            setTimeout(waitingforcode, 6000, "We are getting your pizza hut details")
         }
         if (answer1.includes("getting")) {
-            setTimeout(waitingforcode, 5000, "We are adding your pizza hut topics")
+            setTimeout(waitingforcode, 6000, "We are adding your pizza hut topics")
         }
         if (answer1.includes("adding")) {
-            setTimeout(waitingforcode, 5000, "We are cheking out your pizza hut order")
+            setTimeout(waitingforcode, 6000, "We are cheking out your pizza hut order")
         }
         if (answer1.includes("cheking")) {
-            setTimeout(waitingforcode, 5000, "What is the code sent to the mobile ?")
+            setTimeout(waitingforcode, 6000, "What is the code sent to the mobile ?")
         }
     }
 
