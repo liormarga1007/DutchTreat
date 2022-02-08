@@ -1009,7 +1009,7 @@ setTimeout(async () => {
             },
             {
                 intent: 'greetings.size',
-                utterances: ['thin', 'sing', 'same','seek','thick','sing','spin','saint'],
+                utterances: ['thin', 'sing', 'same','seek','thick','spin','saint','fake'],
                 answers: ['Which pizza size ? Small ? Medium ? Large'],
             },
         ],
@@ -1116,7 +1116,7 @@ setTimeout(async () => {
         if (state.includes("size")) { size = msg; MESSAGE_DELAY = 3000 }
         if (state.includes("thin")) { wide = msg; MESSAGE_DELAY = 3000 }
         if (state.includes("topic")) { topics = msg; MESSAGE_DELAY = 2000 }
-        if (state.includes("verification")) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
+        if (state.includes("verification") && (/^\d{3}-\d{3}-\d{4}$/.test(msg) || /^\d{10}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
         if (state.includes("code") && /^\d{4}$/.test(msg.replace("-","").replace(" ",""))) { code = msg; msg += " pay"; MESSAGE_DELAY = 20000 }
 
         const response = await nlp.process("en", msg)       
