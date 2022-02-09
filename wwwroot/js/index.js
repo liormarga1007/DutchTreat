@@ -960,6 +960,9 @@ setTimeout(async () => {
     nlp.addDocument('en', 'olive', 'greetings.verification');
     nlp.addDocument('en', 'onions', 'greetings.verification');
     nlp.addDocument('en', 'mushroom', 'greetings.verification');
+    nlp.addDocument('en', 'playing', 'greetings.verification');
+    nlp.addDocument('en', 'plane', 'greetings.verification');
+    nlp.addDocument('en', 'plain', 'greetings.verification');
 
     nlp.addDocument('en', 'verification', 'greetings.code');
     nlp.addDocument('en', 'pay', 'greetings.confirm');
@@ -977,8 +980,8 @@ setTimeout(async () => {
     nlp.addAnswer("en", "greetings.music", "For which concert do you want to reserve ticket ? ")
 
     nlp.addAnswer("en", "greetings.pizza", "Which pizza ? Thin pizza ? Thick pizza ? ")
-    nlp.addAnswer("en", "greetings.size", "Which pizza size ? Small ? Medium ? Large")
-    nlp.addAnswer("en", "greetings.topic", "Which topic and place ? plain, mushrooms, olives half")
+    nlp.addAnswer("en", "greetings.size", "Which pizza size ? Small ? Large ? Extra Large")
+    nlp.addAnswer("en", "greetings.topic", "Which topic and place ? plain, mushrooms,  half olives")
     nlp.addAnswer("en", "greetings.verification", "What is your phone for verification ?")
     nlp.addAnswer("en", "greetings.code", "We are loading your order ... We are getting your details ... We are adding your topic ... What is the code sent to the mobile ? it may take 10 sec")
     nlp.addAnswer("en", "greetings.confirm", "Pay when you get the pizza, please wait for final confirmation")
@@ -1009,7 +1012,7 @@ setTimeout(async () => {
             },
             {
                 intent: 'greetings.size',
-                utterances: ['thin', 'sing', 'same','seek','thick','spin','saint','fake','dick','loud','take','peak','lowd','laws','sick','fake','Zeeks'],
+                utterances: ['thin', 'sing', 'same','seek','thick','spin','saint','fake','dick','loud','take','peak','lowd','laws','Sick','fake','Zeeks'],
                 answers: ['Which pizza size ? Small ? Large ? Extra Large'],
             },
         ],
@@ -1114,7 +1117,7 @@ setTimeout(async () => {
         if (state.includes("tickets")) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
 
         if (state.includes("size")) { size = msg; MESSAGE_DELAY = 3000 }
-        if (state.includes("thin")) { wide = msg; MESSAGE_DELAY = 4000 }
+        if (state.includes("Thin")) { wide = msg; MESSAGE_DELAY = 4000 }
         if (state.includes("topic")) { topics = msg; MESSAGE_DELAY = 2000 }
         if (state.includes("verification") && (/^\d{3}-\d{3}-\d{4}$/.test(msg) || /^\d{10}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
         if (state.includes("code") && /^\d{4}$/.test(msg.replace("-","").replace(" ",""))) { code = msg; msg += " pay"; MESSAGE_DELAY = 20000 }
