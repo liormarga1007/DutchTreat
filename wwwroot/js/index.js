@@ -978,7 +978,7 @@ setTimeout(async () => {
 
     nlp.addAnswer("en", "greetings.pizza", "Which pizza ? Thin pizza ? Thick pizza ? ")
     nlp.addAnswer("en", "greetings.size", "Which pizza size ? Small ? Medium ? Large")
-    nlp.addAnswer("en", "greetings.topic", "Which topic and place ? olives left, onions right, mushrooms")
+    nlp.addAnswer("en", "greetings.topic", "Which topic and place ? plain, mushrooms, olives half")
     nlp.addAnswer("en", "greetings.verification", "What is your phone for verification ?")
     nlp.addAnswer("en", "greetings.code", "We are loading your order ... We are getting your details ... We are adding your topic ... What is the code sent to the mobile ? it may take 10 sec")
     nlp.addAnswer("en", "greetings.confirm", "Pay when you get the pizza, please wait for final confirmation")
@@ -1009,8 +1009,8 @@ setTimeout(async () => {
             },
             {
                 intent: 'greetings.size',
-                utterances: ['thin', 'sing', 'same','seek','thick','spin','saint','fake'],
-                answers: ['Which pizza size ? Small ? Medium ? Large'],
+                utterances: ['thin', 'sing', 'same','seek','thick','spin','saint','fake','dick','loud','take','peak','lowd','laws','sick','fake','Zeeks'],
+                answers: ['Which pizza size ? Small ? Large ? Extra Large'],
             },
         ],
         entities: {
@@ -1114,7 +1114,7 @@ setTimeout(async () => {
         if (state.includes("tickets")) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
 
         if (state.includes("size")) { size = msg; MESSAGE_DELAY = 3000 }
-        if (state.includes("thin")) { wide = msg; MESSAGE_DELAY = 3000 }
+        if (state.includes("thin")) { wide = msg; MESSAGE_DELAY = 4000 }
         if (state.includes("topic")) { topics = msg; MESSAGE_DELAY = 2000 }
         if (state.includes("verification") && (/^\d{3}-\d{3}-\d{4}$/.test(msg) || /^\d{10}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
         if (state.includes("code") && /^\d{4}$/.test(msg.replace("-","").replace(" ",""))) { code = msg; msg += " pay"; MESSAGE_DELAY = 20000 }
@@ -1129,7 +1129,7 @@ setTimeout(async () => {
         }
         if (!answer.includes("code")) {
             const botElement = document.createElement("div")
-            botElement.innerHTML = "<b>VOX</b>: " + answer
+            botElement.innerHTML = "<b>ZUZU</b>: " + answer
             botElement.style.color = "green"
             el("history").appendChild(botElement)
             recognition.stop()
@@ -1228,7 +1228,7 @@ setTimeout(async () => {
         //We are loading your order ...We are getting your details ...We are adding your topic ...What is the code sent to the mobile ? it may take 10 sec
 
         const botElement = document.createElement("div")
-        botElement.innerHTML = "<b>VOX</b>: " + answer1
+        botElement.innerHTML = "<b>ZUZU</b>: " + answer1
         botElement.style.color = "green"
         el("history").appendChild(botElement)
         recognition.stop()
@@ -1259,7 +1259,7 @@ setTimeout(async () => {
         }
         let answer = text1.match(/<title>([^<]*)<\/title>/)[1];
         const botElement = document.createElement("div")
-        botElement.innerHTML = "<b>VOX</b>: " + answer
+        botElement.innerHTML = "<b>ZUZU</b>: " + answer
         botElement.style.color = "green"
         el("history").appendChild(botElement)
         recognition.stop()
@@ -1280,7 +1280,7 @@ setTimeout(async () => {
             e.preventDefault()
             if (el("history").childElementCount == 0) {
                 const botElement = document.createElement("div")
-                botElement.innerHTML = "<b>Bot</b>: Hi " + fullname + " what do you want to order Pizza hut ? Sports tickets ?"
+                botElement.innerHTML = "<b>ZUZU</b>: Hi " + fullname + " what do you want to order Pizza hut ? Sports tickets ?"
                 botElement.style.color = "green"
                 el("history").appendChild(botElement)
                 if (synthVoice) {
