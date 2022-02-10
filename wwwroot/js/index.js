@@ -1228,7 +1228,7 @@ setTimeout(async () => {
             const text = await res.text();
             console.log(text)
 
-            const myTimeout = setTimeout(myGreeting, 17000);
+            const myTimeout = setTimeout(myGreeting, 20000);
         }
         
     }
