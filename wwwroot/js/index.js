@@ -1324,7 +1324,7 @@ setTimeout(async () => {
 
         // switch back to type mode
         recognition.onend = function () {
-            if (el("message").value == "" && el("history").childElementCount < 12) recognition.start();
+            if (el("message").value == "" && el("history").childElementCount < 16) recognition.start();
             el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
