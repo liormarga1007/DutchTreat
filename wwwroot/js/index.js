@@ -983,7 +983,7 @@ setTimeout(async () => {
     nlp.addAnswer("en", "greetings.sports", "For which game do you want to reserve ticket ? ")
     nlp.addAnswer("en", "greetings.music", "For which concert do you want to reserve ticket ? ")
 
-    nlp.addAnswer("en", "greetings.pizza", "Which pizza ? pan pizza ? crispy pizza ? ")
+    nlp.addAnswer("en", "greetings.pizza", "Which pizza ? Pan pizza ? Krispy pizza ? ")
     nlp.addAnswer("en", "greetings.size", "Which pizza size ? Small ? Large ? Extra Large")
     nlp.addAnswer("en", "greetings.topic", "Which topic and place ? plain, mushrooms,  half olives")
     nlp.addAnswer("en", "greetings.verification", "What is your phone for verification ?")
@@ -1012,7 +1012,7 @@ setTimeout(async () => {
             {
                 intent: 'pizzahut',
                 utterances: ['pizzahut', 'pizza', 'hut'],
-                answers: ['Which pizza ? pan pizza ? crispy pizza ?'],
+                answers: ['Which pizza ? Pan pizza ? Krispy pizza ?'],
             },
             {
                 intent: 'greetings.size',
@@ -1121,10 +1121,10 @@ setTimeout(async () => {
         if (state.includes("tickets")) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
 
         if (state.includes("size")) { size = msg; MESSAGE_DELAY = 3000 }
-        if (state.includes("crispy")) { wide = msg; MESSAGE_DELAY = 4000 }
+        if (state.includes("Krispy")) { wide = msg; MESSAGE_DELAY = 4000 }
         if (state.includes("topic")) { topics = msg; MESSAGE_DELAY = 2000 }
-        if (state.includes("verification") && (/^\d{3}-\d{3}-\d{4}$/.test(msg) || /^\d{10}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
-        if (state.includes("code") && /^\d{4}$/.test(msg.replace("-","").replace(" ",""))) { code = msg; msg += " pay"; MESSAGE_DELAY = 20000 }
+        if (state.includes("verification") && await (/^\d{3}-\d{3}-\d{4}$/.test(msg) || /^\d{10}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
+        if (state.includes("code") && await /^\d{4}$/.test(msg.replace("-","").replace(" ",""))) { code = msg; msg += " pay"; MESSAGE_DELAY = 20000 }
 
         const response = await nlp.process("en", msg)       
         let answer = response.answer || response.srcAnswer || "I don't understand."
@@ -1140,6 +1140,7 @@ setTimeout(async () => {
             botElement.style.color = "green"
             el("history").appendChild(botElement)
             recognition.stop()
+            recognizing =false
             if (synthVoice) synthVoice(answer);
         }
         else {
@@ -1227,7 +1228,7 @@ setTimeout(async () => {
             const text = await res.text();
             console.log(text)
 
-            const myTimeout = setTimeout(myGreeting, 20000);
+            const myTimeout = setTimeout(myGreeting, 12000);
         }
         
     }
@@ -1239,6 +1240,7 @@ setTimeout(async () => {
         botElement.style.color = "green"
         el("history").appendChild(botElement)
         recognition.stop()
+        recognizing=false
         if (synthVoice) synthVoice(answer1);
         if (answer1.includes("loading")){
             setTimeout(waitingforcode, 6000, "We are getting your pizza hut details")
@@ -1270,6 +1272,7 @@ setTimeout(async () => {
         botElement.style.color = "green"
         el("history").appendChild(botElement)
         recognition.stop()
+        recognizing =false
         if (synthVoice) synthVoice("Success " + answer)
         console.log(answer)
     }
@@ -1323,18 +1326,19 @@ setTimeout(async () => {
         }
 
         recognition.onerror = function (event) {
-            alert(event.error)
+            //alert(event.error)
         }
 
         // switch back to type mode
         recognition.onend = function () {
-            if (el("message").value == "" && el("history").childElementCount < 16) recognition.start();
             el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
             el("message").placeholder = "Type your message"
             el("interim").innerText = ""
-            recognizing = false
+            if (el("message").value == "" && el("history").childElementCount < 16 && recognizing) {
+                recognition.start();
+            }
         }
 
         // speech recognition result event;
