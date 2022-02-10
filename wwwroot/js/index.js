@@ -947,12 +947,14 @@ setTimeout(async () => {
     nlp.addDocument('en', '@number', 'processing');
 
     nlp.addDocument('en', 'crispy', 'greetings.size');
+    nlp.addDocument('en', 'krispy', 'greetings.size');
     nlp.addDocument('en', 'pan', 'greetings.size');
     nlp.addDocument('en', 'thin', 'greetings.size');
     nlp.addDocument('en', 'send', 'greetings.size');
     nlp.addDocument('en', 'same', 'greetings.size');
     nlp.addDocument('en', 'seek', 'greetings.size');
     nlp.addDocument('en', 'thick', 'greetings.size');
+    nlp.addDocument('en', '10', 'greetings.size');
 
     nlp.addDocument('en', 'small', 'greetings.topic');
     nlp.addDocument('en', 'medium', 'greetings.topic');
@@ -1014,7 +1016,7 @@ setTimeout(async () => {
             },
             {
                 intent: 'greetings.size',
-                utterances: ['pan' , 'crispy','thin', 'sing', 'same','seek','thick','spin','saint','fake','dick','loud','take','peak','lowd','laws','Sick','fake','Zeeks'],
+                utterances: ['10','pan' , 'crispy','krispy','thin', 'sing', 'same','seek','thick','spin','saint','fake','dick','loud','take','peak','lowd','laws','Sick','fake','Zeeks'],
                 answers: ['Which pizza size ? Small ? Large ? Extra Large'],
             },
         ],
