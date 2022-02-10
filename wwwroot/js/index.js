@@ -946,6 +946,8 @@ setTimeout(async () => {
     nlp.addDocument('en', '@number tickets', 'processing');
     nlp.addDocument('en', '@number', 'processing');
 
+    nlp.addDocument('en', 'crispy', 'greetings.size');
+    nlp.addDocument('en', 'pan', 'greetings.size');
     nlp.addDocument('en', 'thin', 'greetings.size');
     nlp.addDocument('en', 'send', 'greetings.size');
     nlp.addDocument('en', 'same', 'greetings.size');
@@ -979,7 +981,7 @@ setTimeout(async () => {
     nlp.addAnswer("en", "greetings.sports", "For which game do you want to reserve ticket ? ")
     nlp.addAnswer("en", "greetings.music", "For which concert do you want to reserve ticket ? ")
 
-    nlp.addAnswer("en", "greetings.pizza", "Which pizza ? Thin pizza ? Thick pizza ? ")
+    nlp.addAnswer("en", "greetings.pizza", "Which pizza ? pan pizza ? crispy pizza ? ")
     nlp.addAnswer("en", "greetings.size", "Which pizza size ? Small ? Large ? Extra Large")
     nlp.addAnswer("en", "greetings.topic", "Which topic and place ? plain, mushrooms,  half olives")
     nlp.addAnswer("en", "greetings.verification", "What is your phone for verification ?")
@@ -1008,11 +1010,11 @@ setTimeout(async () => {
             {
                 intent: 'pizzahut',
                 utterances: ['pizzahut', 'pizza', 'hut'],
-                answers: ['Which pizza ? Thin pizza ? Thick pizza ?'],
+                answers: ['Which pizza ? pan pizza ? crispy pizza ?'],
             },
             {
                 intent: 'greetings.size',
-                utterances: ['thin', 'sing', 'same','seek','thick','spin','saint','fake','dick','loud','take','peak','lowd','laws','Sick','fake','Zeeks'],
+                utterances: ['pan' , 'crispy','thin', 'sing', 'same','seek','thick','spin','saint','fake','dick','loud','take','peak','lowd','laws','Sick','fake','Zeeks'],
                 answers: ['Which pizza size ? Small ? Large ? Extra Large'],
             },
         ],
@@ -1117,7 +1119,7 @@ setTimeout(async () => {
         if (state.includes("tickets")) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
 
         if (state.includes("size")) { size = msg; MESSAGE_DELAY = 3000 }
-        if (state.includes("Thin")) { wide = msg; MESSAGE_DELAY = 4000 }
+        if (state.includes("crispy")) { wide = msg; MESSAGE_DELAY = 4000 }
         if (state.includes("topic")) { topics = msg; MESSAGE_DELAY = 2000 }
         if (state.includes("verification") && (/^\d{3}-\d{3}-\d{4}$/.test(msg) || /^\d{10}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
         if (state.includes("code") && /^\d{4}$/.test(msg.replace("-","").replace(" ",""))) { code = msg; msg += " pay"; MESSAGE_DELAY = 20000 }
