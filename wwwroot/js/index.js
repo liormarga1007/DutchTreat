@@ -1124,7 +1124,7 @@ setTimeout(async () => {
         if (state.includes("Krispy")) { wide = msg; MESSAGE_DELAY = 4000 }
         if (state.includes("topic")) { topics = msg; MESSAGE_DELAY = 2000 }
         if (state.includes("verification") && await (/^\d{3}-\d{3}-\d{4}$/.test(msg) || /^\d{10}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
-        if (state.includes("code") && await /^\d{4}$/.test(msg.replace("-","").replace(" ",""))) { code = msg; msg += " pay"; MESSAGE_DELAY = 20000 }
+        if (state.includes("code") && await /^\d{4}$/.test(msg.replace("-", "").replace(" ", ""))) { code = await msg.replace("-", "").replace(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
 
         const response = await nlp.process("en", msg)       
         let answer = response.answer || response.srcAnswer || "I don't understand."
