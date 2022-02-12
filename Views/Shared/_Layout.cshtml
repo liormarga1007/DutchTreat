@@ -54,18 +54,19 @@
         </nav>
     </header>
     <section class="container">
-        <h2 class="text-center">
-            <a href="https://assistant.google.com/services/invoke/uid/000000cf6a32265c?hl=en">
-                🅖 Ask ZUZU to reserve restaurant or tickets
-            </a>
-        </h2>
+        
         <iframe src="~/js/index.html" title="blabla" width="100%" height="400px"></iframe>
         @RenderBody()
     </section>
-      <footer class="container">
-          <div class="text-center">Copyright 2021 ZUZU LLC</div>
+    <footer class="container">
+        <h2 class="text-center">
+            <a href="https://assistant.google.com/services/invoke/uid/000000cf6a32265c?hl=en" width="10%">
+                <img src="~/images/android-desktop.png">
+            </a>
+        </h2>
+        <div class="text-center">Copyright 2021 ZUZU LLC</div>
 
-      </footer>
+    </footer>
     <!-- javascript generally has stuff that manipulates contents on the website. hence load it towards the end of the page. -->
         <environment names="Development">
             <script src="~/lib/jquery/dist/jquery.js"></script>
