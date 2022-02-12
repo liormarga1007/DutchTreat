@@ -1,0 +1,75 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -200px;
+    margin-left: 50px;
+    width: 400px;
+    height: 400px;
+    outline: none;
+}
+
+.centered-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -400px;
+    margin-left: -200px;
+    width: 400px;
+    height: 400px;
+    vertical-align: text-top;
+    text-align: center;
+    font-size: 400%;
+    line-height: 50px;
+    z-index: -1;
+}
+
+.centered-canvas {
+    position: fixed;
+    top: 50%;
+    left: 75%;
+    margin-top: -500px;
+    margin-left: -200px;
+    width: 400px;
+    height: 400px;
+    vertical-align: text-top;
+    text-align: center;
+    z-index: -1;
+}
+
+.centered-auth {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: 250px;
+    margin-left: -200px;
+    width: 400px;
+    height: 200px;
+    vertical-align: text-top;
+    text-align: center;
+    z-index: 10;
+}
+
+#start_button {
+    border: 0;
+    background-color: transparent;
+    padding: 0;
+}
+
+@media only screen and (max-width: 600px) {
+    .centered {
+        margin-top: -100px;
+        margin-left: -100px;
+        width: 200px;
+        height: 200px;
+    }
+}
+

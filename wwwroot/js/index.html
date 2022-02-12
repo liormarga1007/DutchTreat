@@ -4,21 +4,46 @@
     <title>Speak</title>
     <script src="bundle.js"></script>
     <script src="index.js"></script>
-    
+
+    <title>Audio Demo</title>
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="../images/android-desktop.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Audio Demo">
+    <link rel="apple-touch-icon-precomposed" href="../images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/windows.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="../images/favicon.png">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="../css/audiodemo.css">
     <meta name="google-signin-client_id" content="1044980345633-agg360a1g7266d0kqjc0c69omkaq30o6.apps.googleusercontent.com">
-   
+
 </head>
 <body>
-
+    <canvas class="centered-canvas" id="visualizer" width="400" height="400"></canvas>
+    <div>
+        <button id="start_button" onclick="document.getElementById('speak').click();" class="centered">
+            <img src="../images/microphone.png" id="microphone" class="centered" />
+        </button>
+    </div>
     <div class="field">
         <label for="voices">Choose a voice</label>
         <select name="voices" id="voices"></select>
     </div>
     <form>
-        <input id="message" placeholder="Type your message" style="width: 50%;" />
+        <input id="message" placeholder="Type your message" style="width: 40%;" />
         <button id="send" type="submit">Send</button>
     </form>
-    <div id="history" style="overflow-y: scroll; height: 290px; "></div>
+    <div id="history" style="overflow-y: scroll; height: 600px;"></div>
 
     <script>
         let fullname = "";
@@ -41,7 +66,7 @@
                     // Current values
                     var isSignedIn = auth2.isSignedIn.get();
                     var currentUser = auth2.currentUser.get();
-                    
+
 
                     if (!isSignedIn) {
                         // Rendering g-signin2 button.
