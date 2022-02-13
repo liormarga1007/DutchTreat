@@ -1292,12 +1292,12 @@ setTimeout(async () => {
             e.preventDefault()
             if (el("history").childElementCount == 0) {
                 const botElement = document.createElement("div")
-                botElement.innerHTML = "<b>ZUZU</b>: Hi " + fullname + " what do you want to order Pizza hut ? Sports tickets ?"
+                botElement.innerHTML = "<b>ZUZU</b>:" + " What do you want to order Pizza hut or tickets for sports or music events ?"
                 botElement.style.color = "green"
                 el("history").appendChild(botElement)
                 if (synthVoice) {
                     MESSAGE_DELAY = 5000;
-                    synthVoice("Hi " + fullname + " what do you want to order Pizza hut ? Sports tickets ?");
+                    synthVoice("Hi " + fullname + " What do you want to order Pizza hut or tickets for sports or music events ?");
                     MESSAGE_DELAY = 3000;
                 }
                 else {
