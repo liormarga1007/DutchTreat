@@ -957,7 +957,7 @@ setTimeout(async () => {
     nlp.addDocument('en', '10', 'greetings.size');
 
     nlp.addDocument('en', 'small', 'greetings.topic');
-    nlp.addDocument('en', 'medium', 'greetings.topic');
+    nlp.addDocument('en', 'extra', 'greetings.topic');
     nlp.addDocument('en', 'large', 'greetings.topic');
 
     nlp.addDocument('en', 'olives', 'greetings.verification');
@@ -983,10 +983,10 @@ setTimeout(async () => {
     nlp.addAnswer("en", "greetings.sports", "For which game do you want to reserve ticket ? ")
     nlp.addAnswer("en", "greetings.music", "For which concert do you want to reserve ticket ? ")
 
-    nlp.addAnswer("en", "greetings.pizza", "Which pizza ? Pan pizza ? Krispy pizza ? ")
+    nlp.addAnswer("en", "greetings.pizza", "Which pizza ? Pan ? Crispy ? ")
     nlp.addAnswer("en", "greetings.size", "Which pizza size ? Small ? Large ? Extra Large")
-    nlp.addAnswer("en", "greetings.topic", "Which topic and place ? plain, mushrooms,  half olives")
-    nlp.addAnswer("en", "greetings.verification", "What is your phone for verification ?")
+    nlp.addAnswer("en", "greetings.topic", "Which topic? Plain ? Mushrooms ? Olives ? Half Onions")
+    nlp.addAnswer("en", "greetings.verification", "What is your mobile for verification ?")
     nlp.addAnswer("en", "greetings.code", "We are loading your order ... We are getting your details ... We are adding your topic ... What is the code sent to the mobile ? it may take 10 sec")
     nlp.addAnswer("en", "greetings.confirm", "Pay when you get the pizza, please wait for final confirmation")
 
@@ -1012,7 +1012,7 @@ setTimeout(async () => {
             {
                 intent: 'pizzahut',
                 utterances: ['pizzahut', 'pizza', 'hut'],
-                answers: ['Which pizza ? Pan pizza ? Krispy pizza ?'],
+                answers: ['Which pizza ? Pan ? Crispy ?'],
             },
             {
                 intent: 'greetings.size',
@@ -1091,7 +1091,7 @@ setTimeout(async () => {
         utterance.voice = currentVoice;
         utterance.text = text        
         synth.speak(utterance)
-        if (text.includes("processing") || text.includes("Success") || text.includes("Pay") || text.includes("We are")) {
+        if (text.includes("processing") || text.includes("Success") || text.includes("Pay") || text.includes("please wait")) {
             
         }
         else {
@@ -1121,7 +1121,7 @@ setTimeout(async () => {
         if (state.includes("tickets")) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
 
         if (state.includes("size")) { size = msg; MESSAGE_DELAY = 3000 }
-        if (state.includes("Krispy")) { wide = msg; MESSAGE_DELAY = 4000 }
+        if (state.includes("Crispy")) { wide = msg; MESSAGE_DELAY = 4000 }
         if (state.includes("topic")) { topics = msg; MESSAGE_DELAY = 2000 }
         if (state.includes("verification") && await (/^\d{3}-\d{3}-\d{4}$/.test(msg) || /^\d{10}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
         if (state.includes("code") && await /^\d{4}$/.test(msg.replace("-", "").replace(" ", ""))) { code = await msg.replace("-", "").replace(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
@@ -1134,7 +1134,8 @@ setTimeout(async () => {
         else {
             answer = state;
         }
-        if (!answer.includes("code")) {
+        window.scrollBy(0, 50)
+        if (!answer.includes("code")) {           
             const botElement = document.createElement("div")
             botElement.innerHTML = "<b>ZUZU</b>: " + answer
             botElement.style.color = "green"
@@ -1145,10 +1146,10 @@ setTimeout(async () => {
         }
         else {
             if (msg.includes("verification")) {
-                waitingforcode("We are loading pizza hut order")
+                waitingforcode("please wait while We are loading pizza hut order")
             }
             else {
-                waitingforcode("what is your code sent ?");
+                waitingforcode("what is your code sent to your mobile?");
                 return;
 
             }
@@ -1234,7 +1235,7 @@ setTimeout(async () => {
     }
     waitingforcode = answer1 => {
         //We are loading your order ...We are getting your details ...We are adding your topic ...What is the code sent to the mobile ? it may take 10 sec
-
+        window.scrollBy(0, 25)
         const botElement = document.createElement("div")
         botElement.innerHTML = "<b>ZUZU</b>: " + answer1
         botElement.style.color = "green"
@@ -1243,16 +1244,16 @@ setTimeout(async () => {
         recognizing=false
         if (synthVoice) synthVoice(answer1);
         if (answer1.includes("loading")){
-            setTimeout(waitingforcode, 6000, "We are getting your pizza hut details")
+            setTimeout(waitingforcode, 6000, "please wait while we process your order")
         }
-        if (answer1.includes("getting")) {
-            setTimeout(waitingforcode, 6000, "We are adding your pizza hut topics")
+        if (answer1.includes("process")) {
+            setTimeout(waitingforcode, 6000, "please wait while we prepare your pizza hut")
         }
-        if (answer1.includes("adding")) {
-            setTimeout(waitingforcode, 6000, "We are cheking out your pizza hut order")
+        if (answer1.includes("prepare")) {
+            setTimeout(waitingforcode, 6000, "please wait your pizza hut is almost ready for delivery")
         }
-        if (answer1.includes("cheking")) {
-            setTimeout(waitingforcode, 6000, "What is the code sent to the mobile ?")
+        if (answer1.includes("delivery")) {
+            setTimeout(waitingforcode, 6000, "What is the code sent to your mobile?")
         }
     }
 
@@ -1266,9 +1267,10 @@ setTimeout(async () => {
         if (text1.includes("code")) {
             return;
         }
+        window.scrollBy(0, 25)
         let answer = text1.match(/<title>([^<]*)<\/title>/)[1];
         const botElement = document.createElement("div")
-        botElement.innerHTML = "<b>ZUZU</b>: " + answer
+        botElement.innerHTML = "<b>ZUZU</b>: Success " + answer
         botElement.style.color = "green"
         el("history").appendChild(botElement)
         recognition.stop()
@@ -1302,6 +1304,15 @@ setTimeout(async () => {
                     recognition.start()
                 }
             }
+            else if (el("history").lastChild.innerHTML.includes("code")) {
+                recognition.start()
+            }
+            else if (el("history").lastChild.innerHTML.includes("Success")) {
+                while (el("history").firstChild) {
+                    el("history").removeChild(el("history").lastChild);
+                    window.scrollTo(0,-1000)
+                }
+            }
         }
         document.forms[0].appendChild(speakElement)
 
@@ -1323,6 +1334,7 @@ setTimeout(async () => {
             el("send").style.display = "none"
             el("message").disabled = true
             el("message").placeholder = "Listening..."
+            el("microphone").src = "../images/microphonerecording.png"
         }
 
         recognition.onerror = function (event) {
@@ -1336,7 +1348,8 @@ setTimeout(async () => {
             el("message").disabled = false
             el("message").placeholder = "Type your message"
             el("interim").innerText = ""
-            if (el("message").value == "" && el("history").childElementCount < 16 && recognizing) {
+            el("microphone").src = "../images/microphone.png"
+            if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {
                 recognition.start();
             }
         }
