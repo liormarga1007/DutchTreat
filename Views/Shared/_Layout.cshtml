@@ -1,22 +1,37 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8" />
-  <meta name="google-site-verification" content="sVFIei6cPw9GOk1bocyK28VMyrlK6Rf0eGGeWzwUiAo" />  
-  <title>ZUZU : @ViewBag.Title</title>
-  <environment names="Development">
-      <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-      <link href="~/lib/fortawesome/fontawesome-free/css/all.css" rel="stylesheet" />
-      <link href="~/css/site.css" rel="stylesheet" />
-      <link href="~/css/audiodemo.css" rel="stylesheet" />
-  </environment>
+    <meta charset="utf-8" />
+    <meta name="google-site-verification" content="sVFIei6cPw9GOk1bocyK28VMyrlK6Rf0eGGeWzwUiAo" />
+    <title>@ViewBag.Title</title>
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="~/images/android-desktop.png">
 
-  <environment names="Staging,Production">
-      <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-      <link href="~/lib/fortawesome/fontawesome-free/css/all.css" rel="stylesheet" />
-      <link href="~/css/site.css" rel="stylesheet" />
-      <link href="~/css/audiodemo.css" rel="stylesheet" />
-  </environment>
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Audio Demo">
+    <link rel="apple-touch-icon-precomposed" href="~/images/ios-desktop.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="~/images/windows.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <link rel="shortcut icon" href="~/images/favicon.png">
+    <environment names="Development">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/lib/fortawesome/fontawesome-free/css/all.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
+        <link href="~/css/audiodemo.css" rel="stylesheet" />
+    </environment>
+
+    <environment names="Staging,Production">
+        <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        <link href="~/lib/fortawesome/fontawesome-free/css/all.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
+        <link href="~/css/audiodemo.css" rel="stylesheet" />
+    </environment>
 
 </head>
 <body>
