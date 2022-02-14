@@ -41,14 +41,14 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="App" asp-action="About">About</a>
                         </li>
-                       @if (User.Identity.IsAuthenticated)
+                        @*if (User.Identity.IsAuthenticated)
                         {
                             <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
                         }
                         else
                         {
                             <li><a asp-controller="Account" asp-action="Login">Login</a></li>
-                        }
+                        }*@
                     </ul>
                 </div>
         </nav>

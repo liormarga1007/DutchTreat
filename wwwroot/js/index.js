@@ -1120,9 +1120,9 @@ setTimeout(async () => {
         if (state.includes("phone") && !state.includes("verification")) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 1500}
         if (state.includes("tickets")) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
 
-        if (state.includes("size")) { size = msg; MESSAGE_DELAY = 3000 }
         if (state.includes("Crispy")) { wide = msg; MESSAGE_DELAY = 4000 }
-        if (state.includes("topic")) { topics = msg; MESSAGE_DELAY = 2000 }
+        if (state.includes("size")) { size = msg; MESSAGE_DELAY = 3500 }
+        if (state.includes("topic")) { topics = msg; MESSAGE_DELAY = 2500 }
         if (state.includes("verification") && await (/^\d{3}-\d{3}-\d{4}$/.test(msg) || /^\d{10}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
         if (state.includes("code") && await /^\d{4}$/.test(msg.replace("-", "").replace(" ", ""))) { code = await msg.replace("-", "").replace(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
 
@@ -1132,7 +1132,11 @@ setTimeout(async () => {
             state = answer;
         }
         else {
-            answer = state;
+            answer = state; 
+            if (state.includes("size")) MESSAGE_DELAY = 4000;
+            if (state.includes("topic")) MESSAGE_DELAY = 3500;
+            if (state.includes("verification")) MESSAGE_DELAY = 2500;
+
         }
         window.scrollBy(0, 50)
         if (!answer.includes("code")) {           
@@ -1288,6 +1292,7 @@ setTimeout(async () => {
         const speakElement = document.createElement("button")
         speakElement.id = "speak"
         speakElement.innerText = "Speak!"
+        speakElement.hidden ="true"
         speakElement.onclick = e => {
             e.preventDefault()
             if (el("history").childElementCount == 0) {
