@@ -1282,14 +1282,14 @@ setTimeout(async () => {
 
     // Add form submit event listener
     document.forms[0].onsubmit = onMessage
-
+    var speakElement = null;
     // if speech recognition is supported then add elements for it
-    if (recognition) {
+    if (recognition && speakElement == null) {
         // add speak button
-        const speakElement = document.createElement("button")
+        speakElement = document.createElement("button")
         speakElement.id = "speak"
         speakElement.innerText = "Speak!"
-        speakElement.hidden ="true"
+        speakElement.hidden = "true"
         speakElement.onclick = e => {
             e.preventDefault()
             if (el("history").childElementCount == 0) {
@@ -1317,6 +1317,7 @@ setTimeout(async () => {
                 }
             }
         }
+        
         document.forms[0].appendChild(speakElement)
 
         // add "interim" element
