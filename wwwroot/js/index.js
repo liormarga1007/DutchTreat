@@ -1296,7 +1296,7 @@ setTimeout(async () => {
         speakElement.onclick = e => {
             e.preventDefault()
             if (el("history").childElementCount == 0) {
-                window.scrollBy(0,30)
+                window.scrollBy(0,35)
                 const botElement = document.createElement("div")
                 botElement.innerHTML = "<b>ZUZU</b>:" + " What do you want to order Pizza hut or tickets for sports or music events ?"
                 botElement.style.color = "green"
