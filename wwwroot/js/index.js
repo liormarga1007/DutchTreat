@@ -1150,7 +1150,7 @@ setTimeout(async () => {
         }
         else {
             if (msg.includes("verification")) {
-                waitingforcode("please wait while We are loading pizza hut order")
+                waitingforcode("please wait while we process your order")
             }
             else {
                 waitingforcode("what is your code sent to your mobile?");
@@ -1247,17 +1247,14 @@ setTimeout(async () => {
         recognition.stop()
         recognizing=false
         if (synthVoice) synthVoice(answer1);
-        if (answer1.includes("loading")){
-            setTimeout(waitingforcode, 6000, "please wait while we process your order")
-        }
         if (answer1.includes("process")) {
-            setTimeout(waitingforcode, 6000, "please wait while we prepare your pizza hut")
+            setTimeout(waitingforcode, 8000, "please wait while we prepare your pizza hut")
         }
         if (answer1.includes("prepare")) {
-            setTimeout(waitingforcode, 6000, "please wait your pizza hut is almost ready for delivery")
+            setTimeout(waitingforcode, 8000, "please wait your pizza hut is almost ready for delivery")
         }
         if (answer1.includes("delivery")) {
-            setTimeout(waitingforcode, 6000, "What is the code sent to your mobile?")
+            setTimeout(waitingforcode, 8000, "What is the code sent to your mobile?")
         }
     }
 
