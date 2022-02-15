@@ -1334,7 +1334,7 @@ setTimeout(async () => {
         // switch to listening mode
         recognition.onstart = function () {
             recognizing = true
-            el("speak").style.display = "none"
+            //el("speak").style.display = "none"
             el("send").style.display = "none"
             el("message").disabled = true
             el("message").placeholder = "Listening..."
@@ -1347,7 +1347,7 @@ setTimeout(async () => {
 
         // switch back to type mode
         recognition.onend = function () {
-            el("speak").style.display = "inline-block"
+            //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
             el("message").placeholder = "Type your message"
