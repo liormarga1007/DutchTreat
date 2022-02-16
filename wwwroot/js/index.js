@@ -1303,9 +1303,6 @@ setTimeout(async () => {
                     synthVoice("Hi " + fullname + " What do you want to order Pizza hut or tickets for sports or music events ?");
                     MESSAGE_DELAY = 3000;
                 }
-                else {
-                    recognition.start()
-                }
             }
             else if (el("history").lastChild.innerHTML.includes("code")) {
                 if (!recognizing) recognition.start()
@@ -1349,11 +1346,12 @@ setTimeout(async () => {
         }
 
         // switch back to type mode
-        recognition.onend = function () {
+        recognition.onend = function (event) {
+            
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
-            el("message").placeholder = "Type your message"
+            el("message").placeholder = event.type;
             el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
