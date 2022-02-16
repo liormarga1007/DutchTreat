@@ -1308,7 +1308,7 @@ setTimeout(async () => {
                 }
             }
             else if (el("history").lastChild.innerHTML.includes("code")) {
-                recognition.start()
+                if (!recognizing) recognition.start()
             }
             else if (el("history").lastChild.innerHTML.includes("Success")) {
                 while (el("history").firstChild) {
@@ -1317,7 +1317,7 @@ setTimeout(async () => {
                 }
             }
             else {
-                recognition.start()
+                if (!recognizing) recognition.start()
             }
         }
         
