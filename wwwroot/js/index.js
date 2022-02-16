@@ -1144,8 +1144,8 @@ setTimeout(async () => {
             botElement.innerHTML = "<b>ZUZU</b>: " + answer
             botElement.style.color = "green"
             el("history").appendChild(botElement)
-            recognition.stop()
-            recognizing =false
+            recognizing = false
+            recognition.stop()            
             if (synthVoice) synthVoice(answer);
         }
         else {
@@ -1244,8 +1244,8 @@ setTimeout(async () => {
         botElement.innerHTML = "<b>ZUZU</b>: " + answer1
         botElement.style.color = "green"
         el("history").appendChild(botElement)
-        recognition.stop()
-        recognizing=false
+        recognizing = false
+        recognition.stop()       
         if (synthVoice) synthVoice(answer1);
         if (answer1.includes("process")) {
             setTimeout(waitingforcode, 8000, "please wait. while we prepare your pizza hut order")
@@ -1274,8 +1274,8 @@ setTimeout(async () => {
         botElement.innerHTML = "<b>ZUZU</b>: Success " + answer
         botElement.style.color = "green"
         el("history").appendChild(botElement)
-        recognition.stop()
-        recognizing =false
+        recognizing = false
+        recognition.stop()        
         if (synthVoice) synthVoice("Success " + answer)
         console.log(answer)
     }
@@ -1305,7 +1305,12 @@ setTimeout(async () => {
                 }
             }
             else if (el("history").lastChild.innerHTML.includes("code")) {
-                if (!recognizing) recognition.start()
+                if (!recognizing)
+                    { recognition.start() }
+                else {
+                    recognizing = false;
+                    recognition.stop();                   
+                }
             }
             else if (el("history").lastChild.innerHTML.includes("Success")) {
                 while (el("history").firstChild) {
@@ -1314,7 +1319,11 @@ setTimeout(async () => {
                 }
             }
             else {
-                if (!recognizing) recognition.start()
+                if (!recognizing) { recognition.start() }
+                else {
+                    recognizing = false;
+                    recognition.stop();
+                }
             }
         }
         
