@@ -1356,8 +1356,12 @@ setTimeout(async () => {
             el("message").placeholder = "Type your message"
             el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
-            if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {
-                recognition.start();
+            if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
+                try {
+                    recognition.start();
+                } catch (error) {
+                    alert(event.error)
+                }
             }
         }
 
