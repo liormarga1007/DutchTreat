@@ -983,12 +983,12 @@ setTimeout(async () => {
     nlp.addAnswer("en", "greetings.sports", "For which game do you want to reserve ticket ? ")
     nlp.addAnswer("en", "greetings.music", "For which concert do you want to reserve ticket ? ")
 
-    nlp.addAnswer("en", "greetings.pizza", "Which pizza ? Pan ? Crispy ? ")
-    nlp.addAnswer("en", "greetings.size", "Which pizza size ? Small ? Large ? Extra Large")
-    nlp.addAnswer("en", "greetings.topic", "Which topic? Plain ? Mushrooms ? Olives ? Half Onions")
+    nlp.addAnswer("en", "greetings.pizza", "What sort of pizza? Pan? Crispy? ")
+    nlp.addAnswer("en", "greetings.size", "what size? Small? Large? Extra large?")
+    nlp.addAnswer("en", "greetings.topic", "Any extras?  Mushrooms? Half Mushrooms? Olives?")
     nlp.addAnswer("en", "greetings.verification", "What is your mobile for verification ?")
     nlp.addAnswer("en", "greetings.code", "We are loading your order ... We are getting your details ... We are adding your topic ... What is the code sent to the mobile ? it may take 10 sec")
-    nlp.addAnswer("en", "greetings.confirm", "Pay when you get the pizza, please wait for final confirmation")
+    nlp.addAnswer("en", "greetings.confirm", "you pay when you get your pizza, thank you.")
 
     //nlp.addAnswer("en", "greetings.adress", "'For which email do you want to send ticket ? ")
     //nlp.addAnswer("en", "email", "what is your phone number ?")
@@ -1012,12 +1012,12 @@ setTimeout(async () => {
             {
                 intent: 'pizzahut',
                 utterances: ['pizzahut', 'pizza', 'hut'],
-                answers: ['Which pizza ? Pan ? Crispy ?'],
+                answers: ['What sort of pizza? Pan? Crispy?'],
             },
             {
                 intent: 'greetings.size',
                 utterances: ['10','pan' , 'crispy','krispy','thin', 'sing', 'same','seek','thick','spin','saint','fake','dick','loud','take','peak','lowd','laws','Sick','fake','Zeeks'],
-                answers: ['Which pizza size ? Small ? Large ? Extra Large'],
+                answers: ['What size? Small? Large? Extra large?' ]
             },
         ],
         entities: {
@@ -1091,7 +1091,7 @@ setTimeout(async () => {
         utterance.voice = currentVoice;
         utterance.text = text        
         synth.speak(utterance)
-        if (text.includes("processing") || text.includes("Success") || text.includes("Pay") || text.includes("please wait")) {
+        if (text.includes("processing") || text.includes("Success") || text.includes("pay") || text.includes("please wait")) {
             
         }
         else {
@@ -1150,10 +1150,10 @@ setTimeout(async () => {
         }
         else {
             if (msg.includes("verification")) {
-                waitingforcode("please wait while we process your order")
+                waitingforcode("please wait. while we process your order")
             }
             else {
-                waitingforcode("what is your code sent to your mobile?");
+                waitingforcode("Could you tell me the code we sent to your mobile?");
                 return;
 
             }
@@ -1220,7 +1220,7 @@ setTimeout(async () => {
 
             //const myTimeout = setTimeout(mycoe, 10000);
         }
-        if (answer.includes("Pay")) {
+        if (answer.includes("pay")) {
             //const Http = new XMLHttpRequest();
             MESSAGE_DELAY = 3000
             const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=pizzahut" +
@@ -1248,13 +1248,13 @@ setTimeout(async () => {
         recognizing=false
         if (synthVoice) synthVoice(answer1);
         if (answer1.includes("process")) {
-            setTimeout(waitingforcode, 8000, "please wait while we prepare your pizza hut")
+            setTimeout(waitingforcode, 8000, "please wait. while we prepare your pizza hut order")
         }
         if (answer1.includes("prepare")) {
-            setTimeout(waitingforcode, 8000, "please wait your pizza hut is almost ready for delivery")
+            setTimeout(waitingforcode, 8000, "please wait. your pizza hut order is almost ready for delivery")
         }
         if (answer1.includes("delivery")) {
-            setTimeout(waitingforcode, 8000, "What is the code sent to your mobile?")
+            setTimeout(waitingforcode, 8000, "Could you tell me the code we sent to your mobile?")
         }
     }
 
@@ -1295,12 +1295,12 @@ setTimeout(async () => {
             if (el("history").childElementCount == 0) {
                 window.scrollBy(0, 35)
                 const botElement = document.createElement("div")
-                botElement.innerHTML = "<b>ZUZU</b>:" + " What do you want to order Pizza hut or tickets for sports or music events ?"
+                botElement.innerHTML = "<b>ZUZU</b>:" + " What would you like to order? from pizza hut or tickets for sports or music events?"
                 botElement.style.color = "green"
                 el("history").appendChild(botElement)
                 if (synthVoice) {
-                    MESSAGE_DELAY = 5000;
-                    synthVoice("Hi " + fullname + " What do you want to order Pizza hut or tickets for sports or music events ?");
+                    MESSAGE_DELAY = 5500;
+                    synthVoice("Hi " + fullname + " What would you like to order? from pizza hut or tickets for sports or music events?");
                     MESSAGE_DELAY = 3000;
                 }
             }
@@ -1351,7 +1351,7 @@ setTimeout(async () => {
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
-            el("message").placeholder = event.type;
+            el("message").placeholder = "Type your message"
             el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
