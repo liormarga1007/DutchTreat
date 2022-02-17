@@ -38,9 +38,13 @@ setTimeout(async () => {
     nlp.addDocument("en", "hello", "greetings.hello")
     nlp.addDocument("en", "hi", "greetings.hello")
     nlp.addDocument("en", "howdy", "greetings.hello")
+
     nlp.addDocument("en", "sports", "greetings.sports")
     nlp.addDocument("en", "sport", "greetings.sports")
     nlp.addDocument("en", "football", "greetings.sports")
+
+    nlp.addDocument("en", "music", "greetings.music")
+
     nlp.addDocument("en", "pizza", "greetings.pizza")
     nlp.addDocument("en", "hut", "greetings.pizza")
     nlp.addDocument("en", "pizzahut", "greetings.pizza")
@@ -924,6 +928,9 @@ setTimeout(async () => {
     nlp.addDocument("en", "BRussia Dortmund versus Bochum", "greetings.adress")
     nlp.addDocument("en", "Borussia Dortmund versus Hertha Berlin", "greetings.adress")
 
+    nlp.addDocument("en", "coldplay berlin", "greetings.adress")
+    nlp.addDocument("en", "call play berlin", "greetings.adress")
+
     nlp.addDocument('en', '%fullname%', 'address');
     nlp.addDocument('en', 'full name %fullname%', 'address');
     nlp.addDocument('en', '@fullname', 'address');
@@ -964,7 +971,7 @@ setTimeout(async () => {
     nlp.addDocument('en', 'olive', 'greetings.verification');
     nlp.addDocument('en', 'onions', 'greetings.verification');
     nlp.addDocument('en', 'mushroom', 'greetings.verification');
-    nlp.addDocument('en', 'playing', 'greetings.verification');
+    
     nlp.addDocument('en', 'plane', 'greetings.verification');
     nlp.addDocument('en', 'plain', 'greetings.verification');
     nlp.addDocument('en', 'no', 'greetings.verification');
@@ -983,7 +990,7 @@ setTimeout(async () => {
     //nlp.addAnswer("en", "greetings.bye", "see you soon!")
     nlp.addAnswer("en", "greetings.hello", "which event to reserve : sports ? music?")
     nlp.addAnswer("en", "greetings.sports", "For which game do you want to reserve ticket ? ")
-    nlp.addAnswer("en", "greetings.music", "For which concert do you want to reserve ticket ? ")
+    nlp.addAnswer("en", "greetings.music", "which artist or band? And in which city?")
 
     nlp.addAnswer("en", "greetings.pizza", "What sort of pizza? Pan? Crispy? ")
     nlp.addAnswer("en", "greetings.size", "what size? Small? Large? Extra large?")
@@ -1104,7 +1111,8 @@ setTimeout(async () => {
         userElement.style.color = "blue"
         el("history").appendChild(userElement)
         if (state.includes("sports")) { game = msg; MESSAGE_DELAY = 2500 }
-        if (state.includes("game")) { game = msg; MESSAGE_DELAY =2500}
+        if (state.includes("game")) { game = msg; MESSAGE_DELAY = 2500 }
+        if (state.includes("artist")) { game = "coldplay berlin" ; MESSAGE_DELAY = 3000 }
         if (state.includes("address")) { adress = msg;msg += " address"; MESSAGE_DELAY= 2000}
         if (state.includes("phone") && !state.includes("verification")) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 1500}
         if (state.includes("tickets")) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
@@ -1166,7 +1174,7 @@ setTimeout(async () => {
             const text = await res.text();
             console.log(text)
 
-            const myTimeout = setTimeout(myGreeting, 10000);            
+            //const myTimeout = setTimeout(myGreeting, 10000);            
             if (answer.includes("processing")) {
                 //const Http = new XMLHttpRequest();
                 MESSAGE_DELAY = 3000
