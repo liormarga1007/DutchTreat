@@ -967,6 +967,8 @@ setTimeout(async () => {
     nlp.addDocument('en', 'playing', 'greetings.verification');
     nlp.addDocument('en', 'plane', 'greetings.verification');
     nlp.addDocument('en', 'plain', 'greetings.verification');
+    nlp.addDocument('en', 'no', 'greetings.verification');
+    nlp.addDocument('en', 'none', 'greetings.verification');
 
     nlp.addDocument('en', 'verification', 'greetings.code');
     nlp.addDocument('en', 'pay', 'greetings.confirm');
