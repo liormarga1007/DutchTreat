@@ -1239,7 +1239,7 @@ setTimeout(async () => {
     }
     waitingforcode = answer1 => {
         //We are loading your order ...We are getting your details ...We are adding your topic ...What is the code sent to the mobile ? it may take 10 sec
-        window.scrollBy(0, 25)
+        window.scrollBy(0, 28)
         const botElement = document.createElement("div")
         botElement.innerHTML = "<b>ZUZU</b>: " + answer1
         botElement.style.color = "green"
