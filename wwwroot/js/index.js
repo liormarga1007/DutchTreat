@@ -1122,7 +1122,7 @@ setTimeout(async () => {
 
         if (state.includes("Crispy")) { wide = msg; MESSAGE_DELAY = 4000 }
         if (state.includes("size")) { size = msg; MESSAGE_DELAY = 3500 }
-        if (state.includes("topic")) { topics = msg; MESSAGE_DELAY = 2500 }
+        if (state.includes("extras")) { topics = msg; MESSAGE_DELAY = 2500 }
         if (state.includes("verification") && await (/^\d{3}-\d{3}-\d{4}$/.test(msg) || /^\d{10}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
         if (state.includes("code") && await /^\d{4}$/.test(msg.replace("-", "").replace(" ", ""))) { code = await msg.replace("-", "").replace(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
 
@@ -1356,7 +1356,7 @@ setTimeout(async () => {
 
         // switch back to type mode
         recognition.onend = function (event) {
-            
+            event.preventDefault()
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
