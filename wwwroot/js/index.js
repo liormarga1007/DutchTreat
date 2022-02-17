@@ -1030,19 +1030,6 @@ setTimeout(async () => {
                     thor: ['thor'],
                 },
             },
-            //email: {
-            //    locale: ['en', 'es'],
-            //    regex: '/\\b(\\w[-._\\w]*\\w@\\w[-._\\w]*\\w\\.\\w{2,3})\\b/gi',
-            //},
-            //email2: {
-            //    locale: ['en', 'es'],
-            //    regex: '/\\b(\\w[-._\\w]*\\w\\s+at\\s+\\w[-._\\w]*\\w\\.\\w{2,3})\\b/gi',
-            //},
-
-            //fullname: {
-            //    locale: ['en', 'es'],
-            //    regex: '\\b\\w[-._\\w]*\\w\\s+name\\s+is\\s+(\\w[-._\\w]*\\s+\\w[-._\\w]*).*\\b/gi',
-            //},
 
             city: {
                 locale: ['en', 'es'],
