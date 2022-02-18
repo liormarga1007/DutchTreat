@@ -925,7 +925,7 @@ setTimeout(async () => {
     nlp.addDocument("en", "Borussia Dortmund versus Leipzig", "greetings.adress")
     nlp.addDocument("en", "Borussia Dortmund versus Wolfsburg", "greetings.adress")
     nlp.addDocument("en", "Bayern Munich versus Borussia Dortmund", "greetings.adress")
-    nlp.addDocument("en", "BRussia Dortmund versus Bochum", "greetings.adress")
+    nlp.addDocument("en", "Borussia Dortmund versus Bochum", "greetings.adress")
     nlp.addDocument("en", "Borussia Dortmund versus Hertha Berlin", "greetings.adress")
 
     nlp.addDocument("en", "coldplay berlin", "greetings.adress")
