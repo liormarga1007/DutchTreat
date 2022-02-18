@@ -35,14 +35,14 @@
         </button>
     </div>
     <div class="field">
-        <label for="voices">Choose a voice</label>
+        <label for="voices" onclick="document.getElementById('history').style.display = 'inline-block'">Choose a voice</label>
         <select name="voices" id="voices"></select>
     </div>
     <form>
-        <input id="message" placeholder="Type your message" style="width: 40%;" />
+        <input id="message"  placeholder="Type your message" style="width: 40%;" />
         <button id="send" type="submit">Send</button>
     </form>
-    <div id="history" style="overflow-y: scroll; height: 1000px;"></div>
+    <div id="history" style="display: none; height: 1000px;"></div>
 
     <script>
         let fullname = "";
