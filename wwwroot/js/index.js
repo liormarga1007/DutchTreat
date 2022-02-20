@@ -1145,7 +1145,8 @@ setTimeout(async () => {
             if (state.includes("size")) MESSAGE_DELAY = 4000;
             if (state.includes("topic")) MESSAGE_DELAY = 3500;
             if (state.includes("verification")) MESSAGE_DELAY = 2500;
-            if (state.includes("artist")) MESSAGE_DELAY = 4000
+            if (state.includes("Standing")) MESSAGE_DELAY = 4000
+            if (state.includes("artist")) MESSAGE_DELAY = 3000
 
         }
         window.scrollBy(0, 50)
