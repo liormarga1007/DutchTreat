@@ -581,7 +581,7 @@ setTimeout(async () => {
         const selectedIndex = event.target.selectedIndex;
         currentVoice = voices[selectedIndex];
         recognition.lang = currentVoice.lang;
-        if (currentVoice.lang.includes("iw_IL")) recognition.lang = he-IL;
+        if (currentVoice.lang.includes("iw_IL")) recognition.lang = "he-IL";
     });
 
     function uuidv4() {
