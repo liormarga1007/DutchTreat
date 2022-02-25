@@ -84,7 +84,7 @@ setTimeout(async () => {
     nlp.addDocument('en', 'large', 'greetings.topic');
 
     nlp.addDocument('en', 'קטן', 'greetings.topic.heb');
-    nlp.addDocument('en', 'אקסטרא', 'greetings.topic.heb');
+    nlp.addDocument('en', 'ענק', 'greetings.topic.heb');
     nlp.addDocument('en', 'גדול', 'greetings.topic.heb');
 
     nlp.addDocument('en', 'olives', 'greetings.verification');
@@ -95,6 +95,9 @@ setTimeout(async () => {
     nlp.addDocument('en', 'זיתים', 'greetings.verification.heb');
     nlp.addDocument('en', 'בצל', 'greetings.verification.heb');
     nlp.addDocument('en', 'פטריות', 'greetings.verification.heb');
+    nlp.addDocument('en', 'ריק', 'greetings.verification.heb');
+    nlp.addDocument('en', 'כלום', 'greetings.verification.heb');
+    nlp.addDocument('en', 'רגיל', 'greetings.verification.heb');
     
     nlp.addDocument('en', 'plane', 'greetings.verification');
     nlp.addDocument('en', 'plain', 'greetings.verification');
@@ -102,7 +105,10 @@ setTimeout(async () => {
     nlp.addDocument('en', 'none', 'greetings.verification');
 
     nlp.addDocument('en', 'verification', 'greetings.code');
+    nlp.addDocument('en', 'אישור', 'greetings.code.heb');
+
     nlp.addDocument('en', 'pay', 'greetings.confirm');
+    nlp.addDocument('en', 'שלם', 'greetings.confirm.heb');
     
     // Train also the NLG
     //nlp.slotManager.addSlot('greetings.adress', 'fullname', true, { en: 'What is your full name ?' });
@@ -119,11 +125,14 @@ setTimeout(async () => {
     nlp.addAnswer("en", "greetings.pizza", "What sort of pizza? Pan? Crispy? ")
     nlp.addAnswer("en", "greetings.size", "what size? Small? Large? Extra large?")
     nlp.addAnswer("en", "greetings.topic", "Any extras?  Mushrooms? Half Mushrooms? Olives?")
-    nlp.addAnswer("en", "greetings.topic.heb", "איזה תוספת תרצה ? פטריות ? חצי פטריות ? זיתים?")
+    nlp.addAnswer("en", "greetings.topic.heb", "איזה תוספת ? פטריות ? חצי זיתים ?")
     nlp.addAnswer("en", "greetings.verification", "What is your mobile for verification ?")
     nlp.addAnswer("en", "greetings.verification.heb", "מה מספר הטלפון לאישור ?")
     nlp.addAnswer("en", "greetings.code", "We are loading your order ... We are getting your details ... We are adding your topic ... What is the code sent to the mobile ? it may take 10 sec")
+    nlp.addAnswer("en", "greetings.code.heb", "קוד")
+
     nlp.addAnswer("en", "greetings.confirm", "you pay when you get your pizza, thank you.")
+    nlp.addAnswer("en", "greetings.confirm.heb", "שלם לשליח בזמן המשלוח תודה ")
 
     //nlp.addAnswer("en", "greetings.adress", "'For which email do you want to send ticket ? ")
     //nlp.addAnswer("en", "email", "what is your phone number ?")
@@ -162,7 +171,7 @@ setTimeout(async () => {
             {
                 intent: 'greetings.sizeheb',
                 utterances: ["דקה","עבה"],
-                answers: ['מה הגודל ? קטן ? גדול ? אקסטרא גדול?']
+                answers: ['מה הגודל ? קטן ? גדול ? ענק ?']
             },
             {
                 intent: 'greetings.place',
@@ -267,10 +276,13 @@ setTimeout(async () => {
         if (state.includes("tickets") && (cage.includes("sport") || cage.includes("music"))) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
 
         if ((state.includes("Crispy") || state.includes("דקה")) && cage.includes("pizza")) { wide = msg; MESSAGE_DELAY = 4000 }
-        if ((state.includes("size") || state.includes("גודל"))&& cage.includes("pizza")) { size = msg; MESSAGE_DELAY = 3500 }
-        if ((state.includes("extras") || state.includes("תוספות")) && cage.includes("pizza")) { topics = msg; MESSAGE_DELAY = 2500 }
-        if ((state.includes("verification") || state.includes("אישור")) && cage.includes("pizza") && await (/^\d{3}-\d{3}-\d{4}$/.test(msg) || await /^\d{10}$/.test(msg) || await /^\d{4} \d{3} \d{3}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
+        if ((state.includes("size") || state.includes("גודל"))&& cage.includes("pizza")) { size = msg; MESSAGE_DELAY = 4000 }
+        if ((state.includes("extras") || state.includes("תוספת")) && cage.includes("pizza")) { topics = msg; MESSAGE_DELAY = 2500 }
+        if ((state.includes("verification")) && cage.includes("pizza") && await (/^\d{3}-\d{3}-\d{4}$/.test(msg) || await /^\d{10}$/.test(msg) || await /^\d{4} \d{3} \d{3}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
+        if ((state.includes("אישור")) && cage.includes("pizza") && await (/^\d{3}-\d{3}-\d{4}$/.test(msg) || await /^\d{10}$/.test(msg) || await /^\d{4} \d{3} \d{3}$/.test(msg))) { phone = msg; msg += " אישור"; MESSAGE_DELAY = 10000 }
+
         if (state.includes("code") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replace("-", "").replace(" ", ""))) { code = await msg.replace("-", "").replace(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
+        if (state.includes("קוד") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replace("-", "").replace(" ", ""))) { code = await msg.replace("-", "").replace(" ", ""); msg += " שלם"; MESSAGE_DELAY = 20000 }
 
         const response = await nlp.process("en", msg)       
         let answer = response.answer || response.srcAnswer || "I don't understand."
@@ -290,7 +302,7 @@ setTimeout(async () => {
 
         }
         window.scrollBy(0, 50)
-        if (!answer.includes("code")) {           
+        if (!(answer.includes("code") || answer.includes("קוד"))) {
             const botElement = document.createElement("div")
             botElement.innerHTML = "<b>ZUZU</b>: " + answer
             botElement.style.color = "green"
@@ -300,8 +312,14 @@ setTimeout(async () => {
             if (synthVoice) synthVoice(answer);
         }
         else {
-            if (msg.includes("verification")) {
-                waitingforcode("please wait. while we process your order")
+            if (msg.includes("verification") || msg.includes("אישור") ) {
+                if (recognition.lang.includes("he-IL")) {
+                    waitingforcode("אנא המתן בזמן שאנו מעבדים את ההזמנה")
+
+                } else {
+                    waitingforcode("please wait. while we process your order")
+                }
+                
             }
             else {
                 waitingforcode("Could you tell me the code we sent to your mobile?");
@@ -351,7 +369,7 @@ setTimeout(async () => {
 
             }
         }
-        if (answer.includes("code")) {
+        if (answer.includes("code") || answer.includes("קוד")) {
             //const Http = new XMLHttpRequest();
             MESSAGE_DELAY = 3000
             const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=pizzahut" +
@@ -371,7 +389,7 @@ setTimeout(async () => {
 
             //const myTimeout = setTimeout(mycoe, 10000);
         }
-        if (answer.includes("pay")) {
+        if (answer.includes("pay")|| answer.includes("שלם")) {
             //const Http = new XMLHttpRequest();
             MESSAGE_DELAY = 3000
             const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=pizzahut" +
@@ -398,14 +416,34 @@ setTimeout(async () => {
         recognizing = false
         recognition.stop()       
         if (synthVoice) synthVoice(answer1);
-        if (answer1.includes("process")) {
-            setTimeout(waitingforcode, 8000, "please wait. while we prepare your pizza hut order")
+        if (answer1.includes("process") || answer1.includes("מעבדים")) {
+            if (recognition.lang.includes("he-IL"))
+            {
+                setTimeout(waitingforcode, 8000, "אנא המתן בזמן שאנו מכינים את הפיצה")
+
+            }
+            else {
+                setTimeout(waitingforcode, 8000, "please wait. while we prepare your pizza hut order")
+            }
         }
-        if (answer1.includes("prepare")) {
-            setTimeout(waitingforcode, 8000, "please wait. your pizza hut order is almost ready for delivery")
+        if (answer1.includes("prepare") || answer1.includes("מכינים")) {
+            if (recognition.lang.includes("he-IL"))
+            {
+                setTimeout(waitingforcode, 8000, "אנא המתן הפיצה האט שלך כמעט מוכנה למשלוח ")
+
+            }
+            else {
+                setTimeout(waitingforcode, 8000, "please wait. your pizza hut order is almost ready for delivery")
+            }
         }
-        if (answer1.includes("delivery")) {
-            setTimeout(waitingforcode, 8000, "Could you tell me the code we sent to your mobile?")
+        if (answer1.includes("delivery") || answer1.includes("משלוח")) {
+            if (recognition.lang.includes("he-IL")) {
+                setTimeout(waitingforcode, 8000, "האם תוכל להגיד לי בבקשה את הקוד שהגיע בהודעה ? ")
+
+            }
+            else {
+                setTimeout(waitingforcode, 8000, "Could you tell me the code we sent to your mobile?")
+            }
         }
     }
 
