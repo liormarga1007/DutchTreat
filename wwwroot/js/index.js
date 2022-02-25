@@ -10,7 +10,7 @@ function capitalize(string) {
 // initialize speech recognition
 const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition
-const recognition = SpeechRecognition ? new SpeechRecognition() : null
+let recognition = SpeechRecognition ? new SpeechRecognition() : null
 
 // how long to listen before sending the message
 let MESSAGE_DELAY = 4500
@@ -29,12 +29,6 @@ setTimeout(async () => {
     nlp.settings.autoSave = false
     nlp.addLanguage("en")
 
-    // Adds the utterances and intents for the NLP
-    //nlp.addDocument("en", "goodbye for now", "greetings.bye")
-    //nlp.addDocument("en", "bye bye take care", "greetings.bye")
-    //nlp.addDocument("en", "okay see you later", "greetings.bye")
-    //nlp.addDocument("en", "bye for now", "greetings.bye")
-    //nlp.addDocument("en", "i must go", "greetings.bye")
     nlp.addDocument("en", "hello", "greetings.hello")
     nlp.addDocument("en", "hi", "greetings.hello")
     nlp.addDocument("en", "howdy", "greetings.hello")
@@ -89,10 +83,18 @@ setTimeout(async () => {
     nlp.addDocument('en', 'extra', 'greetings.topic');
     nlp.addDocument('en', 'large', 'greetings.topic');
 
+    nlp.addDocument('en', 'קטן', 'greetings.topic.heb');
+    nlp.addDocument('en', 'אקסטרא', 'greetings.topic.heb');
+    nlp.addDocument('en', 'גדול', 'greetings.topic.heb');
+
     nlp.addDocument('en', 'olives', 'greetings.verification');
     nlp.addDocument('en', 'olive', 'greetings.verification');
     nlp.addDocument('en', 'onions', 'greetings.verification');
     nlp.addDocument('en', 'mushroom', 'greetings.verification');
+
+    nlp.addDocument('en', 'זיתים', 'greetings.verification.heb');
+    nlp.addDocument('en', 'בצל', 'greetings.verification.heb');
+    nlp.addDocument('en', 'פטריות', 'greetings.verification.heb');
     
     nlp.addDocument('en', 'plane', 'greetings.verification');
     nlp.addDocument('en', 'plain', 'greetings.verification');
@@ -117,7 +119,9 @@ setTimeout(async () => {
     nlp.addAnswer("en", "greetings.pizza", "What sort of pizza? Pan? Crispy? ")
     nlp.addAnswer("en", "greetings.size", "what size? Small? Large? Extra large?")
     nlp.addAnswer("en", "greetings.topic", "Any extras?  Mushrooms? Half Mushrooms? Olives?")
+    nlp.addAnswer("en", "greetings.topic.heb", "איזה תוספת תרצה ? פטריות ? חצי פטריות ? זיתים?")
     nlp.addAnswer("en", "greetings.verification", "What is your mobile for verification ?")
+    nlp.addAnswer("en", "greetings.verification.heb", "מה מספר הטלפון לאישור ?")
     nlp.addAnswer("en", "greetings.code", "We are loading your order ... We are getting your details ... We are adding your topic ... What is the code sent to the mobile ? it may take 10 sec")
     nlp.addAnswer("en", "greetings.confirm", "you pay when you get your pizza, thank you.")
 
@@ -142,13 +146,23 @@ setTimeout(async () => {
             },
             {
                 intent: 'pizzahut',
-                utterances: ['pizzahut', 'pizza', 'hut'],
+                utterances: ['פיצה האט', 'pizzahut', 'pizza', 'hut'],
                 answers: ['What sort of pizza? Pan? Crispy?'],
+            },
+            {
+                intent: 'pizzahutheb',
+                utterances: ['פיצה האט'],
+                answers: ['איזה פיצה דקה ? עבה ?'],
             },
             {
                 intent: 'greetings.size',
                 utterances: ['10','pan' , 'crispy','krispy','thin', 'sing', 'same','seek','thick','spin','saint','fake','dick','loud','take','peak','lowd','laws','Sick','fake','Zeeks'],
                 answers: ['What size? Small? Large? Extra large?' ]
+            },
+            {
+                intent: 'greetings.sizeheb',
+                utterances: ["דקה","עבה"],
+                answers: ['מה הגודל ? קטן ? גדול ? אקסטרא גדול?']
             },
             {
                 intent: 'greetings.place',
@@ -192,6 +206,7 @@ setTimeout(async () => {
 
     await nlp.train()
 
+    let cage = "";
     let state = "";
     let topics = "";
     let wide = "";
@@ -243,23 +258,26 @@ setTimeout(async () => {
         userElement.innerHTML = "<b>User</b>: " + msg
         userElement.style.color = "blue"
         el("history").appendChild(userElement)
-        if (state.includes("sports")) { game = msg; MESSAGE_DELAY = 2500 }
-        if (state.includes("game")) { game = msg; MESSAGE_DELAY = 2500 }
-        if (state.includes("artist")) { game = msg; MESSAGE_DELAY = 4000 }
-        if (state.includes("Standing")) { place = msg; MESSAGE_DELAY = 2500 }
-        if (state.includes("address")) { adress = msg;msg += " address"; MESSAGE_DELAY= 2000}
-        if (state.includes("phone") && !state.includes("verification")) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 1500}
-        if (state.includes("tickets")) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
+        if (state.includes("sports") && cage.includes("sport")) { game = msg; MESSAGE_DELAY = 2500 }
+        if (state.includes("game") && cage.includes("sport")) { game = msg; MESSAGE_DELAY = 2500 }
+        if (state.includes("artist") && cage.includes("music")) { game = msg; MESSAGE_DELAY = 4000 }
+        if (state.includes("Standing") && (cage.includes("sport") || cage.includes("music"))) { place = msg; MESSAGE_DELAY = 2500 }
+        if (state.includes("address") &&(cage.includes("sport") || cage.includes("music"))) { adress = msg;msg += " address"; MESSAGE_DELAY= 2000}
+        if (state.includes("phone") && !state.includes("verification") && (cage.includes("sport") || cage.includes("music"))) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 1500}
+        if (state.includes("tickets") && (cage.includes("sport") || cage.includes("music"))) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
 
-        if (state.includes("Crispy")) { wide = msg; MESSAGE_DELAY = 4000 }
-        if (state.includes("size")) { size = msg; MESSAGE_DELAY = 3500 }
-        if (state.includes("extras")) { topics = msg; MESSAGE_DELAY = 2500 }
-        if (state.includes("verification") && await (/^\d{3}-\d{3}-\d{4}$/.test(msg) || /^\d{10}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
-        if (state.includes("code") && await /^\d{4}$/.test(msg.replace("-", "").replace(" ", ""))) { code = await msg.replace("-", "").replace(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
+        if ((state.includes("Crispy") || state.includes("דקה")) && cage.includes("pizza")) { wide = msg; MESSAGE_DELAY = 4000 }
+        if ((state.includes("size") || state.includes("גודל"))&& cage.includes("pizza")) { size = msg; MESSAGE_DELAY = 3500 }
+        if ((state.includes("extras") || state.includes("תוספות")) && cage.includes("pizza")) { topics = msg; MESSAGE_DELAY = 2500 }
+        if ((state.includes("verification") || state.includes("אישור")) && cage.includes("pizza") && await (/^\d{3}-\d{3}-\d{4}$/.test(msg) || await /^\d{10}$/.test(msg) || await /^\d{4} \d{3} \d{3}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
+        if (state.includes("code") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replace("-", "").replace(" ", ""))) { code = await msg.replace("-", "").replace(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
 
         const response = await nlp.process("en", msg)       
         let answer = response.answer || response.srcAnswer || "I don't understand."
         if (!answer.includes("understand")) {
+            if (state.includes("pizza hut") && (answer.includes("pizza") || answer.includes("פיצה"))) cage = "pizza";
+            if (state.includes("pizza hut") && answer.includes("sport")) cage = "sport";
+            if (state.includes("pizza hut") && answer.includes("music")) cage = "music";
             state = answer;
         }
         else {
@@ -432,9 +450,14 @@ setTimeout(async () => {
                 botElement.style.color = "green"
                 el("history").appendChild(botElement)
                 if (synthVoice) {
-                    MESSAGE_DELAY = 5500;
-                    synthVoice("Hi " + fullname + " What would you like to order? from pizza hut or tickets for sports or music events?");
+                    MESSAGE_DELAY = 5600;
+                    if (recognition.lang.includes("he-IL")) synthVoice("מה תרצה להזמין ? פיצה האט ? הופעה ? אירוע ספורט ?");
+                    else {
+                        synthVoice("Hi " + fullname + " What would you like to order? from Pizza Hut or tickets for sports or music events?");
+
+                    }
                     MESSAGE_DELAY = 3000;
+                    state = " What would you like to order? from pizza hut or for events?"
                 }
             }
             else if (el("history").lastChild.innerHTML.includes("code")) {
@@ -557,6 +580,7 @@ setTimeout(async () => {
     voiceSelect.addEventListener('change', event => {
         const selectedIndex = event.target.selectedIndex;
         currentVoice = voices[selectedIndex];
+        recognition.lang = currentVoice.lang;
     });
 
     function uuidv4() {
