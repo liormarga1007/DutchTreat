@@ -530,7 +530,7 @@ setTimeout(async () => {
         document.body.appendChild(interimElement)
 
         // configure continuous speech recognition
-        recognition.continuous = true
+        recognition.continuous = false
         recognition.interimResults = true
         recognition.lang = "en-US"
 
@@ -591,6 +591,7 @@ setTimeout(async () => {
 
     const populateVoices = () => {
         const availableVoices = speechSynthesis.getVoices();
+        if (availableVoices.length == 1) recognition.lang = "he-IL";
         voiceSelect.innerHTML = '';
 
         availableVoices.forEach(voice => {
