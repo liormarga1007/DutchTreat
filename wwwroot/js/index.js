@@ -170,7 +170,7 @@ setTimeout(async () => {
             },
             {
                 intent: 'greetings.sizeheb',
-                utterances: ["דקה","עבה"],
+                utterances: ["דקה","עבה","אבא"],
                 answers: ['מה הגודל ? קטן ? גדול ? ענק ?']
             },
             {
@@ -288,15 +288,15 @@ setTimeout(async () => {
         let answer = response.answer || response.srcAnswer || "I don't understand."
         if (!answer.includes("understand")) {
             if (state.includes("pizza hut") && (answer.includes("pizza") || answer.includes("פיצה"))) cage = "pizza";
-            if (state.includes("pizza hut") && answer.includes("sport")) cage = "sport";
-            if (state.includes("pizza hut") && answer.includes("music")) cage = "music";
+            if (state.includes("pizza hut") && answer.includes("game")) cage = "sport";
+            if (state.includes("pizza hut") && answer.includes("artist")) cage = "music";
             state = answer;
         }
         else {
             answer = state; 
-            if (state.includes("size")) MESSAGE_DELAY = 4000;
-            if (state.includes("topic")) MESSAGE_DELAY = 3500;
-            if (state.includes("verification")) MESSAGE_DELAY = 2500;
+            if (state.includes("size") || state.includes("גודל")) MESSAGE_DELAY = 4000;
+            if (state.includes("topic") || state.includes("תוספת")) MESSAGE_DELAY = 3500;
+            if (state.includes("verification")||state.includes("אישור")) MESSAGE_DELAY = 2500;
             if (state.includes("Standing")) MESSAGE_DELAY = 4000
             if (state.includes("artist")) MESSAGE_DELAY = 3000
 
