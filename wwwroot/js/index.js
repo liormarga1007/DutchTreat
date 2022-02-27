@@ -498,7 +498,7 @@ setTimeout(async () => {
                     state = " What would you like to order? from pizza hut or for events?"
                 }
             }
-            else if (el("history").lastChild.innerHTML.includes("code")) {
+            else if (el("history").lastChild.innerHTML.includes("code") || el("history").lastChild.innerHTML.includes("קוד")) {
                 if (!recognizing)
                     { recognition.start() }
                 else {
