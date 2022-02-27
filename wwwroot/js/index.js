@@ -244,7 +244,7 @@ setTimeout(async () => {
         utterance.voice = currentVoice;
         utterance.text = text        
         synth.speak(utterance)
-        if (text.includes("processing") || text.includes("Success") || text.includes("pay") || text.includes("please wait")) {
+        if (text.includes("processing") || text.includes("Success") || text.includes("pay") || text.includes("שלם") || text.includes("please wait") || text.includes("המתן")) {
             
         }
         else {
