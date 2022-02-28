@@ -530,9 +530,10 @@ setTimeout(async () => {
         document.body.appendChild(interimElement)
 
         // configure continuous speech recognition
-        recognition.continuous = false
+        recognition.continuous = true
         recognition.interimResults = true
         recognition.lang = "en-US"
+        recognition.maxAlternatives = 1;
 
         // switch to listening mode
         recognition.onstart = function () {
