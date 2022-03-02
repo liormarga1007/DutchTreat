@@ -287,7 +287,8 @@ setTimeout(async () => {
         const response = await nlp.process("en", msg)       
         let answer = response.answer || response.srcAnswer || "I don't understand."
         if (!answer.includes("understand")) {
-            if (state.includes("pizza hut") && (answer.includes("pizza") || answer.includes("פיצה"))) cage = "pizza";
+            if (state.includes("פיצה האט") && (answer.includes("פיצה"))) cage = "pizza";
+            if (state.includes("pizza hut") && (answer.includes("pizza")))cage = "pizza";
             if (state.includes("pizza hut") && answer.includes("game")) cage = "sport";
             if (state.includes("pizza hut") && answer.includes("artist")) cage = "music";
             state = answer;
@@ -484,19 +485,25 @@ setTimeout(async () => {
             if (el("history").childElementCount == 0) {
                 window.scrollBy(0, 35)
                 const botElement = document.createElement("div")
-                botElement.innerHTML = "<b>ZUZU</b>:" + " What would you like to order? from pizza hut or tickets for sports or music events?"
-                botElement.style.color = "green"
-                el("history").appendChild(botElement)
                 if (synthVoice) {
                     MESSAGE_DELAY = 5600;
-                    if (recognition.lang.includes("he-IL")) synthVoice("מה תרצה להזמין ? פיצה האט ? הופעה ? אירוע ספורט ?");
+                    if (recognition.lang.includes("he-IL"))
+                    {
+                        synthVoice("מה תרצה להזמין ? פיצה האט ? הופעה ? אירוע ספורט ?");
+                        botElement.innerHTML = "<b>ZUZU</b>:" + "? מה תרצה להזמין ? פיצה האט ? הופעה ? אירוע ספורט "
+                        botElement.style.color = "green"
+                        el("history").appendChild(botElement)
+                        state = "מה תרצה להזמין ? פיצה האט ? הופעה ? אירוע ספורט ?"
+                    }
                     else {
                         synthVoice("Hi " + fullname + " What would you like to order? from Pizza Hut or tickets for sports or music events?");
-
+                        botElement.innerHTML = "<b>ZUZU</b>:" + " What would you like to order? from pizza hut or tickets for sports or music events?"
+                        botElement.style.color = "green"
+                        el("history").appendChild(botElement)
+                        state = " What would you like to order? from pizza hut or for events?"
                     }
                     MESSAGE_DELAY = 3000;
-                    state = " What would you like to order? from pizza hut or for events?"
-                }
+                                    }
             }
             else if (el("history").lastChild.innerHTML.includes("code") || el("history").lastChild.innerHTML.includes("קוד")) {
                 if (!recognizing)
