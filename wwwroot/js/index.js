@@ -323,7 +323,13 @@ setTimeout(async () => {
                 
             }
             else {
-                waitingforcode("Could you tell me the code we sent to your mobile?");
+                if (recognition.lang.includes("he-IL")) {
+                    waitingforcode("האם תוכל להגיד לי בבקשה את הקוד שהגיע בהודעה ? ")
+                }
+                else {
+                    waitingforcode("Could you tell me the code we sent to your mobile?");
+                }
+               
                 return;
 
             }
