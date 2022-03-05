@@ -278,11 +278,24 @@ setTimeout(async () => {
         if ((state.includes("Crispy") || state.includes("דקה")) && cage.includes("pizza")) { wide = msg; MESSAGE_DELAY = 4000 }
         if ((state.includes("size") || state.includes("גודל"))&& cage.includes("pizza")) { size = msg; MESSAGE_DELAY = 4000 }
         if ((state.includes("extras") || state.includes("תוספת")) && cage.includes("pizza")) { topics = msg; MESSAGE_DELAY = 2500 }
-        if ((state.includes("verification")) && cage.includes("pizza") && await (/^\d{3}-\d{3}-\d{4}$/.test(msg) || await /^\d{10}$/.test(msg) || await /^\d{4} \d{3} \d{3}$/.test(msg))) { phone = msg; msg += " verification"; MESSAGE_DELAY = 10000 }
-        if ((state.includes("אישור")) && cage.includes("pizza") && await (/^\d{3}-\d{3}-\d{4}$/.test(msg) || await /^\d{10}$/.test(msg) || await /^\d{4} \d{3} \d{3}$/.test(msg))) { phone = msg; msg += " אישור"; MESSAGE_DELAY = 10000 }
-
-        if (state.includes("code") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replace("-", "").replace(" ", ""))) { code = await msg.replace("-", "").replace(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
-        if (state.includes("קוד") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replace("-", "").replace(" ", ""))) { code = await msg.replace("-", "").replace(" ", ""); msg += " שלם"; MESSAGE_DELAY = 20000 }
+        if ((state.includes("verification")) && cage.includes("pizza")
+            && await /^\d{10}$/.test(await msg.replaceAll(" ", "").replaceAll("-", "")))
+            {
+                phone = msg;
+                msg += " verification";
+                MESSAGE_DELAY = 30000;
+            }
+        if ((state.includes("אישור")) && cage.includes("pizza")) {
+            msg = msg.replaceAll(" ", "").replaceAll("-", "");
+            if (await /\d{10}/.test(msg))
+            {
+                phone = msg;
+                msg += " אישור";
+                MESSAGE_DELAY = 30000;
+            }
+        }
+        if (state.includes("code") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replaceAll("-", "").replaceAll(" ", ""))) { code = await msg.replaceAll("-", "").replaceAll(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
+        if (state.includes("קוד") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replaceAll("-", "").replaceAll(" ", ""))) { code = await msg.replaceAll("-", "").replaceAll(" ", ""); msg += " שלם"; MESSAGE_DELAY = 20000 }
 
         const response = await nlp.process("en", msg)       
         let answer = response.answer || response.srcAnswer || "I don't understand."
