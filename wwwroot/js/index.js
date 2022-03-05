@@ -522,7 +522,7 @@ setTimeout(async () => {
                         state = " What would you like to order? from pizza hut or for events?"
                     }
                     MESSAGE_DELAY = 3000;
-                                    }
+                }
             }
             else if (el("history").lastChild.innerHTML.includes("code") || el("history").lastChild.innerHTML.includes("קוד")) {
                 if (!recognizing)
@@ -596,7 +596,7 @@ setTimeout(async () => {
         // speech recognition result event;
         // append recognized text to the form input and display interim results
         recognition.onresult = event => {
-            event.preventDefault();
+            //event.preventDefault();
             clearTimeout(timer)
             timer = setTimeout(onMessage, MESSAGE_DELAY)
             let transcript = ""
@@ -609,9 +609,12 @@ setTimeout(async () => {
                     transcript = event.results[i][0].transcript
                 }
             }
-            el("interim").innerText = transcript
-        }
+            console.log(transcript);
+            transcript += "llllllllll";
+            el("interim").innerText += transcript
+        }   
     }
+
     const voiceSelect = document.getElementById('voices');
     let voices;
     let currentVoice;
