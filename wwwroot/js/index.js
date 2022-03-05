@@ -287,7 +287,7 @@ setTimeout(async () => {
             }
         if ((state.includes("אישור")) && cage.includes("pizza")) {
             msg = msg.replaceAll(" ", "").replaceAll("-", "");
-            if (await /\d{10}/.test(msg))
+            if (await /^\d{10}$/.test(msg))
             {
                 phone = msg;
                 msg += " אישור";
