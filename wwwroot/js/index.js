@@ -610,7 +610,7 @@ setTimeout(async () => {
                 }
             }
             console.log(transcript);
-            transcript += "llllllllll";
+            transcript += "\n\r";
             el("interim").innerText += transcript
         }   
     }
