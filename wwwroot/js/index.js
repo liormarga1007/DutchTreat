@@ -83,9 +83,9 @@ setTimeout(async () => {
     nlp.addDocument('en', 'extra', 'greetings.topic');
     nlp.addDocument('en', 'large', 'greetings.topic');
 
-    nlp.addDocument('en', 'קטן', 'greetings.topic.heb');
-    nlp.addDocument('en', 'ענק', 'greetings.topic.heb');
-    nlp.addDocument('en', 'גדול', 'greetings.topic.heb');
+    //nlp.addDocument('en', 'קטן', 'greetings.topic.heb');
+    //nlp.addDocument('en', 'ענק', 'greetings.topic.heb');
+    //nlp.addDocument('en', 'גדול', 'greetings.topic.heb');
 
     nlp.addDocument('en', 'olives', 'greetings.verification');
     nlp.addDocument('en', 'olive', 'greetings.verification');
