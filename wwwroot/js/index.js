@@ -11,7 +11,7 @@ function capitalize(string) {
 const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition
 let recognition = SpeechRecognition ? new SpeechRecognition() : null
-
+if (recognition == null) alert("fail SpeechRecognition")
 // how long to listen before sending the message
 let MESSAGE_DELAY = 4500
 
@@ -262,7 +262,7 @@ setTimeout(async () => {
         if (event) event.preventDefault()
         let msg = el("message").value
         el("message").value = ""
-        if (!msg) { recognition.start(); return }
+        if (!msg && !recognizing) { recognition.start(); return }
         let userElement = document.createElement("div")
         userElement.innerHTML = "<b>User</b>: " + msg
         userElement.style.color = "blue"
@@ -307,7 +307,8 @@ setTimeout(async () => {
             state = answer;
         }
         else {
-            answer = state; 
+            answer = state;
+            if (state.includes("פיצה האט")) MESSAGE_DELAY = 4500;
             if (state.includes("size") || state.includes("גודל")) MESSAGE_DELAY = 4000;
             if (state.includes("topic") || state.includes("תוספת")) MESSAGE_DELAY = 3500;
             if (state.includes("verification")||state.includes("אישור")) MESSAGE_DELAY = 2500;
