@@ -606,6 +606,7 @@ setTimeout(async () => {
                     let msg = event.results[i][0].transcript
                     if (!el("message").value) msg = capitalize(msg.trimLeft())
                     el("message").value = msg
+                    if (msg.length == 0) { el("message").value = transcript}
                 } else {
                     transcript = event.results[i][0].transcript
                 }
@@ -613,6 +614,7 @@ setTimeout(async () => {
             console.log(transcript);
             transcript += "\n\r";
             el("interim").innerText += transcript
+            transcript = "";
         }   
     }
 
