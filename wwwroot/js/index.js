@@ -155,13 +155,13 @@ setTimeout(async () => {
             },
             {
                 intent: 'pizzahut',
-                utterances: ['פיצה האט', 'pizzahut', 'pizza', 'hut'],
+                utterances: ['pizzahut', 'pizza', 'hut'],
                 answers: ['What sort of pizza? Pan? Crispy?'],
             },
             {
                 intent: 'pizzahutheb',
-                utterances: ['פיצה האט'],
-                answers: ['איזה פיצה דקה ? עבה ?'],
+                utterances: ['פיצה האט','פיצה'],
+                answers: ["איזה פיצה דקה ? עבה ?"]
             },
             {
                 intent: 'greetings.size',
@@ -170,7 +170,7 @@ setTimeout(async () => {
             },
             {
                 intent: 'greetings.sizeheb',
-                utterances: ["דקה","עבה","אבא"],
+                utterances: ["דקה","עבה","אבא","דקה "],
                 answers: ['מה הגודל ? קטן ? גדול ? ענק ?']
             },
             {
