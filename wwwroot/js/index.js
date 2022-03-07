@@ -606,9 +606,9 @@ setTimeout(async () => {
             for (var i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
                     let msg = event.results[i][0].transcript
-                    if (!el("message").value) msg = capitalize(msg.trimLeft())
+                    //if (!el("message").value) msg = capitalize(msg.trimLeft())
                     el("message").value = msg
-                    if (msg.length == 0) { el("message").value = last }
+                    //if (msg.length == 0) { el("message").value = last }
                     timer = setTimeout(onMessage, 500)
                     return;
                 } else {
