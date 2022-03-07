@@ -582,7 +582,7 @@ setTimeout(async () => {
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
-            el("message").placeholder = "Type your message 1"
+            el("message").placeholder = "Type your message 2"
             el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
@@ -594,6 +594,7 @@ setTimeout(async () => {
             }
         }
 
+        let last = ""
         // speech recognition result event;
         // append recognized text to the form input and display interim results
         recognition.onresult = event => {
@@ -601,18 +602,20 @@ setTimeout(async () => {
             clearTimeout(timer)
             //timer = setTimeout(onMessage, MESSAGE_DELAY)
             let transcript = ""
+            
             for (var i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
                     let msg = event.results[i][0].transcript
                     if (!el("message").value) msg = capitalize(msg.trimLeft())
                     el("message").value = msg
-                    if (msg.length == 0) { el("message").value = transcript }
-                    timer = setTimeout(onMessage, 0.1)
+                    if (msg.length == 0) { el("message").value = last }
+                    timer = setTimeout(onMessage, 500)
                 } else {
                     transcript = event.results[i][0].transcript
                 }
             }
             console.log(transcript);
+            last = transcript;
             transcript += "\n\r";
             el("interim").innerText += transcript
             transcript = "";
