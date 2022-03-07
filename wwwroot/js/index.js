@@ -262,7 +262,7 @@ setTimeout(async () => {
         if (event) event.preventDefault()
         let msg = el("message").value
         el("message").value = ""
-        if (!msg) { recognition.start(); return }
+        if (!msg  && !recognizing) { recognition.start(); return }
         let userElement = document.createElement("div")
         userElement.innerHTML = "<b>User</b>: " + msg
         userElement.style.color = "blue"
@@ -582,7 +582,7 @@ setTimeout(async () => {
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
-            el("message").placeholder = "Type your message 4"
+            el("message").placeholder = "Type your message 5"
             el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
