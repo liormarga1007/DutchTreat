@@ -582,7 +582,7 @@ setTimeout(async () => {
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
-            el("message").placeholder = "Type your message 4"
+            el("message").placeholder = "Type your message 6"
             el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
@@ -609,8 +609,7 @@ setTimeout(async () => {
                     //if (!el("message").value) msg = capitalize(msg.trimLeft())
                     el("message").value = msg
                     //if (msg.length == 0) { el("message").value = last }
-                    timer = setTimeout(onMessage, 500)
-                    return;
+                    if (i + 1 == event.results.length) timer = setTimeout(onMessage, 500)
                 } else {
                     transcript = event.results[i][0].transcript
                 }
