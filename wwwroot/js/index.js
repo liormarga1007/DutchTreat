@@ -262,7 +262,7 @@ setTimeout(async () => {
         if (event) event.preventDefault()
         let msg = el("message").value
         el("message").value = ""
-        if (!msg  && !recognizing) { recognition.start(); return }
+        if (!msg) { recognition.start(); return }
         let userElement = document.createElement("div")
         userElement.innerHTML = "<b>User</b>: " + msg
         userElement.style.color = "blue"
