@@ -491,7 +491,7 @@ setTimeout(async () => {
     }
 
     // Add form submit event listener
-    document.forms[0].onsubmit = onMessage
+    //document.forms[0].onsubmit = onMessage
     var speakElement = null;
     // if speech recognition is supported then add elements for it
     if (recognition && speakElement == null) {
@@ -578,11 +578,11 @@ setTimeout(async () => {
 
         // switch back to type mode
         recognition.onend = function (event) {
-            event.preventDefault()
+            //event.preventDefault()
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
-            el("message").placeholder = "Type your message"
+            el("message").placeholder = "Type your message 1"
             el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
@@ -599,14 +599,15 @@ setTimeout(async () => {
         recognition.onresult = event => {
             //event.preventDefault();
             clearTimeout(timer)
-            timer = setTimeout(onMessage, MESSAGE_DELAY)
+            //timer = setTimeout(onMessage, MESSAGE_DELAY)
             let transcript = ""
             for (var i = event.resultIndex; i < event.results.length; ++i) {
                 if (event.results[i].isFinal) {
                     let msg = event.results[i][0].transcript
                     if (!el("message").value) msg = capitalize(msg.trimLeft())
                     el("message").value = msg
-                    if (msg.length == 0) { el("message").value = transcript}
+                    if (msg.length == 0) { el("message").value = transcript }
+                    timer = setTimeout(onMessage, 0.1)
                 } else {
                     transcript = event.results[i][0].transcript
                 }
