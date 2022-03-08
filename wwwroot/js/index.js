@@ -609,7 +609,7 @@ setTimeout(async () => {
                     //if (!el("message").value) msg = capitalize(msg.trimLeft())
                     el("message").value = msg
                     //if (msg.length == 0) { el("message").value = last }
-                    if (i + 1 == event.results.length) timer = setTimeout(onMessage, 10500)
+                    if (i + 1 == event.results.length) timer = setTimeout(onMessage, 1500)
                 } else {
                     transcript = event.results[i][0].transcript
                 }
