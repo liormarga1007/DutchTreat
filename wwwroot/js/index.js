@@ -578,7 +578,7 @@ setTimeout(async () => {
 
         // switch back to type mode
         recognition.onend = function (event) {
-            //event.preventDefault()
+            event.preventDefault()
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
@@ -598,7 +598,7 @@ setTimeout(async () => {
         // speech recognition result event;
         // append recognized text to the form input and display interim results
         recognition.onresult = event => {
-            //event.preventDefault();
+            event.preventDefault();
             clearTimeout(timer)
             //timer = setTimeout(onMessage, MESSAGE_DELAY)
             let transcript = ""
