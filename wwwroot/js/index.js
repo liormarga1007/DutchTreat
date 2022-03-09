@@ -262,9 +262,9 @@ setTimeout(async () => {
         if (event) event.preventDefault()
         let msg = el("message").value
         el("message").value = ""
-        if (!msg) { recognition.start(); return }
+        if (!msg) { if (!recognizing) recognition.start(); return }
         let userElement = document.createElement("div")
-        userElement.innerHTML = "<b>User</b>: " + msg
+        userElement.innerHTML = Date() + "<b>User</b>: " + msg
         userElement.style.color = "blue"
         el("history").appendChild(userElement)
         if (state.includes("sports") && cage.includes("sport")) { game = msg; MESSAGE_DELAY = 2500 }
@@ -283,7 +283,7 @@ setTimeout(async () => {
             {
                 phone = msg;
                 msg += " verification";
-                MESSAGE_DELAY = 30000;
+                MESSAGE_DELAY = 100000;
             }
         if ((state.includes("אישור")) && cage.includes("pizza")) {
             msg = msg.replaceAll(" ", "").replaceAll("-", "");
@@ -291,7 +291,7 @@ setTimeout(async () => {
             {
                 phone = msg;
                 msg += " אישור";
-                MESSAGE_DELAY = 30000;
+                MESSAGE_DELAY = 100000;
             }
         }
         if (state.includes("code") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replaceAll("-", "").replaceAll(" ", ""))) { code = await msg.replaceAll("-", "").replaceAll(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
@@ -308,7 +308,7 @@ setTimeout(async () => {
         }
         else {
             answer = state;
-            if (state.includes("פיצה האט")) MESSAGE_DELAY = 4500;
+            if (state.includes("פיצה האט")) MESSAGE_DELAY = 5600;
             if (state.includes("size") || state.includes("גודל")) MESSAGE_DELAY = 4000;
             if (state.includes("topic") || state.includes("תוספת")) MESSAGE_DELAY = 3500;
             if (state.includes("verification")||state.includes("אישור")) MESSAGE_DELAY = 2500;
@@ -582,7 +582,7 @@ setTimeout(async () => {
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
-            el("message").placeholder = "Type your message 11"
+            el("message").placeholder = "Type your message 12"
             el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
@@ -609,7 +609,7 @@ setTimeout(async () => {
                     //if (!el("message").value) msg = capitalize(msg.trimLeft())
                     el("message").value = msg
                     //if (msg.length == 0) { el("message").value = last }
-                    if (i + 1 == event.results.length) timer = setTimeout(onMessage, MESSAGE_DELAY)
+                    if (i + 1 == event.results.length)  timer = setTimeout(onMessage, 2000)
                 } else {
                     transcript = event.results[i][0].transcript
                 }
