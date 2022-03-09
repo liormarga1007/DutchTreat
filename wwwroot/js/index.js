@@ -308,7 +308,7 @@ setTimeout(async () => {
         }
         else {
             answer = state;
-            if (state.includes("פיצה האט")) MESSAGE_DELAY = 5600;
+            if (state.includes("פיצה האט")) MESSAGE_DELAY = 5700;
             if (state.includes("size") || state.includes("גודל")) MESSAGE_DELAY = 4000;
             if (state.includes("topic") || state.includes("תוספת")) MESSAGE_DELAY = 3500;
             if (state.includes("verification")||state.includes("אישור")) MESSAGE_DELAY = 2500;
@@ -506,7 +506,7 @@ setTimeout(async () => {
                 window.scrollBy(0, 35)
                 const botElement = document.createElement("div")
                 if (synthVoice) {
-                    MESSAGE_DELAY = 5600;
+                    MESSAGE_DELAY = 5700;
                     if (recognition.lang.includes("he-IL"))
                     {
                         synthVoice("מה תרצה להזמין ? פיצה האט ? הופעה ? אירוע ספורט ?");
