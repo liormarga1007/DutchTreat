@@ -243,49 +243,55 @@ setTimeout(async () => {
         //})
         utterance.voice = currentVoice;
         utterance.text = text
-        if (text.includes("מה תרצה")) {
-            var audio = new Audio('../Audio/מה_תרצה_לה.wav');
-            audio.play();
-        }
-        else if (text.includes("איזה פיצה")) {
-            var audio = new Audio('../Audio/איזה_פיצה_דקה_עבה.wav');
-            audio.play();
-        }
-        else if (text.includes("מה הגודל")) {
-            var audio = new Audio('../Audio/מה_הגודל__.wav');
-            audio.play();
-        }
-        else if (text.includes("איזה תוספת")) {
-            var audio = new Audio('../Audio/איזה_תוספת.wav');
-            audio.play();
-        }
-        else if (text.includes("מה מספר הטלפון")) {
-            var audio = new Audio('../Audio/מה_מספר_הטלפון.wav');
-            audio.play();
-        }
-        else if (text.includes("מעבדים")) {
-            var audio = new Audio('../Audio/אנא_המתן_בזמן_שאנו_מעבדים_את_ההזמנה.wav');
-            audio.play();
-        }
-        else if (text.includes("מכינים")) {
-            var audio = new Audio('../Audio/אנא_המתן_בזמן _שאנו_מכינים_את_הפיצה.wav');
-            audio.play();
-        }
-        else if (text.includes("כמעט")) {
-            var audio = new Audio('../Audio/אנא_המתן_כמעט_מוכנה.wav');
-            audio.play();
-        }
-        else if (text.includes("קוד")) {
-            var audio = new Audio('../Audio/האם_תוכל_להגיד_לי_את_קוד.wav');
-            audio.play();
-        }
-        else if (text.includes("שלם לשליח")) {
-            var audio = new Audio('../Audio/שלם_לשליח.wav');
-            audio.play();
-        }
-        else {
+        if (iOS()) {
             synth.speak(utterance)
         }
+        else {
+            if (text.includes("מה תרצה")) {
+                var audio = new Audio('../Audio/מה_תרצה_לה.wav');
+                audio.play();
+            }
+            else if (text.includes("איזה פיצה")) {
+                var audio = new Audio('../Audio/איזה_פיצה_דקה_עבה.wav');
+                audio.play();
+            }
+            else if (text.includes("מה הגודל")) {
+                var audio = new Audio('../Audio/מה_הגודל__.wav');
+                audio.play();
+            }
+            else if (text.includes("איזה תוספת")) {
+                var audio = new Audio('../Audio/איזה_תוספת.wav');
+                audio.play();
+            }
+            else if (text.includes("מה מספר הטלפון")) {
+                var audio = new Audio('../Audio/מה_מספר_הטלפון.wav');
+                audio.play();
+            }
+            else if (text.includes("מעבדים")) {
+                var audio = new Audio('../Audio/אנא_המתן_בזמן_שאנו_מעבדים_את_ההזמנה.wav');
+                audio.play();
+            }
+            else if (text.includes("מכינים")) {
+                var audio = new Audio('../Audio/אנא_המתן_בזמן _שאנו_מכינים_את_הפיצה.wav');
+                audio.play();
+            }
+            else if (text.includes("כמעט")) {
+                var audio = new Audio('../Audio/אנא_המתן_כמעט_מוכנה.wav');
+                audio.play();
+            }
+            else if (text.includes("קוד")) {
+                var audio = new Audio('../Audio/האם_תוכל_להגיד_לי_את_קוד.wav');
+                audio.play();
+            }
+            else if (text.includes("שלם לשליח")) {
+                var audio = new Audio('../Audio/שלם_לשליח.wav');
+                audio.play();
+            }
+            else {
+                synth.speak(utterance)
+            }
+        }
+        
             
         if (text.includes("processing") || text.includes("Success") || text.includes("pay") || text.includes("שלם") || text.includes("please wait") || text.includes("המתן")) {
             
@@ -565,7 +571,7 @@ setTimeout(async () => {
                         el("history").appendChild(botElement)
                         state = " What would you like to order? from pizza hut or for events?"
                     }
-                    MESSAGE_DELAY = 3000;
+                    MESSAGE_DELAY = 3500;
                 }
             }
             else if (el("history").lastChild.innerHTML.includes("code") || el("history").lastChild.innerHTML.includes("קוד")) {
@@ -652,16 +658,20 @@ setTimeout(async () => {
                     //if (!el("message").value) msg = capitalize(msg.trimLeft())
                     el("message").value = msg
                     //if (msg.length == 0) { el("message").value = last }
-                    if (i + 1 == event.results.length)  timer = setTimeout(onMessage, 2000)
+                    if (i + 1 == event.results.length)  timer = setTimeout(onMessage, 2300)
                 } else {
                     transcript = event.results[i][0].transcript
                 }
-            }
+            }          
             console.log(transcript);
             last = transcript;
             transcript += "\n\r";
             el("interim").innerText += transcript
             transcript = "";
+
+            if (iOS()) {
+                timer = setTimeout(onMessage, 2300)
+            }
         }   
     }
 
@@ -714,6 +724,19 @@ setTimeout(async () => {
         return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
             (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
         );
+    }
+
+    function iOS() {
+        return [
+            'iPad Simulator',
+            'iPhone Simulator',
+            'iPod Simulator',
+            'iPad',
+            'iPhone',
+            'iPod'
+        ].includes(navigator.platform)
+            // iPad on iOS 13 detection
+            || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
     }
 
 })
