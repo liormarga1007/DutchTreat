@@ -655,9 +655,11 @@ setTimeout(async () => {
 
     voiceSelect.addEventListener('change', event => {
         const selectedIndex = event.target.selectedIndex;
-        currentVoice = voices[selectedIndex];
-        recognition.lang = currentVoice.lang;
+        currentVoice = voices[selectedIndex];        
         recognition.lang = "he-IL";
+        if (currentVoice.lang.includes("en-US") || currentVoice.lang.includes("en_US")) {
+            recognition.lang = currentVoice.lang;
+        }
     });
 
     function uuidv4() {
