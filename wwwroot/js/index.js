@@ -242,8 +242,51 @@ setTimeout(async () => {
         //    return voice.lang === "en-US"
         //})
         utterance.voice = currentVoice;
-        utterance.text = text        
-        synth.speak(utterance)
+        utterance.text = text
+        if (text.includes("מה תרצה")) {
+            var audio = new Audio('../Audio/מה_תרצה_לה.wav');
+            audio.play();
+        }
+        else if (text.includes("איזה פיצה")) {
+            var audio = new Audio('../Audio/איזה_פיצה_דקה_עבה.wav');
+            audio.play();
+        }
+        else if (text.includes("מה הגודל")) {
+            var audio = new Audio('../Audio/מה_הגודל__.wav');
+            audio.play();
+        }
+        else if (text.includes("איזה תוספת")) {
+            var audio = new Audio('../Audio/איזה_תוספת.wav');
+            audio.play();
+        }
+        else if (text.includes("מה מספר הטלפון")) {
+            var audio = new Audio('../Audio/מה_מספר_הטלפון.wav');
+            audio.play();
+        }
+        else if (text.includes("מעבדים")) {
+            var audio = new Audio('../Audio/אנא_המתן_בזמן_שאנו_מעבדים_את_ההזמנה.wav');
+            audio.play();
+        }
+        else if (text.includes("מכינים")) {
+            var audio = new Audio('../Audio/אנא_המתן_בזמן _שאנו_מכינים_את_הפיצה.wav');
+            audio.play();
+        }
+        else if (text.includes("כמעט")) {
+            var audio = new Audio('../Audio/אנא_המתן_כמעט_מוכנה.wav');
+            audio.play();
+        }
+        else if (text.includes("קוד")) {
+            var audio = new Audio('../Audio/האם_תוכל_להגיד_לי_את_קוד.wav');
+            audio.play();
+        }
+        else if (text.includes("שלם לשליח")) {
+            var audio = new Audio('../Audio/שלם_לשליח.wav');
+            audio.play();
+        }
+        else {
+            synth.speak(utterance)
+        }
+            
         if (text.includes("processing") || text.includes("Success") || text.includes("pay") || text.includes("שלם") || text.includes("please wait") || text.includes("המתן")) {
             
         }
@@ -264,7 +307,7 @@ setTimeout(async () => {
         el("message").value = ""
         if (!msg) { if (!recognizing) recognition.start(); return }
         let userElement = document.createElement("div")
-        userElement.innerHTML = Date() + "<b>User</b>: " + msg
+        userElement.innerHTML = Date()+ "<b>User</b>: " + msg
         userElement.style.color = "blue"
         el("history").appendChild(userElement)
         if (state.includes("sports") && cage.includes("sport")) { game = msg; MESSAGE_DELAY = 2500 }
@@ -631,6 +674,11 @@ setTimeout(async () => {
         if (availableVoices.length == 1) recognition.lang = "he-IL";
         voiceSelect.innerHTML = '';
 
+        const option = document.createElement('option');
+        let optionText = `ZUZU (he-IL)`;
+        option.textContent = optionText;
+        voiceSelect.appendChild(option);
+
         availableVoices.forEach(voice => {
             const option = document.createElement('option');
             let optionText = `${voice.name} (${voice.lang})`;
@@ -644,7 +692,7 @@ setTimeout(async () => {
             }
             option.textContent = optionText;
             voiceSelect.appendChild(option);
-        });
+        });        
         voices = availableVoices;
     };
 
