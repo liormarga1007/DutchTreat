@@ -674,7 +674,7 @@ setTimeout(async () => {
 
             if (iOS()) {
                 var double = transcript;
-                if (!transcript.includes(" ")) double = transcript + " " + transcript
+                if (!transcript.includes(" ")) { double = transcript + " " + transcript }
                 
                 el("message").value = double
                 clearTimeout(timer)
