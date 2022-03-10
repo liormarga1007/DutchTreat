@@ -673,7 +673,7 @@ setTimeout(async () => {
             if (!iOS()) transcript = "";
 
             if (iOS()) {
-                el("message").value = transcript + transcript;
+                el("message").value = transcript + " " +transcript;
                 clearTimeout(timer)
                 timer = setTimeout(onMessage, 2000)
             }
