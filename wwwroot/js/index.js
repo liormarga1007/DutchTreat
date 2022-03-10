@@ -669,10 +669,12 @@ setTimeout(async () => {
            
             transcript += "\n\r";
             el("interim").innerText += transcript
-            transcript = "";
+            if (!iOS()) transcript = "";
 
             if (iOS()) {
-                timer = setTimeout(onMessage, 4500)
+                el("message").value = transcript;
+                clearTimeout(timer)
+                timer = setTimeout(onMessage, 2000)
             }
         }   
     }
