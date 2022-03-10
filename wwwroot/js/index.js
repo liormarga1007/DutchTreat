@@ -656,11 +656,11 @@ setTimeout(async () => {
                 if (event.results[i].isFinal) {
                     let msg = event.results[i][0].transcript
                     //if (!el("message").value) msg = capitalize(msg.trimLeft())
-                    el("message").value = msg
-
-                    if (msg == last) { return }
-                    last = msg;
-                    if (i + 1 == event.results.length)  timer = setTimeout(onMessage, 1000)
+                    if (msg != last) {
+                        el("message").value = msg
+                        last = msg;
+                        if (i + 1 == event.results.length) timer = setTimeout(onMessage, 2000)
+                    }
                 } else {
                     transcript = event.results[i][0].transcript
                 }
