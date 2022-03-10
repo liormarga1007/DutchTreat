@@ -610,9 +610,10 @@ setTimeout(async () => {
         recognition.interimResults = true
         recognition.lang = "en-US"
         recognition.maxAlternatives = 1;
-        if (iOS()) {
-            var SpeechGrammarList = window.SpeechGrammarList || webkitSpeechGrammarList;
-            var grammar = '#JSGF V1.0; grammar numbers; public <number> = אפס | אחד | שתיים | שלוש | ארבע | חמש | שש| שבע | שמונה | תשע ;'
+        var SpeechGrammarList = window.SpeechGrammarList || webkitSpeechGrammarList;
+
+        if (iOS() && SpeechGrammarList != null) {
+            var grammar = '#JSGF V1.0; grammar numbers; public <number> = אפס | אחד | שתיים | שלוש | ארבע | חמש | שש | שבע | שמונה | תשע ;'
             var speechRecognitionList = new SpeechGrammarList();
             speechRecognitionList.addFromString(grammar, 1);
             recognition.grammars = speechRecognitionList;
