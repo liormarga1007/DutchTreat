@@ -673,7 +673,7 @@ setTimeout(async () => {
             if (!iOS()) transcript = "";
 
             if (iOS()) {
-                el("message").value = transcript;
+                el("message").value = transcript + transcript;
                 clearTimeout(timer)
                 timer = setTimeout(onMessage, 2000)
             }
@@ -688,11 +688,12 @@ setTimeout(async () => {
         const availableVoices = speechSynthesis.getVoices();
         if (availableVoices.length == 1) recognition.lang = "he-IL";
         voiceSelect.innerHTML = '';
-
-        const option = document.createElement('option');
-        let optionText = `ZUZU (he-IL)`;
-        option.textContent = optionText;
-        voiceSelect.appendChild(option);
+        if (!iOS()) {
+            const option = document.createElement('option');
+            let optionText = `ZUZU (he-IL)`;
+            option.textContent = optionText;
+            voiceSelect.appendChild(option);
+        }        
 
         availableVoices.forEach(voice => {
             const option = document.createElement('option');
