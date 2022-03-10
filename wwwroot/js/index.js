@@ -612,12 +612,12 @@ setTimeout(async () => {
         recognition.maxAlternatives = 1;
         var SpeechGrammarList = window.SpeechGrammarList || webkitSpeechGrammarList;
 
-        if (iOS() && SpeechGrammarList != null) {
+        /*if (iOS() && SpeechGrammarList != null) {
             var grammar = '#JSGF V1.0; grammar numbers; public <number> = אפס | אחד | שתיים | שלוש | ארבע | חמש | שש | שבע | שמונה | תשע ;'
             var speechRecognitionList = new SpeechGrammarList();
             speechRecognitionList.addFromString(grammar, 1);
             recognition.grammars = speechRecognitionList;
-        }
+        }*/
 
         // switch to listening mode
         recognition.onstart = function () {
