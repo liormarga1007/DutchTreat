@@ -670,7 +670,7 @@ setTimeout(async () => {
             transcript = "";
 
             if (iOS()) {
-                timer = setTimeout(onMessage, 2300)
+                timer = setTimeout(onMessage, 4500)
             }
         }   
     }
