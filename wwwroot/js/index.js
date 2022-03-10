@@ -631,7 +631,7 @@ setTimeout(async () => {
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
-            el("message").placeholder = "Type your message 15"
+            el("message").placeholder = "Type your message 16"
             el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
@@ -657,14 +657,16 @@ setTimeout(async () => {
                     let msg = event.results[i][0].transcript
                     //if (!el("message").value) msg = capitalize(msg.trimLeft())
                     el("message").value = msg
-                    //if (msg.length == 0) { el("message").value = last }
-                    if (i + 1 == event.results.length)  timer = setTimeout(onMessage, 2300)
+
+                    if (msg == last) { return }
+                    last = msg;
+                    if (i + 1 == event.results.length)  timer = setTimeout(onMessage, 1000)
                 } else {
                     transcript = event.results[i][0].transcript
                 }
             }          
             console.log(transcript);
-            last = transcript;
+           
             transcript += "\n\r";
             el("interim").innerText += transcript
             transcript = "";
