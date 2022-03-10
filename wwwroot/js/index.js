@@ -648,7 +648,7 @@ setTimeout(async () => {
         // append recognized text to the form input and display interim results
         recognition.onresult = event => {
             event.preventDefault();
-            clearTimeout(timer)
+            
             //timer = setTimeout(onMessage, MESSAGE_DELAY)
             let transcript = ""
             
@@ -657,6 +657,7 @@ setTimeout(async () => {
                     let msg = event.results[i][0].transcript
                     //if (!el("message").value) msg = capitalize(msg.trimLeft())
                     if (msg != last) {
+                        clearTimeout(timer)
                         el("message").value = msg
                         last = msg;
                         timer = setTimeout(onMessage, 2000)
