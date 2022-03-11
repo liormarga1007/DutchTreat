@@ -13,7 +13,7 @@ const SpeechRecognition =
 let recognition = SpeechRecognition ? new SpeechRecognition() : null
 if (recognition == null) alert("fail SpeechRecognition")
 // how long to listen before sending the message
-let MESSAGE_DELAY = 4500
+let MESSAGE_DELAY = 5700
 
 // timer variable
 let timer = null
@@ -308,115 +308,97 @@ setTimeout(async () => {
 
     // form submit event
     async function onMessage(event) {
-        if (event) event.preventDefault()
+        //if (event) event.preventDefault()
         let msg = el("message").value
         el("message").value = ""
-        if (!msg) { if (!recognizing) recognition.start(); return }
-        let userElement = document.createElement("div")
-        userElement.innerHTML = Date()+ "<b>User</b>: " + msg
-        userElement.style.color = "blue"
-        el("history").appendChild(userElement)
-        if (state.includes("sports") && cage.includes("sport")) { game = msg; MESSAGE_DELAY = 2500 }
-        if (state.includes("game") && cage.includes("sport")) { game = msg; MESSAGE_DELAY = 2500 }
-        if (state.includes("artist") && cage.includes("music")) { game = msg; MESSAGE_DELAY = 4000 }
-        if (state.includes("Standing") && (cage.includes("sport") || cage.includes("music"))) { place = msg; MESSAGE_DELAY = 2500 }
-        if (state.includes("address") &&(cage.includes("sport") || cage.includes("music"))) { adress = msg;msg += " address"; MESSAGE_DELAY= 2000}
-        if (state.includes("phone") && !state.includes("verification") && (cage.includes("sport") || cage.includes("music"))) { phone = msg; msg = msg.concat(' ', " phone number");MESSAGE_DELAY = 1500}
-        if (state.includes("tickets") && (cage.includes("sport") || cage.includes("music"))) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
+        if (!msg) {
+            if (!recognizing) { recognition.start(); }
+        }
+        else {
+           let userElement = document.createElement("div")
+            userElement.innerHTML = Date() + "<b>User</b>: " + msg
+            userElement.style.color = "blue"
+            el("history").appendChild(userElement)
+            if (state.includes("sports") && cage.includes("sport")) { game = msg; MESSAGE_DELAY = 2500 }
+            if (state.includes("game") && cage.includes("sport")) { game = msg; MESSAGE_DELAY = 2500 }
+            if (state.includes("artist") && cage.includes("music")) { game = msg; MESSAGE_DELAY = 4000 }
+            if (state.includes("Standing") && (cage.includes("sport") || cage.includes("music"))) { place = msg; MESSAGE_DELAY = 2500 }
+            if (state.includes("address") && (cage.includes("sport") || cage.includes("music"))) { adress = msg; msg += " address"; MESSAGE_DELAY = 2000 }
+            if (state.includes("phone") && !state.includes("verification") && (cage.includes("sport") || cage.includes("music"))) { phone = msg; msg = msg.concat(' ', " phone number"); MESSAGE_DELAY = 1500 }
+            if (state.includes("tickets") && (cage.includes("sport") || cage.includes("music"))) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
 
-        if ((state.includes("Crispy") || state.includes("דקה")) && cage.includes("pizza")) { wide = msg; MESSAGE_DELAY = 5000 }
-        if ((state.includes("size") || state.includes("גודל"))&& cage.includes("pizza")) { size = msg; MESSAGE_DELAY = 5000 }
-        if ((state.includes("extras") || state.includes("תוספת")) && cage.includes("pizza")) { topics = msg; MESSAGE_DELAY = 2500 }
-        if ((state.includes("verification")) && cage.includes("pizza")
-            && await /^\d{10}$/.test(await msg.replaceAll(" ", "").replaceAll("-", "")))
-            {
+            if ((state.includes("Crispy") || state.includes("דקה")) && cage.includes("pizza")) { wide = msg; MESSAGE_DELAY = 5000 }
+            if ((state.includes("size") || state.includes("גודל")) && cage.includes("pizza")) { size = msg; MESSAGE_DELAY = 5000 }
+            if ((state.includes("extras") || state.includes("תוספת")) && cage.includes("pizza")) { topics = msg; MESSAGE_DELAY = 2500 }
+            if ((state.includes("verification")) && cage.includes("pizza")
+                && await /^\d{10}$/.test(await msg.replaceAll(" ", "").replaceAll("-", ""))) {
                 phone = msg;
                 msg += " verification";
                 MESSAGE_DELAY = 100000;
             }
-        if ((state.includes("אישור")) && cage.includes("pizza")) {
-            msg = msg.replaceAll(" ", "").replaceAll("-", "");
-            if (await /^\d{10}$/.test(msg))
-            {
-                phone = msg;
-                msg += " אישור";
-                MESSAGE_DELAY = 100000;
-            }
-        }
-        if (state.includes("code") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replaceAll("-", "").replaceAll(" ", ""))) { code = await msg.replaceAll("-", "").replaceAll(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
-        if (state.includes("קוד") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replaceAll("-", "").replaceAll(" ", ""))) { code = await msg.replaceAll("-", "").replaceAll(" ", ""); msg += " שלם"; MESSAGE_DELAY = 20000 }
-
-        const response = await nlp.process("en", msg)       
-        let answer = response.answer || response.srcAnswer || "I don't understand."
-        if (!answer.includes("understand")) {
-            if (state.includes("פיצה האט") && (answer.includes("פיצה"))) cage = "pizza";
-            if (state.includes("pizza hut") && (answer.includes("pizza")))cage = "pizza";
-            if (state.includes("pizza hut") && answer.includes("game")) cage = "sport";
-            if (state.includes("pizza hut") && answer.includes("artist")) cage = "music";
-            state = answer;
-        }
-        else {
-            answer = state;
-            if (state.includes("פיצה האט")) MESSAGE_DELAY = 5700;
-            if (state.includes("size") || state.includes("גודל")) MESSAGE_DELAY = 5000;
-            if (state.includes("topic") || state.includes("תוספת")) MESSAGE_DELAY = 5000;
-            if (state.includes("verification")||state.includes("אישור")) MESSAGE_DELAY = 3000;
-            if (state.includes("Standing")) MESSAGE_DELAY = 4000
-            if (state.includes("artist")) MESSAGE_DELAY = 3000
-
-        }
-        window.scrollBy(0, 50)
-        if (!(answer.includes("code") || answer.includes("קוד"))) {
-            const botElement = document.createElement("div")
-            botElement.innerHTML = "<b>ZUZU</b>: " + answer
-            botElement.style.color = "green"
-            el("history").appendChild(botElement)
-            recognizing = false
-            recognition.stop()            
-            if (synthVoice) synthVoice(answer);
-        }
-        else {
-            if (msg.includes("verification") || msg.includes("אישור") ) {
-                if (recognition.lang.includes("he-IL")) {
-                    waitingforcode("אנא המתן בזמן שאנו מעבדים את ההזמנה")
-
-                } else {
-                    waitingforcode("please wait. while we process your order")
+            if ((state.includes("אישור")) && cage.includes("pizza")) {
+                msg = msg.replaceAll(" ", "").replaceAll("-", "");
+                if (await /^\d{10}$/.test(msg)) {
+                    phone = msg;
+                    msg += " אישור";
+                    MESSAGE_DELAY = 100000;
                 }
-                
+            }
+            if (state.includes("code") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replaceAll("-", "").replaceAll(" ", ""))) { code = await msg.replaceAll("-", "").replaceAll(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
+            if (state.includes("קוד") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replaceAll("-", "").replaceAll(" ", ""))) { code = await msg.replaceAll("-", "").replaceAll(" ", ""); msg += " שלם"; MESSAGE_DELAY = 20000 }
+
+            const response = await nlp.process("en", msg)
+            let answer = response.answer || response.srcAnswer || "I don't understand."
+            if (!answer.includes("understand")) {
+                if (state.includes("פיצה האט") && (answer.includes("פיצה"))) cage = "pizza";
+                if (state.includes("pizza hut") && (answer.includes("pizza"))) cage = "pizza";
+                if (state.includes("pizza hut") && answer.includes("game")) cage = "sport";
+                if (state.includes("pizza hut") && answer.includes("artist")) cage = "music";
+                state = answer;
             }
             else {
-                if (recognition.lang.includes("he-IL")) {
-                    waitingforcode("האם תוכל להגיד לי בבקשה את הקוד שהגיע בהודעה ? ")
+                answer = state;
+                if (state.includes("פיצה האט")) MESSAGE_DELAY = 5700;
+                if (state.includes("size") || state.includes("גודל")) MESSAGE_DELAY = 5000;
+                if (state.includes("topic") || state.includes("תוספת")) MESSAGE_DELAY = 5000;
+                if (state.includes("verification") || state.includes("אישור")) MESSAGE_DELAY = 3000;
+                if (state.includes("Standing")) MESSAGE_DELAY = 4000
+                if (state.includes("artist")) MESSAGE_DELAY = 3000
+
+            }
+            window.scrollBy(0, 50)
+            if (!(answer.includes("code") || answer.includes("קוד"))) {
+                const botElement = document.createElement("div")
+                botElement.innerHTML = "<b>ZUZU</b>: " + answer
+                botElement.style.color = "green"
+                el("history").appendChild(botElement)
+                recognizing = false
+                recognition.stop()
+                if (synthVoice) synthVoice(answer);
+            }
+            else {
+                if (msg.includes("verification") || msg.includes("אישור")) {
+                    if (recognition.lang.includes("he-IL")) {
+                        waitingforcode("אנא המתן בזמן שאנו מעבדים את ההזמנה")
+
+                    } else {
+                        waitingforcode("please wait. while we process your order")
+                    }
+
                 }
                 else {
-                    waitingforcode("Could you tell me the code we sent to your mobile?");
+                    if (recognition.lang.includes("he-IL")) {
+                        waitingforcode("האם תוכל להגיד לי בבקשה את הקוד שהגיע בהודעה ? ")
+                    }
+                    else {
+                        waitingforcode("Could you tell me the code we sent to your mobile?");
+                    }
+
+                    return;
+
                 }
-               
-                return;
 
             }
-                      
-        }
-        if (answer.includes("processing")) {
-            //const Http = new XMLHttpRequest();
-            MESSAGE_DELAY = 3000
-            const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=99999" + game +
-                "&persons=" + numoftickets +
-                "&time=&date=" + adress +
-                "&name=" + fullname +
-                "&family=" + fullname +
-                "&phone=+972" + phone +
-                "&email=" + email +
-                "&session=" + uuid, {
-                //mode: 'no-cors',
-                headers: { 'X-Requested-With': 'XMLHttpRequest' }
-            }
-            )
-            const text = await res.text();
-            console.log(text)
-
-            //const myTimeout = setTimeout(myGreeting, 10000);            
             if (answer.includes("processing")) {
                 //const Http = new XMLHttpRequest();
                 MESSAGE_DELAY = 3000
@@ -435,46 +417,66 @@ setTimeout(async () => {
                 const text = await res.text();
                 console.log(text)
 
-                const myTimeout = setTimeout(myGreeting, 10000);
+                //const myTimeout = setTimeout(myGreeting, 10000);            
+                if (answer.includes("processing")) {
+                    //const Http = new XMLHttpRequest();
+                    MESSAGE_DELAY = 3000
+                    const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=eid=99999" + game +
+                        "&persons=" + numoftickets +
+                        "&time=&date=" + adress +
+                        "&name=" + fullname +
+                        "&family=" + fullname +
+                        "&phone=+972" + phone +
+                        "&email=" + email +
+                        "&session=" + uuid, {
+                        //mode: 'no-cors',
+                        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                    }
+                    )
+                    const text = await res.text();
+                    console.log(text)
 
-            }
-        }
-        if (answer.includes("code") || answer.includes("קוד")) {
-            //const Http = new XMLHttpRequest();
-            MESSAGE_DELAY = 3000
-            const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=pizzahut" +
-                "&persons=" + numoftickets +
-                "&date=" + topics +
-                "&name=" + wide +
-                "&family=" + size +
-                "&phone=" + phone +
-                "&email=" + email +
-                "&session=" + uuid, {
-                //mode: 'no-cors',
-                headers: { 'X-Requested-With': 'XMLHttpRequest' }
-            }
-            )
-            const text = await res.text();
-            console.log(text)
+                    const myTimeout = setTimeout(myGreeting, 10000);
 
-            //const myTimeout = setTimeout(mycoe, 10000);
-        }
-        if (answer.includes("pay")|| answer.includes("שלם")) {
-            //const Http = new XMLHttpRequest();
-            MESSAGE_DELAY = 3000
-            const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=pizzahut" +
-                "&time=" + code +
-                "&session=" + uuid, {
-                //mode: 'no-cors',
-                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                }
             }
-            )
-            const text = await res.text();
-            console.log(text)
+            if (answer.includes("code") || answer.includes("קוד")) {
+                //const Http = new XMLHttpRequest();
+                MESSAGE_DELAY = 3000
+                const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=pizzahut" +
+                    "&persons=" + numoftickets +
+                    "&date=" + topics +
+                    "&name=" + wide +
+                    "&family=" + size +
+                    "&phone=" + phone +
+                    "&email=" + email +
+                    "&session=" + uuid, {
+                    //mode: 'no-cors',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                }
+                )
+                const text = await res.text();
+                console.log(text)
 
-            const myTimeout = setTimeout(myGreeting, 20000);
+                //const myTimeout = setTimeout(mycoe, 10000);
+            }
+            if (answer.includes("pay") || answer.includes("שלם")) {
+                //const Http = new XMLHttpRequest();
+                MESSAGE_DELAY = 3000
+                const res = await fetch("https://tranquil-plains-09740.herokuapp.com/https://mysterious-hollows-90255.herokuapp.com/?restaurant=pizzahut" +
+                    "&time=" + code +
+                    "&session=" + uuid, {
+                    //mode: 'no-cors',
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                }
+                )
+                const text = await res.text();
+                console.log(text)
+
+                const myTimeout = setTimeout(myGreeting, 20000);
+            }
+
         }
-        
     }
     waitingforcode = answer1 => {
         //We are loading your order ...We are getting your details ...We are adding your topic ...What is the code sent to the mobile ? it may take 10 sec
@@ -631,7 +633,7 @@ setTimeout(async () => {
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
-            el("message").placeholder = "Type your message 22"
+            el("message").placeholder = "Type your message 23"
             //el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
