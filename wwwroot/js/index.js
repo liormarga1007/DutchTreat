@@ -16,9 +16,9 @@ let recognition = SpeechRecognition ? new SpeechRecognition() : null
 let MESSAGE_DELAY = 6500
 
 // timer variable
-let timer = null
+var timer = null
 
-let recognizing = false
+var recognizing = false
 
 // delay initialization until form is created
 setTimeout(async () => {
