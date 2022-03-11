@@ -13,7 +13,7 @@ const SpeechRecognition =
 let recognition = SpeechRecognition ? new SpeechRecognition() : null
 if (recognition == null) alert("fail SpeechRecognition")
 // how long to listen before sending the message
-let MESSAGE_DELAY = 5700
+let MESSAGE_DELAY = 6000
 
 // timer variable
 let timer = null
@@ -311,6 +311,7 @@ setTimeout(async () => {
         //if (event) event.preventDefault()
         let msg = el("message").value
         el("message").value = ""
+        el("message").placeholder = "onmessage"
         if (!msg) {
             if (!recognizing) { recognition.start(); }
         }
@@ -358,7 +359,7 @@ setTimeout(async () => {
             }
             else {
                 answer = state;
-                if (state.includes("פיצה האט")) MESSAGE_DELAY = 5700;
+                if (state.includes("פיצה האט")) MESSAGE_DELAY = 6000;
                 if (state.includes("size") || state.includes("גודל")) MESSAGE_DELAY = 5000;
                 if (state.includes("topic") || state.includes("תוספת")) MESSAGE_DELAY = 5000;
                 if (state.includes("verification") || state.includes("אישור")) MESSAGE_DELAY = 3000;
@@ -478,6 +479,7 @@ setTimeout(async () => {
 
         }
     }
+
     waitingforcode = answer1 => {
         //We are loading your order ...We are getting your details ...We are adding your topic ...What is the code sent to the mobile ? it may take 10 sec
         window.scrollBy(0, 28)
@@ -557,7 +559,7 @@ setTimeout(async () => {
                 window.scrollBy(0, 35)
                 const botElement = document.createElement("div")
                 if (synthVoice) {
-                    MESSAGE_DELAY = 5700;
+                    MESSAGE_DELAY = 6000;
                     if (recognition.lang.includes("he-IL"))
                     {
                         synthVoice("מה תרצה להזמין ? פיצה האט ? הופעה ? אירוע ספורט ?");
@@ -591,11 +593,11 @@ setTimeout(async () => {
                 }
             }
             else {
-                if (!recognizing) { recognition.start() }
+                /*if (!recognizing) { recognition.start() }
                 else {
                     recognizing = false;
                     recognition.stop();
-                }
+                }*/
             }
         }
         
@@ -619,7 +621,7 @@ setTimeout(async () => {
             //el("speak").style.display = "none"
             el("send").style.display = "none"
             el("message").disabled = true
-            el("message").placeholder = "Listening..."
+            //el("message").placeholder = "Listening..."
             el("microphone").src = "../images/microphonerecording.png"
         }
 
@@ -633,11 +635,12 @@ setTimeout(async () => {
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
-            el("message").placeholder = "Type your message 23"
+            //el("message").placeholder = "Type your message 24"
             //el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
                 try {
+                    wait(500)
                     recognition.start();
                 } catch (error) {
                     el("interim").innerText = "wrong wrong wrong"
