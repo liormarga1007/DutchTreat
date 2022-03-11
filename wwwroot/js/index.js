@@ -577,7 +577,7 @@ setTimeout(async () => {
                         el("history").appendChild(botElement)
                         state = " What would you like to order? from pizza hut or for events?"
                     }
-                    
+                    MESSAGE_DELAY = 3500;
                 }
             }
             else if (el("history").lastChild.innerHTML.includes("code") || el("history").lastChild.innerHTML.includes("קוד")) {
