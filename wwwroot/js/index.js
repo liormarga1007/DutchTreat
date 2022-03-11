@@ -10,7 +10,7 @@ function capitalize(string) {
 // initialize speech recognition
 const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition
-let recognition = SpeechRecognition ? new SpeechRecognition() : null
+var recognition = SpeechRecognition ? new SpeechRecognition() : null
 //if (recognition == null) alert("fail SpeechRecognition")
 // how long to listen before sending the message
 var MESSAGE_DELAY = 6500
@@ -595,6 +595,9 @@ setTimeout(async () => {
                 }
             }
             else {
+                if (el("interim").innerText.includes("wrng")) {
+                    recognition = new SpeechRecognition()
+                }
                 if (!recognizing) { recognition.start() }
                 else {
                     recognizing = false;
