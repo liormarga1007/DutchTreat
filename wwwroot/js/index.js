@@ -86,18 +86,39 @@ setTimeout(async () => {
     nlp.addDocument('en', 'קטן', 'greetings.topic.heb');
     nlp.addDocument('en', 'ענק', 'greetings.topic.heb');
     nlp.addDocument('en', 'גדול', 'greetings.topic.heb');
+    nlp.addDocument('en', 'קטנה', 'greetings.topic.heb');
+    nlp.addDocument('en', 'גדולה', 'greetings.topic.heb');
+    nlp.addDocument('en', 'ענקית', 'greetings.topic.heb');
 
     nlp.addDocument('en', 'olives', 'greetings.verification');
     nlp.addDocument('en', 'olive', 'greetings.verification');
     nlp.addDocument('en', 'onions', 'greetings.verification');
     nlp.addDocument('en', 'mushroom', 'greetings.verification');
 
-    nlp.addDocument('en', 'זיתים', 'greetings.verification.heb');
-    nlp.addDocument('en', 'בצל', 'greetings.verification.heb');
+    nlp.addDocument('en', 'חלפיניו חריף', 'greetings.verification.heb');
+    nlp.addDocument('en', 'צדר', 'greetings.verification.heb');
+    nlp.addDocument('en', 'פלפל ירוק חריף', 'greetings.verification.heb');
+    nlp.addDocument('en', 'פלפל קלוי', 'greetings.verification.heb');
+    nlp.addDocument('en', 'תירס', 'greetings.verification.heb');
     nlp.addDocument('en', 'פטריות', 'greetings.verification.heb');
-    nlp.addDocument('en', 'ריק', 'greetings.verification.heb');
+    nlp.addDocument('en', 'פטה', 'greetings.verification.heb');
+    nlp.addDocument('en', 'זיתים ירוקים', 'greetings.verification.heb');
+    nlp.addDocument('en', 'בצל לבן טרי', 'greetings.verification.heb');
+    nlp.addDocument('en', 'בצל סגול טרי', 'greetings.verification.heb');
+    nlp.addDocument('en', 'אקסטרה מוצרלה', 'greetings.verification.heb');
+    nlp.addDocument('en', 'טונה', 'greetings.verification.heb');
+    nlp.addDocument('en', 'זיתים שחורים', 'greetings.verification.heb');
+    nlp.addDocument('en', 'קוביות עגבנייה', 'greetings.verification.heb');
+    nlp.addDocument('en', 'עגבניות שרי', 'greetings.verification.heb');
+    nlp.addDocument('en', 'אננס', 'greetings.verification.heb');
+    nlp.addDocument('en', 'בטטה', 'greetings.verification.heb');
+    nlp.addDocument('en', 'אנשובי', 'greetings.verification.heb');
+    nlp.addDocument('en', 'פלפל אדום', 'greetings.verification.heb');
+    nlp.addDocument('en', 'חצילים', 'greetings.verification.heb');
+    nlp.addDocument('en', 'שום', 'greetings.verification.heb');
+    nlp.addDocument('en', 'ריקה', 'greetings.verification.heb');
     nlp.addDocument('en', 'כלום', 'greetings.verification.heb');
-    nlp.addDocument('en', 'רגיל', 'greetings.verification.heb');
+    nlp.addDocument('en', 'רגילה', 'greetings.verification.heb');
     
     nlp.addDocument('en', 'plane', 'greetings.verification');
     nlp.addDocument('en', 'plain', 'greetings.verification');
@@ -160,7 +181,7 @@ setTimeout(async () => {
             },
             {
                 intent: 'pizzahutheb',
-                utterances: ['פיצה האט','פיצה'],
+                utterances: ['פיצה האט','האט'],
                 answers: ["איזה פיצה דקה ? עבה ?"]
             },
             {
@@ -670,7 +691,7 @@ setTimeout(async () => {
                 if (event.results[i].isFinal) {
                     let msg = event.results[i][0].transcript
                     //if (!el("message").value) msg = capitalize(msg.trimLeft())
-                    if (msg != last && msg) {
+                    if (msg != last && msg && !msg.startsWith('אפס')){
                         clearTimeout(timer)
                         el("message").value = msg
                         last = msg;
@@ -770,7 +791,7 @@ setTimeout(async () => {
 
         // switch to listening mode
         recognition.onstart = function (event) {
-            event.preventDefault()
+            //event.preventDefault()
             recognizing = true
             //el("speak").style.display = "none"
             el("send").style.display = "none"
@@ -785,22 +806,25 @@ setTimeout(async () => {
         }
 
         // switch back to type mode
-        recognition.onend = function (event) {
-            event.preventDefault()
-            //el("speak").style.display = "inline-block"
-            el("send").style.display = "inline-block"
-            el("message").disabled = false
-            //el("message").placeholder = "Type your message 24"
-            //el("interim").innerText = ""
-            el("microphone").src = "../images/microphone.png"
+        recognition.onaudioend  = function (event) {
+            //event.preventDefault()
+            
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {
                 try {
                     el("message").placeholder = "onend"
                     recognizing = false;
-                    setTimeout(onMessage, 100)
+                    recognition.start()
                 } catch (error) {
                     el("message").placeholder = "onend error"
                 }
+            }
+            else {
+                //el("speak").style.display = "inline-block"
+                el("send").style.display = "inline-block"
+                el("message").disabled = false
+                //el("message").placeholder = "Type your message 24"
+                //el("interim").innerText = ""
+                el("microphone").src = "../images/microphone.png"
             }
         }
 
@@ -814,7 +838,7 @@ setTimeout(async () => {
                 if (event.results[i].isFinal) {
                     let msg = event.results[i][0].transcript
                     //if (!el("message").value) msg = capitalize(msg.trimLeft())
-                    if (msg != last && msg) {
+                    if (msg != last && msg && !msg.startsWith('אפס')) {
                         clearTimeout(timer)
                         el("message").value = msg
                         last = msg;
