@@ -660,7 +660,7 @@ setTimeout(async () => {
                         clearTimeout(timer)
                         el("message").value = msg
                         last = msg;
-                        timer = setTimeout(onMessage, 2000)
+                        timer = setTimeout(onMessage, 3000)
                     }
                 } else {
                     transcript = event.results[i][0].transcript
