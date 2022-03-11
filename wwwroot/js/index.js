@@ -13,7 +13,7 @@ const SpeechRecognition =
 let recognition = SpeechRecognition ? new SpeechRecognition() : null
 //if (recognition == null) alert("fail SpeechRecognition")
 // how long to listen before sending the message
-let MESSAGE_DELAY = 6000
+let MESSAGE_DELAY = 6500
 
 // timer variable
 let timer = null
@@ -261,19 +261,19 @@ setTimeout(async () => {
                 audio.play();               
             }
             else if (text.includes("איזה פיצה")) {
-                var audio = new Audio('../Audio/איזה_פיצה_דקה_עבה.wav');
+                let audio = new Audio('../Audio/איזה_פיצה_דקה_עבה.wav');
                 audio.play();
             }
             else if (text.includes("מה הגודל")) {
-                var audio = new Audio('../Audio/מה_הגודל__.wav');
+                let audio = new Audio('../Audio/מה_הגודל__.wav');
                 audio.play();
             }
             else if (text.includes("איזה תוספת")) {
-                var audio = new Audio('../Audio/איזה_תוספת.wav');
+                let audio = new Audio('../Audio/איזה_תוספת.wav');
                 audio.play();
             }
             else if (text.includes("מה מספר הטלפון")) {
-                var audio = new Audio('../Audio/מה_מספר_הטלפון.wav');
+                let audio = new Audio('../Audio/מה_מספר_הטלפון.wav');
                 audio.play();
             }
             else if (text.includes("מעבדים")) {
@@ -281,7 +281,7 @@ setTimeout(async () => {
                 audio.play();
             }
             else if (text.includes("מכינים")) {
-                var audio = new Audio('../Audio/אנא_המתן_בזמן _שאנו_מכינים_את_הפיצה.wav');
+                let audio = new Audio('../Audio/אנא_המתן_בזמן _שאנו_מכינים_את_הפיצה.wav');
                 audio.play();
             }
             else if (text.includes("כמעט")) {
@@ -289,11 +289,11 @@ setTimeout(async () => {
                 audio.play();
             }
             else if (text.includes("קוד")) {
-                var audio = new Audio('../Audio/האם_תוכל_להגיד_לי_את_קוד.wav');
+                let audio = new Audio('../Audio/האם_תוכל_להגיד_לי_את_קוד.wav');
                 audio.play();
             }
             else if (text.includes("שלם לשליח")) {
-                var audio = new Audio('../Audio/שלם_לשליח.wav');
+                let audio = new Audio('../Audio/שלם_לשליח.wav');
                 audio.play();
             }
             else {
@@ -361,7 +361,7 @@ setTimeout(async () => {
             }
             else {
                 answer = state;
-                if (state.includes("פיצה האט")) MESSAGE_DELAY = 6000;
+                if (state.includes("פיצה האט")) MESSAGE_DELAY = 6500;
                 if (state.includes("size") || state.includes("גודל")) MESSAGE_DELAY = 5000;
                 if (state.includes("topic") || state.includes("תוספת")) MESSAGE_DELAY = 5000;
                 if (state.includes("verification") || state.includes("אישור")) MESSAGE_DELAY = 3000;
@@ -561,7 +561,7 @@ setTimeout(async () => {
                 window.scrollBy(0, 35)
                 const botElement = document.createElement("div")
                 if (synthVoice) {
-                    MESSAGE_DELAY = 6000;
+                    MESSAGE_DELAY = 6500;
                     if (recognition.lang.includes("he-IL"))
                     {
                         synthVoice("מה תרצה להזמין ? פיצה האט ? הופעה ? אירוע ספורט ?");
@@ -665,7 +665,7 @@ setTimeout(async () => {
                 if (event.results[i].isFinal) {
                     let msg = event.results[i][0].transcript
                     //if (!el("message").value) msg = capitalize(msg.trimLeft())
-                    if (msg != last) {
+                    if (msg != last && msg) {
                         clearTimeout(timer)
                         el("message").value = msg
                         last = msg;
