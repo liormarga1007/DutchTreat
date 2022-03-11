@@ -640,10 +640,9 @@ setTimeout(async () => {
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
                 try {
-                    wait(500)
                     recognition.start();
                 } catch (error) {
-                    el("interim").innerText = "wrong wrong wrong"
+                    el("interim").innerText = error
                 }
             }
         }
