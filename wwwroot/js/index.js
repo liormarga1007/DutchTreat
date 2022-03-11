@@ -595,11 +595,11 @@ setTimeout(async () => {
                 }
             }
             else {
-                /*if (!recognizing) { recognition.start() }
+                if (!recognizing) { recognition.start() }
                 else {
                     recognizing = false;
                     recognition.stop();
-                }*/
+                }
             }
         }
         
@@ -644,7 +644,8 @@ setTimeout(async () => {
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
                 try {
                     el("message").placeholder = "onend"
-                    recognition.start();
+                    recognizing = false;
+                    setTimeout (onMessage, 200)
                 } catch (error) {
                     el("message").placeholder = "onend error"
                 }
