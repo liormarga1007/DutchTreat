@@ -257,7 +257,7 @@ setTimeout(async () => {
         }
         else {
             if (text.includes("מה תרצה")) {
-                var audio = new Audio('../Audio/מה_תרצה_לה.wav');
+                let audio = new Audio('../Audio/מה_תרצה_לה.wav');
                 audio.play();               
             }
             else if (text.includes("איזה פיצה")) {
@@ -645,7 +645,7 @@ setTimeout(async () => {
                 try {
                     el("message").placeholder = "onend"
                     recognizing = false;
-                    setTimeout (onMessage, 200)
+                    setTimeout (onMessage, 100)
                 } catch (error) {
                     el("message").placeholder = "onend error"
                 }
