@@ -659,7 +659,7 @@ setTimeout(async () => {
         }
 
         // switch back to type mode
-        recognition.onaudioend = function (event) {
+        recognition.onend = function (event) {
             //event.preventDefault()
 
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {
@@ -809,7 +809,7 @@ setTimeout(async () => {
         }
 
         // switch back to type mode
-        recognition.onaudioend  = function (event) {
+        recognition.onend  = function (event) {
             //event.preventDefault()
             
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {
