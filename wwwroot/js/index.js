@@ -13,7 +13,7 @@ const SpeechRecognition =
 var recognition = SpeechRecognition ? new SpeechRecognition() : null
 //if (recognition == null) alert("fail SpeechRecognition")
 // how long to listen before sending the message
-var MESSAGE_DELAY = 6500
+var MESSAGE_DELAY = 5700
 
 // timer variable
 var timer = null
@@ -361,7 +361,7 @@ setTimeout(async () => {
             }
             else {
                 answer = state;
-                if (state.includes("פיצה האט")) MESSAGE_DELAY = 6500;
+                if (state.includes("פיצה האט")) MESSAGE_DELAY = 5700;
                 if (state.includes("size") || state.includes("גודל")) MESSAGE_DELAY = 5000;
                 if (state.includes("topic") || state.includes("תוספת")) MESSAGE_DELAY = 5000;
                 if (state.includes("verification") || state.includes("אישור")) MESSAGE_DELAY = 3000;
@@ -561,7 +561,7 @@ setTimeout(async () => {
                 window.scrollBy(0, 35)
                 const botElement = document.createElement("div")
                 if (synthVoice) {
-                    MESSAGE_DELAY = 6500;
+                    MESSAGE_DELAY = 5700;
                     if (recognition.lang.includes("he-IL"))
                     {
                         synthVoice("מה תרצה להזמין ? פיצה האט ? הופעה ? אירוע ספורט ?");
@@ -657,7 +657,7 @@ setTimeout(async () => {
             }
         }
 
-        let last = ""
+        var last = ""
         // speech recognition result event;
         // append recognized text to the form input and display interim results
         recognition.onresult = event => {
@@ -766,7 +766,7 @@ setTimeout(async () => {
         // configure continuous speech recognition
         recognition.continuous = true
         recognition.interimResults = true
-        recognition.lang = "en-US"
+        recognition.lang = "he-IL";
 
         // switch to listening mode
         recognition.onstart = function (event) {
@@ -801,6 +801,42 @@ setTimeout(async () => {
                 } catch (error) {
                     el("message").placeholder = "onend error"
                 }
+            }
+        }
+
+        recognition.onresult = event => {
+            //event.preventDefault();
+
+            //timer = setTimeout(onMessage, MESSAGE_DELAY)
+            let transcript = ""
+
+            for (var i = event.resultIndex; i < event.results.length; ++i) {
+                if (event.results[i].isFinal) {
+                    let msg = event.results[i][0].transcript
+                    //if (!el("message").value) msg = capitalize(msg.trimLeft())
+                    if (msg != last && msg) {
+                        clearTimeout(timer)
+                        el("message").value = msg
+                        last = msg;
+                        timer = setTimeout(onMessage, 2500)
+                    }
+                } else {
+                    transcript = event.results[i][0].transcript
+                }
+            }
+            console.log(transcript);
+
+            transcript += "\n\r";
+            el("interim").innerText += transcript
+            if (!iOS()) transcript = "";
+
+            if (iOS()) {
+                var double = transcript;
+                if (!transcript.includes(" ")) { double = transcript + " " + transcript }
+
+                el("message").value = double
+                clearTimeout(timer)
+                timer = setTimeout(onMessage, 2000)
             }
         }
     }
