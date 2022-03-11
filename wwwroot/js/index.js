@@ -11,7 +11,7 @@ function capitalize(string) {
 const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition
 let recognition = SpeechRecognition ? new SpeechRecognition() : null
-if (recognition == null) alert("fail SpeechRecognition")
+//if (recognition == null) alert("fail SpeechRecognition")
 // how long to listen before sending the message
 let MESSAGE_DELAY = 6000
 
@@ -311,11 +311,13 @@ setTimeout(async () => {
         //if (event) event.preventDefault()
         let msg = el("message").value
         el("message").value = ""
-        el("message").placeholder = "onmessage"
+        
         if (!msg) {
+            el("message").placeholder = "onmessage"
             if (!recognizing) { recognition.start(); }
         }
         else {
+           el("message").placeholder = "onmessage1"
            let userElement = document.createElement("div")
             userElement.innerHTML = Date() + "<b>User</b>: " + msg
             userElement.style.color = "blue"
@@ -613,10 +615,10 @@ setTimeout(async () => {
         recognition.continuous = true
         recognition.interimResults = true
         recognition.lang = "en-US"
-        recognition.maxAlternatives = 1;
         
         // switch to listening mode
-        recognition.onstart = function () {
+        recognition.onstart = function (event) {
+            event.preventDefault()
             recognizing = true
             //el("speak").style.display = "none"
             el("send").style.display = "none"
@@ -626,12 +628,13 @@ setTimeout(async () => {
         }
 
         recognition.onerror = function (event) {
-            el("interim").innerText ="wrng wrong wrong"
+            el("interim").innerText = "wrng wrong wrong"
+            el("message").placeholder = "wrng wrong wrong"
         }
 
         // switch back to type mode
         recognition.onend = function (event) {
-            //event.preventDefault()
+            event.preventDefault()
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
@@ -640,9 +643,10 @@ setTimeout(async () => {
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
                 try {
+                    el("message").placeholder = "onend"
                     recognition.start();
                 } catch (error) {
-                    el("interim").innerText = error
+                    el("message").placeholder = "onend error"
                 }
             }
         }
