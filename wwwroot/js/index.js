@@ -233,7 +233,7 @@ setTimeout(async () => {
     
         // wait until voices are ready
         
-    synthVoice = text => {
+     synthVoice = text => {
         clearTimeout(timer)
         const synth = window.speechSynthesis
         const utterance = new SpeechSynthesisUtterance()
@@ -258,7 +258,7 @@ setTimeout(async () => {
         else {
             if (text.includes("מה תרצה")) {
                 var audio = new Audio('../Audio/מה_תרצה_לה.wav');
-                audio.play();
+                audio.play();               
             }
             else if (text.includes("איזה פיצה")) {
                 var audio = new Audio('../Audio/איזה_פיצה_דקה_עבה.wav');
@@ -622,7 +622,7 @@ setTimeout(async () => {
         }
 
         recognition.onerror = function (event) {
-            //alert(event.error)
+            el("interim").innerText ="wrng wrong wrong"
         }
 
         // switch back to type mode
@@ -631,8 +631,8 @@ setTimeout(async () => {
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
-            el("message").placeholder = "Type your message 21"
-            el("interim").innerText = ""
+            el("message").placeholder = "Type your message 22"
+            //el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
                 try {
