@@ -13,7 +13,7 @@ const SpeechRecognition =
 let recognition = SpeechRecognition ? new SpeechRecognition() : null
 //if (recognition == null) alert("fail SpeechRecognition")
 // how long to listen before sending the message
-let MESSAGE_DELAY = 6500
+var MESSAGE_DELAY = 6500
 
 // timer variable
 var timer = null
