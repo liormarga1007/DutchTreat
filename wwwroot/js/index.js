@@ -243,6 +243,15 @@ setTimeout(async () => {
         //})
         utterance.voice = currentVoice;
         utterance.text = text
+
+        if (text.includes("processing") || text.includes("Success") || text.includes("pay") || text.includes("שלם") || text.includes("please wait") || text.includes("המתן")) {
+
+        }
+        else {
+            clearTimeout(timer)
+            timer = setTimeout(onMessage, MESSAGE_DELAY)
+        }
+
         if (iOS()) {
             synth.speak(utterance)
         }
@@ -290,16 +299,7 @@ setTimeout(async () => {
             else {
                 synth.speak(utterance)
             }
-        }
-        
-            
-        if (text.includes("processing") || text.includes("Success") || text.includes("pay") || text.includes("שלם") || text.includes("please wait") || text.includes("המתן")) {
-            
-        }
-        else {
-            clearTimeout(timer)
-            timer = setTimeout(onMessage, MESSAGE_DELAY)
-        }
+        }       
         
     }
         
@@ -571,7 +571,7 @@ setTimeout(async () => {
                         el("history").appendChild(botElement)
                         state = " What would you like to order? from pizza hut or for events?"
                     }
-                    MESSAGE_DELAY = 3500;
+                    
                 }
             }
             else if (el("history").lastChild.innerHTML.includes("code") || el("history").lastChild.innerHTML.includes("קוד")) {
@@ -631,7 +631,7 @@ setTimeout(async () => {
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
-            el("message").placeholder = "Type your message 19"
+            el("message").placeholder = "Type your message 20"
             el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
@@ -660,7 +660,7 @@ setTimeout(async () => {
                         clearTimeout(timer)
                         el("message").value = msg
                         last = msg;
-                        timer = setTimeout(onMessage, 3000)
+                        timer = setTimeout(onMessage, 2500)
                     }
                 } else {
                     transcript = event.results[i][0].transcript
