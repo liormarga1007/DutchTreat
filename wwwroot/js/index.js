@@ -597,6 +597,8 @@ setTimeout(async () => {
             else {
                 if (el("interim").innerText.includes("wrng")) {
                     recognition = new SpeechRecognition()
+                    recognizing = false;
+                    recoginit();
                 }
                 if (!recognizing) { recognition.start() }
                 else {
@@ -758,6 +760,49 @@ setTimeout(async () => {
         ].includes(navigator.platform)
             // iPad on iOS 13 detection
             || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+    }
+
+    function recoginit() {
+        // configure continuous speech recognition
+        recognition.continuous = true
+        recognition.interimResults = true
+        recognition.lang = "en-US"
+
+        // switch to listening mode
+        recognition.onstart = function (event) {
+            event.preventDefault()
+            recognizing = true
+            //el("speak").style.display = "none"
+            el("send").style.display = "none"
+            el("message").disabled = true
+            //el("message").placeholder = "Listening..."
+            el("microphone").src = "../images/microphonerecording.png"
+        }
+
+        recognition.onerror = function (event) {
+            el("interim").innerText = "wrng wrong wrong"
+            el("message").placeholder = "wrng wrong wrong"
+        }
+
+        // switch back to type mode
+        recognition.onend = function (event) {
+            event.preventDefault()
+            //el("speak").style.display = "inline-block"
+            el("send").style.display = "inline-block"
+            el("message").disabled = false
+            //el("message").placeholder = "Type your message 24"
+            //el("interim").innerText = ""
+            el("microphone").src = "../images/microphone.png"
+            if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {
+                try {
+                    el("message").placeholder = "onend"
+                    recognizing = false;
+                    setTimeout(onMessage, 100)
+                } catch (error) {
+                    el("message").placeholder = "onend error"
+                }
+            }
+        }
     }
 
 })
