@@ -643,8 +643,8 @@ setTimeout(async () => {
         recognition.lang = "en-US"
         
         // switch to listening mode
-        recognition.onstart = function (event) {
-            event.preventDefault()
+        recognition.onaudiostart = function (event) {
+            //event.preventDefault()
             recognizing = true
             //el("speak").style.display = "none"
             el("send").style.display = "none"
@@ -659,22 +659,25 @@ setTimeout(async () => {
         }
 
         // switch back to type mode
-        recognition.onend = function (event) {
-            event.preventDefault()
-            //el("speak").style.display = "inline-block"
-            el("send").style.display = "inline-block"
-            el("message").disabled = false
-            //el("message").placeholder = "Type your message 24"
-            //el("interim").innerText = ""
-            el("microphone").src = "../images/microphone.png"
-            if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
+        recognition.onaudioend = function (event) {
+            //event.preventDefault()
+
+            if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {
                 try {
                     el("message").placeholder = "onend"
                     recognizing = false;
-                    setTimeout (onMessage, 100)
+                    recognition.start()
                 } catch (error) {
                     el("message").placeholder = "onend error"
                 }
+            }
+            else {
+                //el("speak").style.display = "inline-block"
+                el("send").style.display = "inline-block"
+                el("message").disabled = false
+                //el("message").placeholder = "Type your message 24"
+                //el("interim").innerText = ""
+                el("microphone").src = "../images/microphone.png"
             }
         }
 
@@ -790,7 +793,7 @@ setTimeout(async () => {
         recognition.lang = "he-IL";
 
         // switch to listening mode
-        recognition.onstart = function (event) {
+        recognition.onaudiostart = function (event) {
             //event.preventDefault()
             recognizing = true
             //el("speak").style.display = "none"
