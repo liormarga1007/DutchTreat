@@ -627,11 +627,11 @@ setTimeout(async () => {
 
         // switch back to type mode
         recognition.onend = function (event) {
-            event.preventDefault()
+            //event.preventDefault()
             //el("speak").style.display = "inline-block"
             el("send").style.display = "inline-block"
             el("message").disabled = false
-            el("message").placeholder = "Type your message 20"
+            el("message").placeholder = "Type your message 21"
             el("interim").innerText = ""
             el("microphone").src = "../images/microphone.png"
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {                
@@ -647,7 +647,7 @@ setTimeout(async () => {
         // speech recognition result event;
         // append recognized text to the form input and display interim results
         recognition.onresult = event => {
-            event.preventDefault();
+            //event.preventDefault();
             
             //timer = setTimeout(onMessage, MESSAGE_DELAY)
             let transcript = ""
