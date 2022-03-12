@@ -620,6 +620,7 @@ setTimeout(async () => {
                     recognition = new SpeechRecognition()
                     recognizing = false;
                     recoginit();
+                    el("interim").innerText =""
                 }
                 if (!recognizing) { recognition.start() }
                 else {
@@ -685,7 +686,7 @@ setTimeout(async () => {
         // speech recognition result event;
         // append recognized text to the form input and display interim results
         recognition.onresult = event => {
-            //event.preventDefault();
+            event.preventDefault();
             
             //timer = setTimeout(onMessage, MESSAGE_DELAY)
             let transcript = ""
@@ -706,7 +707,7 @@ setTimeout(async () => {
             }          
             console.log(transcript);
            
-            transcript += "\n\r";
+            if (transcript) transcript += "\n\r";
             el("interim").innerText += transcript
             if (!iOS()) transcript = "";
 
@@ -814,7 +815,7 @@ setTimeout(async () => {
             
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {
                 try {
-                    el("message").placeholder = "onend"
+                    //el("message").placeholder = "onend"
                     recognizing = false;
                     recognition.start()
                 } catch (error) {
@@ -832,7 +833,7 @@ setTimeout(async () => {
         }
 
         recognition.onresult = event => {
-            //event.preventDefault();
+            event.preventDefault();
 
             //timer = setTimeout(onMessage, MESSAGE_DELAY)
             let transcript = ""
