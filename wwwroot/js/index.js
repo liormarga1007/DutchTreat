@@ -133,7 +133,7 @@ setTimeout(async () => {
     
     // Train also the NLG
     //nlp.slotManager.addSlot('greetings.adress', 'fullname', true, { en: 'What is your full name ?' });
-    nlp.slotManager.addSlot('greetings.adress', 'city', true, { en: 'What is your address sending ticket ?' });
+    //nlp.slotManager.addSlot('greetings.adress', 'city', true, { en: 'What is your address sending ticket ?' });
     nlp.slotManager.addSlot('phonenumber', 'phonenumber', true, { en: 'What is your phone number ?' });
     //nlp.slotManager.addSlot('email', 'email', true, { en: 'What is your email ?' });
     nlp.slotManager.addSlot('number', 'number', true, { en: 'How many tickets ?' });
@@ -651,7 +651,7 @@ setTimeout(async () => {
         
         // switch to listening mode
         recognition.onaudiostart = function (event) {
-            event.stopImmediatePropagation()
+            //event.stopImmediatePropagation()
             recognizing = true
             //el("speak").style.display = "none"
             el("send").style.display = "none"
@@ -667,7 +667,7 @@ setTimeout(async () => {
 
         // switch back to type mode
         recognition.onend = function (event) {
-            event.stopImmediatePropagation()
+            //event.stopImmediatePropagation()
 
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {
                 try {
@@ -799,7 +799,7 @@ setTimeout(async () => {
 
         // switch to listening mode
         recognition.onaudiostart = function (event) {
-            event.stopImmediatePropagation()
+            //event.stopImmediatePropagation()
             recognizing = true
             //el("speak").style.display = "none"
             el("send").style.display = "none"
@@ -815,7 +815,7 @@ setTimeout(async () => {
 
         // switch back to type mode
         recognition.onend  = function (event) {
-            event.stopImmediatePropagation()
+            //event.stopImmediatePropagation()
             
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {
                 try {
@@ -868,7 +868,7 @@ setTimeout(async () => {
 
                 el("message").value = double
                 clearTimeout(timer)
-                timer = setTimeout(onMessage, 2000)
+                timer = setTimeout(onMessage, 2500)
             }
         }
     }
