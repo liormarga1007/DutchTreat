@@ -116,6 +116,10 @@ setTimeout(async () => {
     nlp.addDocument('en', 'פלפל אדום', 'greetings.verification.heb');
     nlp.addDocument('en', 'חצילים', 'greetings.verification.heb');
     nlp.addDocument('en', 'שום', 'greetings.verification.heb');
+    nlp.addDocument('en', 'חלפיניה', 'greetings.verification.heb');
+    nlp.addDocument('en', 'יוונית', 'greetings.verification.heb');
+    nlp.addDocument('en', 'כפרית', 'greetings.verification.heb');
+    nlp.addDocument('en', 'אנטי פסטי', 'greetings.verification.heb');
     nlp.addDocument('en', 'ריקה', 'greetings.verification.heb');
     nlp.addDocument('en', 'כלום', 'greetings.verification.heb');
     nlp.addDocument('en', 'רגילה', 'greetings.verification.heb');
