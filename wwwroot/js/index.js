@@ -334,11 +334,11 @@ setTimeout(async () => {
         el("message").value = ""
         
         if (!msg) {
-            el("message").placeholder = "onmessage"
+            //el("message").placeholder = "onmessage"
             if (!recognizing) { recognition.start(); }
         }
         else {
-           el("message").placeholder = "onmessage1"
+           //el("message").placeholder = "onmessage1"
            let userElement = document.createElement("div")
             userElement.innerHTML = Date() + "<b>User</b>: " + msg
             userElement.style.color = "blue"
@@ -651,7 +651,7 @@ setTimeout(async () => {
         
         // switch to listening mode
         recognition.onaudiostart = function (event) {
-            //event.preventDefault()
+            event.stopImmediatePropagation()
             recognizing = true
             //el("speak").style.display = "none"
             el("send").style.display = "none"
@@ -667,7 +667,7 @@ setTimeout(async () => {
 
         // switch back to type mode
         recognition.onend = function (event) {
-            //event.preventDefault()
+            event.stopImmediatePropagation()
 
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {
                 try {
@@ -692,8 +692,6 @@ setTimeout(async () => {
         // speech recognition result event;
         // append recognized text to the form input and display interim results
         recognition.onresult = event => {
-            event.preventDefault();
-            
             //timer = setTimeout(onMessage, MESSAGE_DELAY)
             let transcript = ""
             
@@ -801,7 +799,7 @@ setTimeout(async () => {
 
         // switch to listening mode
         recognition.onaudiostart = function (event) {
-            //event.preventDefault()
+            event.stopImmediatePropagation()
             recognizing = true
             //el("speak").style.display = "none"
             el("send").style.display = "none"
@@ -817,7 +815,7 @@ setTimeout(async () => {
 
         // switch back to type mode
         recognition.onend  = function (event) {
-            //event.preventDefault()
+            event.stopImmediatePropagation()
             
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {
                 try {
@@ -839,7 +837,7 @@ setTimeout(async () => {
         }
 
         recognition.onresult = event => {
-            event.preventDefault();
+            //event.preventDefault();
 
             //timer = setTimeout(onMessage, MESSAGE_DELAY)
             let transcript = ""
