@@ -602,6 +602,12 @@ setTimeout(async () => {
                 }
             }
             else if (el("history").lastChild.innerHTML.includes("code") || el("history").lastChild.innerHTML.includes("קוד")) {
+                if (el("interim").innerText.includes("wrng")) {
+                    recognition = new SpeechRecognition()
+                    recognizing = false;
+                    recoginit();
+                    el("interim").innerText = ""
+                }
                 if (!recognizing)
                     { recognition.start() }
                 else {
@@ -665,7 +671,7 @@ setTimeout(async () => {
 
             if (el("message").value == "" && el("history").childElementCount > 0 && !el("history").lastChild.innerHTML.includes("please wait") && recognizing) {
                 try {
-                    el("message").placeholder = "onend"
+                    //el("message").placeholder = "onend"
                     recognizing = false;
                     recognition.start()
                 } catch (error) {
@@ -854,7 +860,7 @@ setTimeout(async () => {
             }
             console.log(transcript);
 
-            transcript += "\n\r";
+            if (transcript) transcript += "\n\r";
             el("interim").innerText += transcript
             if (!iOS()) transcript = "";
 
