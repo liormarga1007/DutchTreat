@@ -716,6 +716,7 @@ setTimeout(async () => {
             if (!iOS()) transcript = "";
 
             if (iOS()) {
+                if ((transcript.split(" ").length) == 1) transcript = transcript + " " + transcript;
                 el("message").value = transcript
                 clearTimeout(timer)
                 timer = setTimeout(onMessage, 2000)
@@ -860,6 +861,7 @@ setTimeout(async () => {
             if (!iOS()) transcript = "";
 
             if (iOS()) {
+                if ((transcript.split(" ").length) == 1) transcript = transcript + " " + transcript;
                 el("message").value = transcript
                 clearTimeout(timer)
                 timer = setTimeout(onMessage, 2500)
