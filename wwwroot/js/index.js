@@ -717,8 +717,11 @@ setTimeout(async () => {
 
             if (iOS()) {
                 var double = transcript;
-                if (!transcript.includes(" ")) { double = transcript + " " + transcript }
-                
+                if (!transcript && !transcript.includes(" "))
+                {
+                    double = transcript + " " + transcript
+                }
+                else{ return true }
                 el("message").value = double
                 clearTimeout(timer)
                 timer = setTimeout(onMessage, 2000)
@@ -864,8 +867,10 @@ setTimeout(async () => {
 
             if (iOS()) {
                 var double = transcript;
-                if (!transcript.includes(" ")) { double = transcript + " " + transcript }
-
+                if (!transcript.includes(" ")) { double = transcript + " " + transcript } if (!transcript && !transcript.includes(" ")) {
+                    double = transcript + " " + transcript
+                }
+                else { return true }
                 el("message").value = double
                 clearTimeout(timer)
                 timer = setTimeout(onMessage, 2500)
