@@ -257,15 +257,15 @@ setTimeout(async () => {
     let synthVoice = null
     
         // wait until voices are ready
-        
+     var last_text;
      synthVoice = text => {
         clearTimeout(timer)
         const synth = window.speechSynthesis
         const utterance = new SpeechSynthesisUtterance()
-        // select some english voice
-        //const voice = synth.getVoices().find(voice => {
-        //    return voice.lang === "en-US"
-        //})
+
+        if (last_text === text) return;
+        last_text = text;
+
         utterance.voice = currentVoice;
         utterance.text = text
 
