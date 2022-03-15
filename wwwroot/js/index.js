@@ -383,6 +383,7 @@ setTimeout(async () => {
                 if (state.includes("pizza hut") && answer.includes("game")) cage = "sport";
                 if (state.includes("pizza hut") && answer.includes("artist")) cage = "music";
                 state = answer;
+                last =""
             }
             else {
                 answer = state;
