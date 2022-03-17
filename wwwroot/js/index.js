@@ -382,11 +382,11 @@ setTimeout(async () => {
                 if (state.includes("pizza hut") && (answer.includes("pizza"))) cage = "pizza";
                 if (state.includes("pizza hut") && answer.includes("game")) cage = "sport";
                 if (state.includes("pizza hut") && answer.includes("artist")) cage = "music";
-                state = answer;
-                last_text =""
+                state = answer;         
             }
             else {
                 answer = state;
+                last_text = ""
                 if (state.includes("פיצה האט")) MESSAGE_DELAY = 5700;
                 if (state.includes("size") || state.includes("גודל")) MESSAGE_DELAY = 5000;
                 if (state.includes("topic") || state.includes("תוספת")) MESSAGE_DELAY = 5000;
