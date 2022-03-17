@@ -653,6 +653,7 @@ setTimeout(async () => {
         recognition.continuous = true
         recognition.interimResults = true
         recognition.lang = "en-US"
+        recognition.maxAlternatives =2
         
         // switch to listening mode
         recognition.onaudiostart = function (event) {
