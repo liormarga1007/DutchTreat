@@ -364,8 +364,9 @@ setTimeout(async () => {
                 msg += " verification";
                 MESSAGE_DELAY = 100000;
             }
-            if ((state.includes("אישור")) && cage.includes("pizza")) {
-                msg =await msg.replaceAll(" ", "").replaceAll("-", "");
+            if (state.includes("אישור") && cage.includes("pizza")) {
+                msg = await (await msg.replaceAll(" ", "")).replaceAll("-", "");
+                msg = msg.replace(/\D/g, '');
                 if (await /^\d{10}$/.test(msg)) {
                     phone = msg;
                     msg += " אישור";
