@@ -386,7 +386,7 @@ setTimeout(async () => {
             }
             else {
                 answer = state;
-                last_text = ""
+                last_text = "";
                 if (state.includes("פיצה האט")) MESSAGE_DELAY = 5700;
                 if (state.includes("size") || state.includes("גודל")) MESSAGE_DELAY = 5000;
                 if (state.includes("topic") || state.includes("תוספת")) MESSAGE_DELAY = 5000;
@@ -722,6 +722,7 @@ setTimeout(async () => {
             if (!iOS()) transcript = "";
 
             if (iOS()) {
+                if (!msg.startsWith('0')) { transcript = transcript.replaceAll("-", "") };
                 el("message").value = transcript
                 clearTimeout(timer)
                 timer = setTimeout(onMessage, 2000)
