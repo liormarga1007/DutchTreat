@@ -722,7 +722,7 @@ setTimeout(async () => {
             if (!iOS()) transcript = "";
 
             if (iOS()) {
-                if (!msg.startsWith('0')) { transcript = transcript.replaceAll("-", "") };
+                if (transcript.startsWith('0')) { transcript = transcript.replaceAll("-", "") };
                 el("message").value = transcript
                 clearTimeout(timer)
                 timer = setTimeout(onMessage, 2000)
