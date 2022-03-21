@@ -373,8 +373,8 @@ setTimeout(async () => {
                     MESSAGE_DELAY = 100000;
                 }
             }
-            if (state.includes("code") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replaceAll("-", "").replaceAll(" ", ""))) { code = await msg.replaceAll("-", "").replaceAll(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
-            if (state.includes("קוד") && cage.includes("pizza") && await /\d{4}/.test(msg.replaceAll("-", "").replaceAll(" ", ""))) { code = await msg.replaceAll("-", "").replaceAll(" ", ""); msg += " שלם"; MESSAGE_DELAY = 20000 }
+            if (state.includes("code") && cage.includes("pizza") && await /\d{4}/.test(msg.replaceAll("-", "").replaceAll(" ", ""))) { code = await msg.replace(/\D/g, ''); msg += " pay"; MESSAGE_DELAY = 20000 }
+            if (state.includes("קוד") && cage.includes("pizza") && await /\d{4}/.test(msg.replace(/\D/g, ''))) { code = await msg.replace(/\D/g, ''); msg += " שלם"; MESSAGE_DELAY = 20000 }
 
             const response = await nlp.process("en", msg)
             let answer = response.answer || response.srcAnswer || "I don't understand."
