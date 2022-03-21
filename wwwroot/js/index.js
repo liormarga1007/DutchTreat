@@ -269,7 +269,7 @@ setTimeout(async () => {
         utterance.voice = currentVoice;
         utterance.text = text
 
-        if (text.includes("processing") || text.includes("Success") || text.includes("pay") || text.includes("שלם") || text.includes("please wait") || text.includes("המתן")) {
+        if (text.includes("processing") || text.includes("Success") || text.includes("pay") || text.includes("שלם לשליח") || text.includes("please wait") || text.includes("המתן")) {
             clearTimeout(timer);
         }
         else {
