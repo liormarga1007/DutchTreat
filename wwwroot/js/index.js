@@ -270,7 +270,7 @@ setTimeout(async () => {
         utterance.text = text
 
         if (text.includes("processing") || text.includes("Success") || text.includes("pay") || text.includes("שלם") || text.includes("please wait") || text.includes("המתן")) {
-
+            clearTimeout(timer);
         }
         else {
             clearTimeout(timer)
@@ -669,7 +669,7 @@ setTimeout(async () => {
 
         recognition.onerror = function (event) {
             el("interim").innerText = "wrng wrong wrong"
-            el("message").placeholder = "wrng wrong wrong"
+            //el("message").placeholder = "wrng wrong wrong"
         }
 
         // switch back to type mode
@@ -815,7 +815,7 @@ setTimeout(async () => {
 
         recognition.onerror = function (event) {
             el("interim").innerText = "wrng wrong wrong"
-            el("message").placeholder = "wrng wrong wrong"
+            //el("message").placeholder = "wrng wrong wrong"
         }
 
         // switch back to type mode
