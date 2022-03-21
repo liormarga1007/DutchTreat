@@ -359,7 +359,7 @@ setTimeout(async () => {
             if ((state.includes("size") || state.includes("גודל")) && cage.includes("pizza")) { size = msg; MESSAGE_DELAY = 5000 }
             if ((state.includes("extras") || state.includes("תוספת")) && cage.includes("pizza")) { topics = msg; MESSAGE_DELAY = 2500 }
             if ((state.includes("verification")) && cage.includes("pizza")
-                && await /^\d{10}$/.test(await msg.replaceAll(" ", "").replaceAll("-", ""))) {
+                && await /^\d{10}$/.test(msg.replace(/\D/g, ''))) {
                 phone = msg;
                 msg += " verification";
                 MESSAGE_DELAY = 100000;
