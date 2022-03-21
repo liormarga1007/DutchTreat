@@ -263,7 +263,7 @@ setTimeout(async () => {
         const synth = window.speechSynthesis
         const utterance = new SpeechSynthesisUtterance()
 
-        if (last_text === text) return;
+        if (last_text == text) return;
         last_text = text;
 
         utterance.voice = currentVoice;
@@ -365,7 +365,7 @@ setTimeout(async () => {
                 MESSAGE_DELAY = 100000;
             }
             if (state.includes("אישור") && cage.includes("pizza")) {
-                msg = await (await msg.replaceAll(" ", "")).replaceAll("-", "");
+                //msg = await (await msg.replaceAll(" ", "")).replaceAll("-", "");
                 msg = msg.replace(/\D/g, '');
                 if (await /^\d{10}$/.test(msg)) {
                     phone = msg;
@@ -723,7 +723,7 @@ setTimeout(async () => {
             if (!iOS()) transcript = "";
 
             if (iOS()) {
-                if (transcript.startsWith('0')) { transcript = transcript.replaceAll("-", "") };
+                //if (transcript.startsWith('0')) { transcript = transcript.replaceAll("-", "") };
                 el("message").value = transcript
                 clearTimeout(timer)
                 timer = setTimeout(onMessage, 2000)
