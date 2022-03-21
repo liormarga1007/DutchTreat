@@ -374,7 +374,7 @@ setTimeout(async () => {
                 }
             }
             if (state.includes("code") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replaceAll("-", "").replaceAll(" ", ""))) { code = await msg.replaceAll("-", "").replaceAll(" ", ""); msg += " pay"; MESSAGE_DELAY = 20000 }
-            if (state.includes("קוד") && cage.includes("pizza") && await /^\d{4}$/.test(msg.replaceAll("-", "").replaceAll(" ", ""))) { code = await msg.replaceAll("-", "").replaceAll(" ", ""); msg += " שלם"; MESSAGE_DELAY = 20000 }
+            if (state.includes("קוד") && cage.includes("pizza") && await /\d{4}/.test(msg.replaceAll("-", "").replaceAll(" ", ""))) { code = await msg.replaceAll("-", "").replaceAll(" ", ""); msg += " שלם"; MESSAGE_DELAY = 20000 }
 
             const response = await nlp.process("en", msg)
             let answer = response.answer || response.srcAnswer || "I don't understand."
