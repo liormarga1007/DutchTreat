@@ -355,7 +355,7 @@ setTimeout(async () => {
             if (state.includes("phone") && !state.includes("verification") && (cage.includes("sport") || cage.includes("music"))) { phone = msg; msg = msg.concat(' ', " phone number"); MESSAGE_DELAY = 1500 }
             if (state.includes("tickets") && (cage.includes("sport") || cage.includes("music"))) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
 
-            if ((state.includes("Crispy") || state.includes("דקה")) && cage.includes("pizza")) { wide = msg; MESSAGE_DELAY = 5000 }
+            if ((state.includes("Crispy") || state.includes("דקה")) && cage.includes("pizza")) { wide = msg; msg += " פיצה"; MESSAGE_DELAY = 5000 }
             if ((state.includes("size") || state.includes("גודל")) && cage.includes("pizza")) { size = msg; MESSAGE_DELAY = 5000 }
             if ((state.includes("extras") || state.includes("תוספת")) && cage.includes("pizza")) { topics = msg; MESSAGE_DELAY = 2500 }
             if ((state.includes("verification")) && cage.includes("pizza")
