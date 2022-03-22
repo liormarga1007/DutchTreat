@@ -723,7 +723,7 @@ setTimeout(async () => {
             el("interim").innerText += transcript
             if (!iOS()) transcript = "";
 
-            if (iOS()&& transcript) {
+            if (iOS()) {
                 //if (transcript.startsWith('0')) { transcript = transcript.replaceAll("-", "") };
                 el("message").value = transcript
                 clearTimeout(timer)
