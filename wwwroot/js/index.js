@@ -270,7 +270,7 @@ setTimeout(async () => {
         utterance.text = text
 
         if (text.includes("processing") || text.includes("Success") || text.includes("pay") || text.includes("שלם") || text.includes("please wait") || text.includes("המתן")) {
-            clearTimeout(timer);
+            
         }
         else {
             clearTimeout(timer)
@@ -383,7 +383,8 @@ setTimeout(async () => {
                 if (state.includes("pizza hut") && (answer.includes("pizza"))) cage = "pizza";
                 if (state.includes("pizza hut") && answer.includes("game")) cage = "sport";
                 if (state.includes("pizza hut") && answer.includes("artist")) cage = "music";
-                state = answer;         
+                state = answer;
+                last_text = "";
             }
             else {
                 answer = state;
@@ -724,7 +725,7 @@ setTimeout(async () => {
 
             if (iOS()) {
                 //if (transcript.startsWith('0')) { transcript = transcript.replaceAll("-", "") };
-                el("message").value = transcript
+                el("message").value = transcript +" פיצה "
                 clearTimeout(timer)
                 timer = setTimeout(onMessage, 2000)
             }
