@@ -723,9 +723,9 @@ setTimeout(async () => {
             el("interim").innerText += transcript
             if (!iOS()) transcript = "";
 
-            if (iOS()) {
+            if (iOS()&& transcript) {
                 //if (transcript.startsWith('0')) { transcript = transcript.replaceAll("-", "") };
-                el("message").value = transcript +" פיצה "
+                el("message").value = transcript
                 clearTimeout(timer)
                 timer = setTimeout(onMessage, 2000)
             }
