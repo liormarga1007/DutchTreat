@@ -195,7 +195,7 @@ setTimeout(async () => {
             },
             {
                 intent: 'greetings.sizeheb',
-                utterances: ["דקה", "עבה", "אבא", "דקה ", "הקד","%E7%E3%F4"],
+                utterances: ["דקה", "עבה", "אבא", "דקה "],
                 answers: ['מה הגודל ? קטן ? גדול ? ענק ?']
             },
             {
@@ -719,7 +719,7 @@ setTimeout(async () => {
             }          
             console.log(transcript);
            
-            //if (transcript) transcript += "\n\r";
+            if (transcript) transcript += "\n\r";
             el("interim").innerText += transcript
             if (!iOS()) transcript = "";
 
@@ -727,7 +727,7 @@ setTimeout(async () => {
                 //if (transcript.startsWith('0')) { transcript = transcript.replaceAll("-", "") };
                 el("message").value = transcript
                 clearTimeout(timer)
-                timer = setTimeout(onMessage, 2000)
+                timer = setTimeout(onMessage, 3000)
             }
         }   
     }
