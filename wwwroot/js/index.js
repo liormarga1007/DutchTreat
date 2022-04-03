@@ -558,6 +558,8 @@ setTimeout(async () => {
         if (text1.includes("code")) {
             return;
         }
+
+        el("microphone").src = "https://mysterious-hollows-90255.herokuapp.com/?restaurant=pizzahut" + "&session=" + uuid + "&email=jpg"
         window.scrollBy(0, 25)
         let answer = text1.match(/<title>([^<]*)<\/title>/)[1];
         const botElement = document.createElement("div")
@@ -568,6 +570,7 @@ setTimeout(async () => {
         recognition.stop()
         if (synthVoice) synthVoice("Success " + answer)
         console.log(answer)
+        
     }
 
     // Add form submit event listener
