@@ -119,6 +119,8 @@ setTimeout(async () => {
     nlp.addDocument('en', 'חלפיניה', 'greetings.verification.heb');
     nlp.addDocument('en', 'יוונית', 'greetings.verification.heb');
     nlp.addDocument('en', 'כפרית', 'greetings.verification.heb');
+    nlp.addDocument('en', 'טבעונית', 'greetings.verification.heb');
+    nlp.addDocument('en', 'ללא גלוטן', 'greetings.verification.heb');
     nlp.addDocument('en', 'אנטי פסטי', 'greetings.verification.heb');
     nlp.addDocument('en', 'ריקה', 'greetings.verification.heb');
     nlp.addDocument('en', 'כלום', 'greetings.verification.heb');
@@ -352,7 +354,7 @@ setTimeout(async () => {
             if (state.includes("artist") && cage.includes("music")) { game = msg; MESSAGE_DELAY = 4000 }
             if (state.includes("Standing") && (cage.includes("sport") || cage.includes("music"))) { place = msg; MESSAGE_DELAY = 2500 }
             if (state.includes("address") && (cage.includes("sport") || cage.includes("music"))) { adress = msg; msg += " address"; MESSAGE_DELAY = 2000 }
-            if (state.includes("phone") && !state.includes("verification") && (cage.includes("sport") || cage.includes("music"))) { phone = msg; msg = msg.concat(' ', " phone number"); MESSAGE_DELAY = 1500 }
+            if (state.includes("phone") && !state.includes("verification") && (cage.includes("sport") || cage.includes("music"))) { phone = msg.replace(/\D/g, ''); msg = msg.concat(' ', " phone number"); MESSAGE_DELAY = 1500 }
             if (state.includes("tickets") && (cage.includes("sport") || cage.includes("music"))) { numoftickets = msg; msg += " tickets"; MESSAGE_DELAY = 1800 }
 
             if ((state.includes("Crispy") || state.includes("דקה")) && cage.includes("pizza")) { wide = msg; MESSAGE_DELAY = 5000 }
