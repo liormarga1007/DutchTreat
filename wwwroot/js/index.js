@@ -197,7 +197,7 @@ setTimeout(async () => {
             },
             {
                 intent: 'greetings.sizeheb',
-                utterances: ["דקה", "עבה", "אבא", "דקה ", " דקה"],
+                utterances: ["דקה", "עבה", "אבא", "דקה ", " דקה","דקות","עבות"],
                 answers: ['מה הגודל ? קטן ? גדול ? ענק ?']
             },
             {
