@@ -597,7 +597,7 @@ setTimeout(async () => {
                         botElement.innerHTML = "<b>ZUZU</b>:" + "? מה תרצה להזמין ? פיצה האט ? הופעה ? אירוע ספורט "
                         botElement.style.color = "green"
                         el("history").appendChild(botElement)
-                        state = "מה תרצה להזמין ? פיצה האט ? הופעה ? אירוע ספורט ?"
+                        state = "מה תרצה ? פיצה האט ? הופעה ? אירוע ספורט ?"
                     }
                     else {
                         synthVoice("Hi " + fullname + " What would you like to order? from Pizza Hut or tickets for sports or music events?");
