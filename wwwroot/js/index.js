@@ -288,7 +288,7 @@ setTimeout(async () => {
                 audio.play();
             }
             else if (text.includes("איזה פיצה")) {
-                let audio = new Audio('../Audio/איזה_פיצה_דקה_עבה.wav');
+                let audio = new Audio('../Audio/איזה_פיצה_כללי.wav');
                 audio.play();
             }
             else if (text.includes("מה הגודל")) {
